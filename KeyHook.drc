@@ -495,118 +495,118 @@
 #define cxEditConsts_cxSBlobButtonClose 64989
 #define cxEditConsts_cxSBlobMemo 64990
 #define cxEditConsts_cxSBlobMemoEmpty 64991
-#define cxFilterConsts_cxSFilterOperatorIsNotNull 64992
-#define cxFilterConsts_cxSFilterOperatorBeginsWith 64993
-#define cxFilterConsts_cxSFilterOperatorDoesNotBeginWith 64994
-#define cxFilterConsts_cxSFilterOperatorEndsWith 64995
-#define cxFilterConsts_cxSFilterOperatorDoesNotEndWith 64996
-#define cxFilterConsts_cxSFilterOperatorContains 64997
-#define cxFilterConsts_cxSFilterOperatorDoesNotContain 64998
-#define cxFilterConsts_cxSFilterBoxAllCaption 64999
-#define cxFilterConsts_cxSFilterBoxCustomCaption 65000
-#define cxFilterConsts_cxSFilterBoxBlanksCaption 65001
-#define cxFilterConsts_cxSFilterBoxNonBlanksCaption 65002
+#define DBConsts_SBadFieldType 64992
+#define DBConsts_SProviderSQLNotSupported 64993
+#define DBConsts_SProviderExecuteNotSupported 64994
+#define DBConsts_SDataSetUnidirectional 64995
+#define DBConsts_SUnassignedVar 64996
+#define DBConsts_SRecordNotFound 64997
+#define DBConsts_SBcdOverflow 64998
+#define DBConsts_SInvalidBcdValue 64999
+#define DBConsts_SInvalidFormatType 65000
+#define DBConsts_SCouldNotParseTimeStamp 65001
+#define DBConsts_SInvalidSqlTimeStamp 65002
 #define cxEditConsts_cxSEditButtonCancel 65003
 #define cxEditConsts_cxSEditButtonOK 65004
 #define cxEditConsts_cxSEditDateConvertError 65005
 #define cxEditConsts_cxSEditInvalidRepositoryItem 65006
 #define cxEditConsts_cxSEditNumericValueConvertError 65007
-#define cxFilterConsts_cxSFilterOperatorThisWeek 65008
-#define cxFilterConsts_cxSFilterOperatorThisMonth 65009
-#define cxFilterConsts_cxSFilterOperatorThisYear 65010
-#define cxFilterConsts_cxSFilterOperatorNext7Days 65011
-#define cxFilterConsts_cxSFilterOperatorNextWeek 65012
-#define cxFilterConsts_cxSFilterOperatorNext14Days 65013
-#define cxFilterConsts_cxSFilterOperatorNextTwoWeeks 65014
-#define cxFilterConsts_cxSFilterOperatorNext30Days 65015
-#define cxFilterConsts_cxSFilterOperatorNextMonth 65016
-#define cxFilterConsts_cxSFilterOperatorNextYear 65017
-#define cxFilterConsts_cxSFilterOperatorFuture 65018
-#define cxFilterConsts_cxSFilterAndCaption 65019
-#define cxFilterConsts_cxSFilterOrCaption 65020
-#define cxFilterConsts_cxSFilterNotCaption 65021
-#define cxFilterConsts_cxSFilterBlankCaption 65022
-#define cxFilterConsts_cxSFilterOperatorIsNull 65023
-#define cxFilterConsts_cxSFilterOperatorNotLike 65024
-#define cxFilterConsts_cxSFilterOperatorBetween 65025
-#define cxFilterConsts_cxSFilterOperatorNotBetween 65026
-#define cxFilterConsts_cxSFilterOperatorInList 65027
-#define cxFilterConsts_cxSFilterOperatorNotInList 65028
-#define cxFilterConsts_cxSFilterOperatorYesterday 65029
-#define cxFilterConsts_cxSFilterOperatorToday 65030
-#define cxFilterConsts_cxSFilterOperatorTomorrow 65031
-#define cxFilterConsts_cxSFilterOperatorLast7Days 65032
-#define cxFilterConsts_cxSFilterOperatorLastWeek 65033
-#define cxFilterConsts_cxSFilterOperatorLast14Days 65034
-#define cxFilterConsts_cxSFilterOperatorLastTwoWeeks 65035
-#define cxFilterConsts_cxSFilterOperatorLast30Days 65036
-#define cxFilterConsts_cxSFilterOperatorLastMonth 65037
-#define cxFilterConsts_cxSFilterOperatorLastYear 65038
-#define cxFilterConsts_cxSFilterOperatorPast 65039
-#define cxDataConsts_cxSDataRecordIndexError 65040
-#define cxDataConsts_cxSDataItemIndexError 65041
-#define cxDataConsts_cxSDataProviderModeError 65042
-#define cxDataConsts_cxSDataInvalidStreamFormat 65043
-#define cxDataConsts_cxSDataRowIndexError 65044
-#define cxDataConsts_cxSDataCustomDataSourceInvalidCompare 65045
-#define cxDataConsts_cxSDBDetailFilterControllerNotFound 65046
-#define cxDataConsts_cxSDBNotInGridMode 65047
-#define cxDataConsts_cxSDBKeyFieldNotFound 65048
-#define cxFilterConsts_cxSFilterOperatorEqual 65049
-#define cxFilterConsts_cxSFilterOperatorNotEqual 65050
-#define cxFilterConsts_cxSFilterOperatorLess 65051
-#define cxFilterConsts_cxSFilterOperatorLessEqual 65052
-#define cxFilterConsts_cxSFilterOperatorGreater 65053
-#define cxFilterConsts_cxSFilterOperatorGreaterEqual 65054
-#define cxFilterConsts_cxSFilterOperatorLike 65055
-#define DBConsts_SParameterNotFound 65056
-#define DBConsts_SInvalidVersion 65057
-#define DBConsts_SBadFieldType 65058
-#define DBConsts_SProviderSQLNotSupported 65059
-#define DBConsts_SProviderExecuteNotSupported 65060
-#define DBConsts_SDataSetUnidirectional 65061
-#define DBConsts_SUnassignedVar 65062
-#define DBConsts_SRecordNotFound 65063
-#define DBConsts_SBcdOverflow 65064
-#define DBConsts_SInvalidBcdValue 65065
-#define DBConsts_SInvalidFormatType 65066
-#define DBConsts_SCouldNotParseTimeStamp 65067
-#define DBConsts_SInvalidSqlTimeStamp 65068
-#define cxDataConsts_cxSDataReadError 65069
-#define cxDataConsts_cxSDataWriteError 65070
-#define cxDataConsts_cxSDataItemExistError 65071
-#define DBConsts_SFieldOutOfRange 65072
-#define DBConsts_SFieldRequired 65073
-#define DBConsts_SDataSetMissing 65074
-#define DBConsts_SInvalidCalcType 65075
-#define DBConsts_SFieldReadOnly 65076
-#define DBConsts_SNoIndexForFields 65077
-#define DBConsts_SIndexNotFound 65078
-#define DBConsts_SCircularDataLink 65079
-#define DBConsts_SLookupInfoError 65080
-#define DBConsts_SDataSourceChange 65081
-#define DBConsts_SDataSetOpen 65082
-#define DBConsts_SNotEditing 65083
-#define DBConsts_SDataSetClosed 65084
-#define DBConsts_SNestedDataSetClass 65085
-#define DBConsts_STextFalse 65086
-#define DBConsts_STextTrue 65087
-#define DBConsts_SInvalidFieldSize 65088
-#define DBConsts_SInvalidFieldKind 65089
-#define DBConsts_SUnknownFieldType 65090
-#define DBConsts_SFieldNameMissing 65091
-#define DBConsts_SDuplicateFieldName 65092
-#define DBConsts_SFieldNotFound 65093
-#define DBConsts_SFieldAccessError 65094
-#define DBConsts_SFieldValueError 65095
-#define DBConsts_SFieldRangeError 65096
-#define DBConsts_SBcdFieldRangeError 65097
-#define DBConsts_SInvalidIntegerValue 65098
-#define DBConsts_SInvalidBoolValue 65099
-#define DBConsts_SInvalidFloatValue 65100
-#define DBConsts_SFieldTypeMismatch 65101
-#define DBConsts_SFieldSizeMismatch 65102
-#define DBConsts_SInvalidVarByteArray 65103
+#define DBConsts_SDataSetMissing 65008
+#define DBConsts_SInvalidCalcType 65009
+#define DBConsts_SFieldReadOnly 65010
+#define DBConsts_SNoIndexForFields 65011
+#define DBConsts_SIndexNotFound 65012
+#define DBConsts_SCircularDataLink 65013
+#define DBConsts_SLookupInfoError 65014
+#define DBConsts_SDataSourceChange 65015
+#define DBConsts_SDataSetOpen 65016
+#define DBConsts_SNotEditing 65017
+#define DBConsts_SDataSetClosed 65018
+#define DBConsts_SNestedDataSetClass 65019
+#define DBConsts_STextFalse 65020
+#define DBConsts_STextTrue 65021
+#define DBConsts_SParameterNotFound 65022
+#define DBConsts_SInvalidVersion 65023
+#define DBConsts_SUnknownFieldType 65024
+#define DBConsts_SFieldNameMissing 65025
+#define DBConsts_SDuplicateFieldName 65026
+#define DBConsts_SFieldNotFound 65027
+#define DBConsts_SFieldAccessError 65028
+#define DBConsts_SFieldValueError 65029
+#define DBConsts_SFieldRangeError 65030
+#define DBConsts_SBcdFieldRangeError 65031
+#define DBConsts_SInvalidIntegerValue 65032
+#define DBConsts_SInvalidBoolValue 65033
+#define DBConsts_SInvalidFloatValue 65034
+#define DBConsts_SFieldTypeMismatch 65035
+#define DBConsts_SFieldSizeMismatch 65036
+#define DBConsts_SInvalidVarByteArray 65037
+#define DBConsts_SFieldOutOfRange 65038
+#define DBConsts_SFieldRequired 65039
+#define cxFilterConsts_cxSFilterBoxBlanksCaption 65040
+#define cxFilterConsts_cxSFilterBoxNonBlanksCaption 65041
+#define cxDataConsts_cxSDataReadError 65042
+#define cxDataConsts_cxSDataWriteError 65043
+#define cxDataConsts_cxSDataItemExistError 65044
+#define cxDataConsts_cxSDataRecordIndexError 65045
+#define cxDataConsts_cxSDataItemIndexError 65046
+#define cxDataConsts_cxSDataProviderModeError 65047
+#define cxDataConsts_cxSDataInvalidStreamFormat 65048
+#define cxDataConsts_cxSDataRowIndexError 65049
+#define cxDataConsts_cxSDataCustomDataSourceInvalidCompare 65050
+#define cxDataConsts_cxSDBDetailFilterControllerNotFound 65051
+#define cxDataConsts_cxSDBNotInGridMode 65052
+#define cxDataConsts_cxSDBKeyFieldNotFound 65053
+#define DBConsts_SInvalidFieldSize 65054
+#define DBConsts_SInvalidFieldKind 65055
+#define cxFilterConsts_cxSFilterOperatorNextYear 65056
+#define cxFilterConsts_cxSFilterOperatorFuture 65057
+#define cxFilterConsts_cxSFilterAndCaption 65058
+#define cxFilterConsts_cxSFilterOrCaption 65059
+#define cxFilterConsts_cxSFilterNotCaption 65060
+#define cxFilterConsts_cxSFilterBlankCaption 65061
+#define cxFilterConsts_cxSFilterOperatorIsNull 65062
+#define cxFilterConsts_cxSFilterOperatorIsNotNull 65063
+#define cxFilterConsts_cxSFilterOperatorBeginsWith 65064
+#define cxFilterConsts_cxSFilterOperatorDoesNotBeginWith 65065
+#define cxFilterConsts_cxSFilterOperatorEndsWith 65066
+#define cxFilterConsts_cxSFilterOperatorDoesNotEndWith 65067
+#define cxFilterConsts_cxSFilterOperatorContains 65068
+#define cxFilterConsts_cxSFilterOperatorDoesNotContain 65069
+#define cxFilterConsts_cxSFilterBoxAllCaption 65070
+#define cxFilterConsts_cxSFilterBoxCustomCaption 65071
+#define cxFilterConsts_cxSFilterOperatorLastWeek 65072
+#define cxFilterConsts_cxSFilterOperatorLast14Days 65073
+#define cxFilterConsts_cxSFilterOperatorLastTwoWeeks 65074
+#define cxFilterConsts_cxSFilterOperatorLast30Days 65075
+#define cxFilterConsts_cxSFilterOperatorLastMonth 65076
+#define cxFilterConsts_cxSFilterOperatorLastYear 65077
+#define cxFilterConsts_cxSFilterOperatorPast 65078
+#define cxFilterConsts_cxSFilterOperatorThisWeek 65079
+#define cxFilterConsts_cxSFilterOperatorThisMonth 65080
+#define cxFilterConsts_cxSFilterOperatorThisYear 65081
+#define cxFilterConsts_cxSFilterOperatorNext7Days 65082
+#define cxFilterConsts_cxSFilterOperatorNextWeek 65083
+#define cxFilterConsts_cxSFilterOperatorNext14Days 65084
+#define cxFilterConsts_cxSFilterOperatorNextTwoWeeks 65085
+#define cxFilterConsts_cxSFilterOperatorNext30Days 65086
+#define cxFilterConsts_cxSFilterOperatorNextMonth 65087
+#define cxFilterConsts_cxSFilterOperatorEqual 65088
+#define cxFilterConsts_cxSFilterOperatorNotEqual 65089
+#define cxFilterConsts_cxSFilterOperatorLess 65090
+#define cxFilterConsts_cxSFilterOperatorLessEqual 65091
+#define cxFilterConsts_cxSFilterOperatorGreater 65092
+#define cxFilterConsts_cxSFilterOperatorGreaterEqual 65093
+#define cxFilterConsts_cxSFilterOperatorLike 65094
+#define cxFilterConsts_cxSFilterOperatorNotLike 65095
+#define cxFilterConsts_cxSFilterOperatorBetween 65096
+#define cxFilterConsts_cxSFilterOperatorNotBetween 65097
+#define cxFilterConsts_cxSFilterOperatorInList 65098
+#define cxFilterConsts_cxSFilterOperatorNotInList 65099
+#define cxFilterConsts_cxSFilterOperatorYesterday 65100
+#define cxFilterConsts_cxSFilterOperatorToday 65101
+#define cxFilterConsts_cxSFilterOperatorTomorrow 65102
+#define cxFilterConsts_cxSFilterOperatorLast7Days 65103
 #define dxLayoutStrs_sdxLayoutControlCustomizeFormCaptionAlignHorzLeft 65104
 #define dxLayoutStrs_sdxLayoutControlCustomizeFormCaptionAlignHorzCenter 65105
 #define dxLayoutStrs_sdxLayoutControlCustomizeFormCaptionAlignHorzRight 65106
@@ -1528,72 +1528,6 @@ BEGIN
 	cxEditConsts_cxSBlobButtonClose,	"&Close"
 	cxEditConsts_cxSBlobMemo,	"(MEMO)"
 	cxEditConsts_cxSBlobMemoEmpty,	"(memo)"
-	cxFilterConsts_cxSFilterOperatorIsNotNull,	"is not blank"
-	cxFilterConsts_cxSFilterOperatorBeginsWith,	"begins with"
-	cxFilterConsts_cxSFilterOperatorDoesNotBeginWith,	"does not begin with"
-	cxFilterConsts_cxSFilterOperatorEndsWith,	"ends with"
-	cxFilterConsts_cxSFilterOperatorDoesNotEndWith,	"does not end with"
-	cxFilterConsts_cxSFilterOperatorContains,	"contains"
-	cxFilterConsts_cxSFilterOperatorDoesNotContain,	"does not contain"
-	cxFilterConsts_cxSFilterBoxAllCaption,	"(All)"
-	cxFilterConsts_cxSFilterBoxCustomCaption,	"(Custom...)"
-	cxFilterConsts_cxSFilterBoxBlanksCaption,	"(Blanks)"
-	cxFilterConsts_cxSFilterBoxNonBlanksCaption,	"(NonBlanks)"
-	cxEditConsts_cxSEditButtonCancel,	"Cancel"
-	cxEditConsts_cxSEditButtonOK,	"OK"
-	cxEditConsts_cxSEditDateConvertError,	"Could not convert to date"
-	cxEditConsts_cxSEditInvalidRepositoryItem,	"The repository item is not acceptable"
-	cxEditConsts_cxSEditNumericValueConvertError,	"Could not convert to numeric value"
-	cxFilterConsts_cxSFilterOperatorThisWeek,	"is this week"
-	cxFilterConsts_cxSFilterOperatorThisMonth,	"is this month"
-	cxFilterConsts_cxSFilterOperatorThisYear,	"is this year"
-	cxFilterConsts_cxSFilterOperatorNext7Days,	"is next 7 days"
-	cxFilterConsts_cxSFilterOperatorNextWeek,	"is next week"
-	cxFilterConsts_cxSFilterOperatorNext14Days,	"is next 14 days"
-	cxFilterConsts_cxSFilterOperatorNextTwoWeeks,	"is next two weeks"
-	cxFilterConsts_cxSFilterOperatorNext30Days,	"is next 30 days"
-	cxFilterConsts_cxSFilterOperatorNextMonth,	"is next month"
-	cxFilterConsts_cxSFilterOperatorNextYear,	"is next year"
-	cxFilterConsts_cxSFilterOperatorFuture,	"is future"
-	cxFilterConsts_cxSFilterAndCaption,	"and"
-	cxFilterConsts_cxSFilterOrCaption,	"or"
-	cxFilterConsts_cxSFilterNotCaption,	"not"
-	cxFilterConsts_cxSFilterBlankCaption,	"blank"
-	cxFilterConsts_cxSFilterOperatorIsNull,	"is blank"
-	cxFilterConsts_cxSFilterOperatorNotLike,	"not like"
-	cxFilterConsts_cxSFilterOperatorBetween,	"between"
-	cxFilterConsts_cxSFilterOperatorNotBetween,	"not between"
-	cxFilterConsts_cxSFilterOperatorInList,	"in"
-	cxFilterConsts_cxSFilterOperatorNotInList,	"not in"
-	cxFilterConsts_cxSFilterOperatorYesterday,	"is yesterday"
-	cxFilterConsts_cxSFilterOperatorToday,	"is today"
-	cxFilterConsts_cxSFilterOperatorTomorrow,	"is tomorrow"
-	cxFilterConsts_cxSFilterOperatorLast7Days,	"is last 7 days"
-	cxFilterConsts_cxSFilterOperatorLastWeek,	"is last week"
-	cxFilterConsts_cxSFilterOperatorLast14Days,	"is last 14 days"
-	cxFilterConsts_cxSFilterOperatorLastTwoWeeks,	"is last two weeks"
-	cxFilterConsts_cxSFilterOperatorLast30Days,	"is last 30 days"
-	cxFilterConsts_cxSFilterOperatorLastMonth,	"is last month"
-	cxFilterConsts_cxSFilterOperatorLastYear,	"is last year"
-	cxFilterConsts_cxSFilterOperatorPast,	"is past"
-	cxDataConsts_cxSDataRecordIndexError,	"RecordIndex out of range"
-	cxDataConsts_cxSDataItemIndexError,	"ItemIndex out of range"
-	cxDataConsts_cxSDataProviderModeError,	"This operation is not supported in provider mode"
-	cxDataConsts_cxSDataInvalidStreamFormat,	"Invalid stream format"
-	cxDataConsts_cxSDataRowIndexError,	"RowIndex out of range"
-	cxDataConsts_cxSDataCustomDataSourceInvalidCompare,	"GetInfoForCompare not implemented"
-	cxDataConsts_cxSDBDetailFilterControllerNotFound,	"DetailFilterController not found"
-	cxDataConsts_cxSDBNotInGridMode,	"DataController not in GridMode"
-	cxDataConsts_cxSDBKeyFieldNotFound,	"Key Field not found"
-	cxFilterConsts_cxSFilterOperatorEqual,	"equals"
-	cxFilterConsts_cxSFilterOperatorNotEqual,	"does not equal"
-	cxFilterConsts_cxSFilterOperatorLess,	"is less than"
-	cxFilterConsts_cxSFilterOperatorLessEqual,	"is less than or equal to"
-	cxFilterConsts_cxSFilterOperatorGreater,	"is greater than"
-	cxFilterConsts_cxSFilterOperatorGreaterEqual,	"is greater than or equal to"
-	cxFilterConsts_cxSFilterOperatorLike,	"like"
-	DBConsts_SParameterNotFound,	"Parameter '%s' not found"
-	DBConsts_SInvalidVersion,	"Unable to load bind parameters"
 	DBConsts_SBadFieldType,	"Field '%s' is of an unsupported type"
 	DBConsts_SProviderSQLNotSupported,	"SQL not supported: %s"
 	DBConsts_SProviderExecuteNotSupported,	"Execute not supported: %s"
@@ -1605,11 +1539,11 @@ BEGIN
 	DBConsts_SInvalidFormatType,	"Invalid format type for BCD"
 	DBConsts_SCouldNotParseTimeStamp,	"Could not parse SQL TimeStamp string"
 	DBConsts_SInvalidSqlTimeStamp,	"Invalid SQL date/time values"
-	cxDataConsts_cxSDataReadError,	"Stream read error"
-	cxDataConsts_cxSDataWriteError,	"Stream write error"
-	cxDataConsts_cxSDataItemExistError,	"Item already exists"
-	DBConsts_SFieldOutOfRange,	"Value of field '%s' is out of range"
-	DBConsts_SFieldRequired,	"Field '%s' must have a value"
+	cxEditConsts_cxSEditButtonCancel,	"Cancel"
+	cxEditConsts_cxSEditButtonOK,	"OK"
+	cxEditConsts_cxSEditDateConvertError,	"Could not convert to date"
+	cxEditConsts_cxSEditInvalidRepositoryItem,	"The repository item is not acceptable"
+	cxEditConsts_cxSEditNumericValueConvertError,	"Could not convert to numeric value"
 	DBConsts_SDataSetMissing,	"Field '%s' has no dataset"
 	DBConsts_SInvalidCalcType,	"Field '%s' cannot be a calculated or lookup field"
 	DBConsts_SFieldReadOnly,	"Field '%s' cannot be modified"
@@ -1624,8 +1558,8 @@ BEGIN
 	DBConsts_SNestedDataSetClass,	"Nested dataset must inherit from %s"
 	DBConsts_STextFalse,	"False"
 	DBConsts_STextTrue,	"True"
-	DBConsts_SInvalidFieldSize,	"Invalid field size"
-	DBConsts_SInvalidFieldKind,	"Invalid FieldKind"
+	DBConsts_SParameterNotFound,	"Parameter '%s' not found"
+	DBConsts_SInvalidVersion,	"Unable to load bind parameters"
 	DBConsts_SUnknownFieldType,	"Field '%s' is of an unknown type"
 	DBConsts_SFieldNameMissing,	"Field name missing"
 	DBConsts_SDuplicateFieldName,	"Duplicate field name '%s'"
@@ -1640,6 +1574,72 @@ BEGIN
 	DBConsts_SFieldTypeMismatch,	"Type mismatch for field '%s', expecting: %s actual: %s"
 	DBConsts_SFieldSizeMismatch,	"Size mismatch for field '%s', expecting: %d actual: %d"
 	DBConsts_SInvalidVarByteArray,	"Invalid variant type or size for field '%s'"
+	DBConsts_SFieldOutOfRange,	"Value of field '%s' is out of range"
+	DBConsts_SFieldRequired,	"Field '%s' must have a value"
+	cxFilterConsts_cxSFilterBoxBlanksCaption,	"(Blanks)"
+	cxFilterConsts_cxSFilterBoxNonBlanksCaption,	"(NonBlanks)"
+	cxDataConsts_cxSDataReadError,	"Stream read error"
+	cxDataConsts_cxSDataWriteError,	"Stream write error"
+	cxDataConsts_cxSDataItemExistError,	"Item already exists"
+	cxDataConsts_cxSDataRecordIndexError,	"RecordIndex out of range"
+	cxDataConsts_cxSDataItemIndexError,	"ItemIndex out of range"
+	cxDataConsts_cxSDataProviderModeError,	"This operation is not supported in provider mode"
+	cxDataConsts_cxSDataInvalidStreamFormat,	"Invalid stream format"
+	cxDataConsts_cxSDataRowIndexError,	"RowIndex out of range"
+	cxDataConsts_cxSDataCustomDataSourceInvalidCompare,	"GetInfoForCompare not implemented"
+	cxDataConsts_cxSDBDetailFilterControllerNotFound,	"DetailFilterController not found"
+	cxDataConsts_cxSDBNotInGridMode,	"DataController not in GridMode"
+	cxDataConsts_cxSDBKeyFieldNotFound,	"Key Field not found"
+	DBConsts_SInvalidFieldSize,	"Invalid field size"
+	DBConsts_SInvalidFieldKind,	"Invalid FieldKind"
+	cxFilterConsts_cxSFilterOperatorNextYear,	"is next year"
+	cxFilterConsts_cxSFilterOperatorFuture,	"is future"
+	cxFilterConsts_cxSFilterAndCaption,	"and"
+	cxFilterConsts_cxSFilterOrCaption,	"or"
+	cxFilterConsts_cxSFilterNotCaption,	"not"
+	cxFilterConsts_cxSFilterBlankCaption,	"blank"
+	cxFilterConsts_cxSFilterOperatorIsNull,	"is blank"
+	cxFilterConsts_cxSFilterOperatorIsNotNull,	"is not blank"
+	cxFilterConsts_cxSFilterOperatorBeginsWith,	"begins with"
+	cxFilterConsts_cxSFilterOperatorDoesNotBeginWith,	"does not begin with"
+	cxFilterConsts_cxSFilterOperatorEndsWith,	"ends with"
+	cxFilterConsts_cxSFilterOperatorDoesNotEndWith,	"does not end with"
+	cxFilterConsts_cxSFilterOperatorContains,	"contains"
+	cxFilterConsts_cxSFilterOperatorDoesNotContain,	"does not contain"
+	cxFilterConsts_cxSFilterBoxAllCaption,	"(All)"
+	cxFilterConsts_cxSFilterBoxCustomCaption,	"(Custom...)"
+	cxFilterConsts_cxSFilterOperatorLastWeek,	"is last week"
+	cxFilterConsts_cxSFilterOperatorLast14Days,	"is last 14 days"
+	cxFilterConsts_cxSFilterOperatorLastTwoWeeks,	"is last two weeks"
+	cxFilterConsts_cxSFilterOperatorLast30Days,	"is last 30 days"
+	cxFilterConsts_cxSFilterOperatorLastMonth,	"is last month"
+	cxFilterConsts_cxSFilterOperatorLastYear,	"is last year"
+	cxFilterConsts_cxSFilterOperatorPast,	"is past"
+	cxFilterConsts_cxSFilterOperatorThisWeek,	"is this week"
+	cxFilterConsts_cxSFilterOperatorThisMonth,	"is this month"
+	cxFilterConsts_cxSFilterOperatorThisYear,	"is this year"
+	cxFilterConsts_cxSFilterOperatorNext7Days,	"is next 7 days"
+	cxFilterConsts_cxSFilterOperatorNextWeek,	"is next week"
+	cxFilterConsts_cxSFilterOperatorNext14Days,	"is next 14 days"
+	cxFilterConsts_cxSFilterOperatorNextTwoWeeks,	"is next two weeks"
+	cxFilterConsts_cxSFilterOperatorNext30Days,	"is next 30 days"
+	cxFilterConsts_cxSFilterOperatorNextMonth,	"is next month"
+	cxFilterConsts_cxSFilterOperatorEqual,	"equals"
+	cxFilterConsts_cxSFilterOperatorNotEqual,	"does not equal"
+	cxFilterConsts_cxSFilterOperatorLess,	"is less than"
+	cxFilterConsts_cxSFilterOperatorLessEqual,	"is less than or equal to"
+	cxFilterConsts_cxSFilterOperatorGreater,	"is greater than"
+	cxFilterConsts_cxSFilterOperatorGreaterEqual,	"is greater than or equal to"
+	cxFilterConsts_cxSFilterOperatorLike,	"like"
+	cxFilterConsts_cxSFilterOperatorNotLike,	"not like"
+	cxFilterConsts_cxSFilterOperatorBetween,	"between"
+	cxFilterConsts_cxSFilterOperatorNotBetween,	"not between"
+	cxFilterConsts_cxSFilterOperatorInList,	"in"
+	cxFilterConsts_cxSFilterOperatorNotInList,	"not in"
+	cxFilterConsts_cxSFilterOperatorYesterday,	"is yesterday"
+	cxFilterConsts_cxSFilterOperatorToday,	"is today"
+	cxFilterConsts_cxSFilterOperatorTomorrow,	"is tomorrow"
+	cxFilterConsts_cxSFilterOperatorLast7Days,	"is last 7 days"
 	dxLayoutStrs_sdxLayoutControlCustomizeFormCaptionAlignHorzLeft,	"Left"
 	dxLayoutStrs_sdxLayoutControlCustomizeFormCaptionAlignHorzCenter,	"Center"
 	dxLayoutStrs_sdxLayoutControlCustomizeFormCaptionAlignHorzRight,	"Right"

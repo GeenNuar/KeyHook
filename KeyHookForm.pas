@@ -119,7 +119,7 @@ begin
   else
     Assignfile(F, 'Save.txt');
 {$I-}
-  Append(F);
+  Rewrite(F);
 {$I+}
   if IOResult <> 0 then
   begin
