@@ -1,7 +1,6 @@
 program KeysHook;
 
 uses
-  ExceptionLog,
   Forms,
   U_Login in 'U_Login.pas' {LoginForm},
   KeyHookFunc in 'KeyHookFunc.pas',
