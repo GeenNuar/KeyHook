@@ -9,7 +9,7 @@ uses
   cxEdit, cxTextEdit, dxLayoutContainer, StdCtrls, cxButtons, ActnList,
   dxLayoutControl, cxCheckBox, dxLayoutLookAndFeels, dxSkinsForm, DB, ADODB,
   dxSkinsCore, dxSkinsDefaultPainters, dxSkinscxPCPainter, dxSkinMcSkin,
-  dxSkinPumpkin;
+  dxSkinPumpkin, cxRadioGroup;
 
 type
   TLoginForm = class(TForm)
@@ -25,8 +25,6 @@ type
     dxlytmItem_UserPass: TdxLayoutItem;
     dxlytgrp_Btn: TdxLayoutGroup;
     dxlytgrp_Login: TdxLayoutGroup;
-    cxchckbx_ConfigDB: TcxCheckBox;
-    dxlytm_Checkbox: TdxLayoutItem;
     cxtxtdt_DBName: TcxTextEdit;
     dxlytm_DBName: TdxLayoutItem;
     cxtxtdt_DBSvr: TcxTextEdit;
@@ -47,12 +45,17 @@ type
     actlst: TActionList;
     actValidateUser: TAction;
     dxlytgrp_Config: TdxLayoutGroup;
-    procedure cxchckbx_ConfigDBPropertiesChange(Sender: TObject);
+    rbConnSQLite: TcxRadioButton;
+    dxlytm_ConnSQLite: TdxLayoutItem;
+    rbConnMySQL: TcxRadioButton;
+    dxlytm_ConnMySQL: TdxLayoutItem;
     procedure Btn_CancelClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Btn_LoginClick(Sender: TObject);
     procedure actValidateUserExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure rbConnSQLiteClick(Sender: TObject);
+    procedure rbConnMySQLClick(Sender: TObject);
   private
     { Private declarations }
 
@@ -67,21 +70,12 @@ var
 implementation
 
 uses
-  KeyHookFunc;
+  KeyHookFunc, SQLite3, SQLite3Wrap, SQLite3Utils;
 
 var
   Count: Integer;
 
 {$R *.dfm}
-
-procedure TLoginForm.cxchckbx_ConfigDBPropertiesChange(Sender: TObject);
-begin
-  if cxchckbx_ConfigDB.Checked then
-    Self.Height := 315
-  else
-    Self.Height := 180;
-  dxlytgrp_DB.Visible := cxchckbx_ConfigDB.Checked;
-end;
 
 procedure TLoginForm.Btn_CancelClick(Sender: TObject);
 begin
@@ -117,21 +111,76 @@ begin
   end;
 
   //验证登录用户合法性
-  //actValidateUserExecute(nil);
-  Close;
+  actValidateUserExecute(nil);
 end;
 
 procedure TLoginForm.actValidateUserExecute(Sender: TObject);
 var
   TmpStr: string;
+  rCount: Integer;
+  DBPath: string;
+  SQLiteDB: TSQLite3DataBase;
+  SQLiteStmt: TSQLite3Statement;
 begin
   if not CheckInputData then Exit;
 
-  ds_ADO.CommandText := 'select * from sysuser where username = "' +
-    SysUser.UserName + '"';
-  ds_ADO.Open;
-  TmpStr := VarToStr(ds_ADO.Lookup('username', SysUser.UserName, 'userpass'));
-  ds_ADO.Close;
+  TmpStr := '';
+
+  case DBFlag of
+    dbSQLite:
+    begin
+      DBPath := ExtractFilePath(ParamStr(0)) + 'Data.db';
+
+      SQLiteDB := TSQLite3Database.Create;
+      try
+        if not FileExists(DBPath) then
+        begin
+          SQLiteDB.Open(DBPath);
+          SQLiteDB.Execute('CREATE TABLE SYSUSER(USERNAME TEXT, USERPASS TEXT)');
+          SQLiteDB.Execute('CREATE TABLE SCANINFO(BARCODE TEXT)');
+
+          SQLiteStmt := SQLiteDB.Prepare('INSERT INTO SYSUSER (USERNAME, USERPASS) VALUES ("admin", "admin")');
+          try
+            SQLiteStmt.StepAndReset;
+          finally
+            SQLiteStmt.Free;
+          end;
+
+          SQLiteDB.Close;
+        end;
+
+        SQLiteDB.Open(DBPath);
+
+        SQLiteStmt := SQLiteDB.Prepare('SELECT * FROM SYSUSER WHERE USERNAME = ?');
+        try
+          SQLiteStmt.BindText(1, SysUser.UserName);
+          if SQLiteStmt.Step = SQLITE_ROW then
+          begin
+            TmpStr := SQLiteStmt.ColumnText(1);
+          end;
+        finally
+          SQLiteStmt.Free;
+        end;
+
+      finally
+        SQLiteDB.Free;
+      end;
+    end;
+
+    dbMySQl:
+    begin
+      ds_ADO.CommandText := 'select * from sysuser where username = "' +
+        SysUser.UserName + '"';
+      try
+        ds_ADO.Open;
+        TmpStr := VarToStr(ds_ADO.Lookup('username', SysUser.UserName, 'userpass'));
+        ds_ADO.Close;
+      except
+        ShowMessage('无法连接MySQL数据库！');
+        Exit;
+      end;
+    end;
+  end;
 
   if TmpStr = SysUser.UserPass then
     Close
@@ -145,6 +194,7 @@ begin
       Application.Terminate;
     end;
   end;
+
 end;
 
 function TLoginForm.CheckInputData: Boolean;
@@ -172,6 +222,40 @@ begin
   dxskncntrlr.SkinName := 'McSkin';
   dxskncntrlr.NativeStyle := False;
   dxskncntrlr.UseSkins := True;
+end;
+
+procedure TLoginForm.rbConnSQLiteClick(Sender: TObject);
+begin
+  rbConnMySQL.Checked := not rbConnSQLite.Checked;
+
+  if rbConnSQLite.Checked then
+    Self.Height := 180
+  else
+    Self.Height := 315;
+
+  dxlytgrp_DB.Visible := not rbConnSQLite.Checked;
+
+  if rbConnSQLite.Checked then
+    DBFlag := dbSQLite
+  else
+    DBFlag := dbMYSQL;
+end;
+
+procedure TLoginForm.rbConnMySQLClick(Sender: TObject);
+begin
+  rbConnSQLite.Checked := not rbConnMySQL.Checked;
+
+  if rbConnMySQL.Checked then
+    Self.Height := 315
+  else
+    Self.Height := 180;
+
+  dxlytgrp_DB.Visible := rbConnMySQL.Checked;
+
+  if rbConnMySQL.Checked then
+    DBFlag := dbMYSQL
+  else
+    DBFlag := dbSQLite;
 end;
 
 end.

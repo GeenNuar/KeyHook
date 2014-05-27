@@ -27,31 +27,31 @@ object LoginForm: TLoginForm
     LayoutLookAndFeel = dxlytsknlkndfl
     object Btn_Cancel: TcxButton
       Left = 149
-      Top = 244
+      Top = 234
       Width = 75
       Height = 25
       Caption = #21462#28040'(&C)'
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 9
+      TabOrder = 10
       OnClick = Btn_CancelClick
       Align = alClient
     end
     object Btn_Login: TcxButton
       Left = 68
-      Top = 244
+      Top = 234
       Width = 75
       Height = 25
       Caption = #30331#24405'(&L)'
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 8
+      TabOrder = 9
       OnClick = Btn_LoginClick
       Align = alClient
     end
     object cxtxtdt_UserName: TcxTextEdit
       Left = 85
-      Top = 23
+      Top = 13
       Hint = #35831#36755#20837#29992#25143#21517
       Align = alClient
       AutoSize = False
@@ -64,7 +64,7 @@ object LoginForm: TLoginForm
     end
     object cxtxtdt_UserPass: TcxTextEdit
       Left = 85
-      Top = 49
+      Top = 39
       Hint = #35831#36755#20837#29992#25143#23494#30721
       Align = alClient
       AutoSize = False
@@ -75,38 +75,10 @@ object LoginForm: TLoginForm
       Height = 21
       Width = 121
     end
-    object cxchckbx_ConfigDB: TcxCheckBox
-      Left = 20
-      Top = 75
-      Hint = #22635#20889#36830#25509'MySQL'#25968#25454#24211#25152#38656#30340#20449#24687
-      Align = alClient
-      AutoSize = False
-      Caption = #37197#32622#25968#25454#24211#36830#25509
-      ParentShowHint = False
-      Properties.Alignment = taLeftJustify
-      Properties.OnChange = cxchckbx_ConfigDBPropertiesChange
-      ShowHint = True
-      Style.HotTrack = False
-      TabOrder = 2
-      Transparent = True
-      Height = 20
-      Width = 105
-    end
     object cxtxtdt_DBName: TcxTextEdit
       Left = 85
-      Top = 101
+      Top = 91
       Hint = #20351#29992#30340#25968#25454#24211#21517#31216#40664#35748#20026'testdb'
-      Align = alClient
-      ParentShowHint = False
-      ShowHint = True
-      Style.HotTrack = False
-      TabOrder = 3
-      Width = 121
-    end
-    object cxtxtdt_DBSvr: TcxTextEdit
-      Left = 85
-      Top = 127
-      Hint = 'MySQL'#25968#25454#24211#26381#21153#22120'IP'
       Align = alClient
       ParentShowHint = False
       ShowHint = True
@@ -114,10 +86,10 @@ object LoginForm: TLoginForm
       TabOrder = 4
       Width = 121
     end
-    object cxtxtdt_DBPort: TcxTextEdit
+    object cxtxtdt_DBSvr: TcxTextEdit
       Left = 85
-      Top = 153
-      Hint = 'MySQL'#25968#25454#24211#26381#21153#22120#31471#21475
+      Top = 117
+      Hint = 'MySQL'#25968#25454#24211#26381#21153#22120'IP'
       Align = alClient
       ParentShowHint = False
       ShowHint = True
@@ -125,10 +97,10 @@ object LoginForm: TLoginForm
       TabOrder = 5
       Width = 121
     end
-    object cxtxtdt_DBUserName: TcxTextEdit
+    object cxtxtdt_DBPort: TcxTextEdit
       Left = 85
-      Top = 179
-      Hint = #36830#25509#25968#25454#24211#25152#29992#30340#36134#25143#21517#40664#35748#20026'root'
+      Top = 143
+      Hint = 'MySQL'#25968#25454#24211#26381#21153#22120#31471#21475
       Align = alClient
       ParentShowHint = False
       ShowHint = True
@@ -136,16 +108,51 @@ object LoginForm: TLoginForm
       TabOrder = 6
       Width = 121
     end
-    object cxtxtdt_DBUserPass: TcxTextEdit
+    object cxtxtdt_DBUserName: TcxTextEdit
       Left = 85
-      Top = 205
-      Hint = #36830#25509#25968#25454#24211#25152#29992#30340#36134#25143#23494#30721#40664#35748#20026#31354
+      Top = 169
+      Hint = #36830#25509#25968#25454#24211#25152#29992#30340#36134#25143#21517#40664#35748#20026'root'
       Align = alClient
       ParentShowHint = False
       ShowHint = True
       Style.HotTrack = False
       TabOrder = 7
       Width = 121
+    end
+    object cxtxtdt_DBUserPass: TcxTextEdit
+      Left = 85
+      Top = 195
+      Hint = #36830#25509#25968#25454#24211#25152#29992#30340#36134#25143#23494#30721#40664#35748#20026#31354
+      Align = alClient
+      ParentShowHint = False
+      ShowHint = True
+      Style.HotTrack = False
+      TabOrder = 8
+      Width = 121
+    end
+    object rbConnSQLite: TcxRadioButton
+      Left = 20
+      Top = 65
+      Width = 80
+      Height = 20
+      Caption = #26412#22320#25968#25454#24211
+      Checked = True
+      Color = 16053234
+      ParentColor = False
+      TabOrder = 2
+      TabStop = True
+      OnClick = rbConnSQLiteClick
+    end
+    object rbConnMySQL: TcxRadioButton
+      Left = 124
+      Top = 65
+      Width = 90
+      Height = 20
+      Caption = 'MySQL'#25968#25454#24211
+      Color = 16053234
+      ParentColor = False
+      TabOrder = 3
+      OnClick = rbConnMySQLClick
     end
     object dxlytgrp_Root: TdxLayoutGroup
       AlignHorz = ahClient
@@ -209,15 +216,6 @@ object LoginForm: TLoginForm
       AlignVert = avClient
       Parent = dxlytgrp_Root
       ButtonOptions.Buttons = <>
-      Index = 0
-    end
-    object dxlytm_Checkbox: TdxLayoutItem
-      AlignHorz = ahLeft
-      AlignVert = avClient
-      CaptionOptions.Visible = False
-      Parent = dxlytgrp_Config
-      Control = cxchckbx_ConfigDB
-      ControlOptions.ShowBorder = False
       Index = 0
     end
     object dxlytm_DBName: TdxLayoutItem
@@ -295,6 +293,28 @@ object LoginForm: TLoginForm
       LayoutDirection = ldHorizontal
       ShowBorder = False
       Index = 2
+    end
+    object dxlytm_ConnSQLite: TdxLayoutItem
+      AlignHorz = ahLeft
+      AlignVert = avClient
+      CaptionOptions.Text = 'cxRadioButton1'
+      CaptionOptions.Visible = False
+      Parent = dxlytgrp_Config
+      Control = rbConnSQLite
+      ControlOptions.AutoColor = True
+      ControlOptions.ShowBorder = False
+      Index = 0
+    end
+    object dxlytm_ConnMySQL: TdxLayoutItem
+      AlignHorz = ahRight
+      AlignVert = avClient
+      CaptionOptions.Text = 'cxRadioButton1'
+      CaptionOptions.Visible = False
+      Parent = dxlytgrp_Config
+      Control = rbConnMySQL
+      ControlOptions.AutoColor = True
+      ControlOptions.ShowBorder = False
+      Index = 1
     end
   end
   object dxskncntrlr: TdxSkinController
