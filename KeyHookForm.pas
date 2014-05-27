@@ -12,7 +12,7 @@ uses
   cxStyles, cxTL, cxTextEdit, cxTLdxBarBuiltInMenu, cxInplaceContainer,
   DBClient, SimpleDS, ActnList, dxSkinsdxStatusBarPainter, dxStatusBar,
   cxContainer, cxEdit, dxLayoutcxEditAdapters, cxMaskEdit, cxSpinEdit,
-  ImgList;
+  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses;
 
 type
   TfrmKeyHook = class(TForm)
@@ -27,17 +27,12 @@ type
     dxlytlkndflst: TdxLayoutLookAndFeelList;
     dxskncntrlr: TdxSkinController;
     dxlytsknlkndfl: TdxLayoutSkinLookAndFeel;
-    MainMenu: TMainMenu;
-    mniFile: TMenuItem;
-    mniWindow: TMenuItem;
-    mniSkin: TMenuItem;
     cxTLst_Info: TcxTreeList;
     dxlytm_cxTLst_Info: TdxLayoutItem;
     cxtrlstclmn_ID: TcxTreeListColumn;
     cxtrlstclmn_Info: TcxTreeListColumn;
     popMenu_cxTLst: TPopupMenu;
     DelSelectItem: TMenuItem;
-    SysExit: TMenuItem;
     Btn_Start: TcxButton;
     dxlytm_Begin: TdxLayoutItem;
     Btn_Stop: TcxButton;
@@ -51,20 +46,25 @@ type
     actRecordNumKeys: TAction;
     dxStatusBar: TdxStatusBar;
     Timer_DelText: TTimer;
-    Pumpkin: TMenuItem;
-    McSkin: TMenuItem;
     cxSpinEdit: TcxSpinEdit;
     dxlytm_Count: TdxLayoutItem;
     cxImageList: TcxImageList;
     acWriteToDB: TAction;
     acWriteSelToDB: TAction;
+    dxbrmngr: TdxBarManager;
+    dxbrmngrBar: TdxBar;
+    dxbrsbtmFile: TdxBarSubItem;
+    dxbrsbtmWin: TdxBarSubItem;
+    dxbrsbtm_Skin: TdxBarSubItem;
+    dxbrbtn_Exit: TdxBarButton;
+    dxbrbtn_McSkin: TdxBarButton;
+    dxbrbtn_Pumpkin: TdxBarButton;
     procedure Timer_KeyRecTimer(Sender: TObject);
     procedure Timer_SaveToTxTTimer(Sender: TObject);
     procedure Timer_ThreadTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Btn_StartClick(Sender: TObject);
     procedure Btn_StopClick(Sender: TObject);
-    procedure SysExitClick(Sender: TObject);
     procedure DelSelectItemClick(Sender: TObject);
     procedure cxTLst_InfoFocusedNodeChanged(Sender: TcxCustomTreeList;
       APrevFocusedNode, AFocusedNode: TcxTreeListNode);
@@ -74,12 +74,13 @@ type
     procedure actRecordKeysExecute(Sender: TObject);
     procedure Timer_DelTextTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure PumpkinClick(Sender: TObject);
-    procedure McSkinClick(Sender: TObject);
     procedure acWriteToDBExecute(Sender: TObject);
     procedure acWriteSelToDBExecute(Sender: TObject);
     procedure acWriteSelToDBUpdate(Sender: TObject);
     procedure cxTLst_InfoChange(Sender: TObject);
+    procedure dxbrbtn_ExitClick(Sender: TObject);
+    procedure dxbrbtn_McSkinClick(Sender: TObject);
+    procedure dxbrbtn_PumpkinClick(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeSkin(SkinName: string);
@@ -176,6 +177,9 @@ procedure TfrmKeyHook.Btn_StartClick(Sender: TObject);
 begin
   Timer_KeyRec.Enabled := True;
   dxStatusBar.Panels[1].Text := '键盘按键记录正在进行...';
+
+  Btn_Start.Enabled := False;
+  Btn_Stop.Enabled := True;
 end;
 
 procedure TfrmKeyHook.Btn_StopClick(Sender: TObject);
@@ -183,11 +187,9 @@ begin
   Timer_KeyRec.Enabled := False;
 
   dxStatusBar.Panels[1].Text := '键盘按键记录已经停止';
-end;
 
-procedure TfrmKeyHook.SysExitClick(Sender: TObject);
-begin
-  Application.Terminate;
+  Btn_Stop.Enabled := False;
+  Btn_Start.Enabled := True;
 end;
 
 procedure TfrmKeyHook.DelSelectItemClick(Sender: TObject);
@@ -476,16 +478,6 @@ begin
   ChangeSkin('Mcskin');
 end;
 
-procedure TfrmKeyHook.PumpkinClick(Sender: TObject);
-begin
-  ChangeSkin('Pumpkin');
-end;
-
-procedure TfrmKeyHook.McSkinClick(Sender: TObject);
-begin
-  ChangeSkin('McSkin');
-end;
-
 procedure TfrmKeyHook.ChangeSkin(SkinName: string);
 begin
   dxskncntrlr.UseSkins := False;
@@ -673,6 +665,22 @@ end;
 procedure TfrmKeyHook.cxTLst_InfoChange(Sender: TObject);
 begin
   Self.ClearAll.Enabled := cxTLst_Info.Count <> 0;
+  Btn_WriteToDB.Enabled := cxTLst_Info.Count <> 0;
+end;
+
+procedure TfrmKeyHook.dxbrbtn_ExitClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TfrmKeyHook.dxbrbtn_McSkinClick(Sender: TObject);
+begin
+  ChangeSkin('McSkin');
+end;
+
+procedure TfrmKeyHook.dxbrbtn_PumpkinClick(Sender: TObject);
+begin
+  ChangeSkin('Pumpkin');
 end;
 
 end.
