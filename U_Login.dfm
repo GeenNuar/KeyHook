@@ -1,10 +1,10 @@
 object LoginForm: TLoginForm
-  Left = 443
-  Top = 241
+  Left = 544
+  Top = 413
   Width = 259
   Height = 180
   BorderIcons = []
-  Caption = #30331#38470
+  Caption = 'KeysRecorder'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -33,7 +33,7 @@ object LoginForm: TLoginForm
       Caption = #21462#28040'(&C)'
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 9
+      TabOrder = 10
       OnClick = Btn_CancelClick
       Align = alClient
     end
@@ -45,7 +45,7 @@ object LoginForm: TLoginForm
       Caption = #30331#24405'(&L)'
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 8
+      TabOrder = 9
       OnClick = Btn_LoginClick
       Align = alClient
     end
@@ -75,23 +75,6 @@ object LoginForm: TLoginForm
       Height = 21
       Width = 121
     end
-    object cxchckbx_ConfigDB: TcxCheckBox
-      Left = 20
-      Top = 75
-      Hint = #22635#20889#36830#25509'MySQL'#25968#25454#24211#25152#38656#30340#20449#24687
-      Align = alClient
-      AutoSize = False
-      Caption = #37197#32622#25968#25454#24211#36830#25509
-      ParentShowHint = False
-      Properties.Alignment = taLeftJustify
-      Properties.OnChange = cxchckbx_ConfigDBPropertiesChange
-      ShowHint = True
-      Style.HotTrack = False
-      TabOrder = 2
-      Transparent = True
-      Height = 20
-      Width = 105
-    end
     object cxtxtdt_DBName: TcxTextEdit
       Left = 85
       Top = 101
@@ -100,7 +83,7 @@ object LoginForm: TLoginForm
       ParentShowHint = False
       ShowHint = True
       Style.HotTrack = False
-      TabOrder = 3
+      TabOrder = 4
       Width = 121
     end
     object cxtxtdt_DBSvr: TcxTextEdit
@@ -111,7 +94,7 @@ object LoginForm: TLoginForm
       ParentShowHint = False
       ShowHint = True
       Style.HotTrack = False
-      TabOrder = 4
+      TabOrder = 5
       Width = 121
     end
     object cxtxtdt_DBPort: TcxTextEdit
@@ -122,7 +105,7 @@ object LoginForm: TLoginForm
       ParentShowHint = False
       ShowHint = True
       Style.HotTrack = False
-      TabOrder = 5
+      TabOrder = 6
       Width = 121
     end
     object cxtxtdt_DBUserName: TcxTextEdit
@@ -133,7 +116,7 @@ object LoginForm: TLoginForm
       ParentShowHint = False
       ShowHint = True
       Style.HotTrack = False
-      TabOrder = 6
+      TabOrder = 7
       Width = 121
     end
     object cxtxtdt_DBUserPass: TcxTextEdit
@@ -144,8 +127,32 @@ object LoginForm: TLoginForm
       ParentShowHint = False
       ShowHint = True
       Style.HotTrack = False
-      TabOrder = 7
+      TabOrder = 8
       Width = 121
+    end
+    object rbConnSQLite: TcxRadioButton
+      Left = 20
+      Top = 75
+      Width = 80
+      Height = 20
+      Caption = #26412#22320#25968#25454#24211
+      Checked = True
+      Color = 16053234
+      ParentColor = False
+      TabOrder = 2
+      TabStop = True
+      OnClick = rbConnSQLiteClick
+    end
+    object rbConnMySQL: TcxRadioButton
+      Left = 124
+      Top = 75
+      Width = 90
+      Height = 20
+      Caption = 'MySQL'#25968#25454#24211
+      Color = 16053234
+      ParentColor = False
+      TabOrder = 3
+      OnClick = rbConnMySQLClick
     end
     object dxlytgrp_Root: TdxLayoutGroup
       AlignHorz = ahClient
@@ -209,15 +216,6 @@ object LoginForm: TLoginForm
       AlignVert = avClient
       Parent = dxlytgrp_Root
       ButtonOptions.Buttons = <>
-      Index = 0
-    end
-    object dxlytm_Checkbox: TdxLayoutItem
-      AlignHorz = ahLeft
-      AlignVert = avClient
-      CaptionOptions.Visible = False
-      Parent = dxlytgrp_Config
-      Control = cxchckbx_ConfigDB
-      ControlOptions.ShowBorder = False
       Index = 0
     end
     object dxlytm_DBName: TdxLayoutItem
@@ -295,6 +293,28 @@ object LoginForm: TLoginForm
       LayoutDirection = ldHorizontal
       ShowBorder = False
       Index = 2
+    end
+    object dxlytm_ConnSQLite: TdxLayoutItem
+      AlignHorz = ahLeft
+      AlignVert = avClient
+      CaptionOptions.Text = 'cxRadioButton1'
+      CaptionOptions.Visible = False
+      Parent = dxlytgrp_Config
+      Control = rbConnSQLite
+      ControlOptions.AutoColor = True
+      ControlOptions.ShowBorder = False
+      Index = 0
+    end
+    object dxlytm_ConnMySQL: TdxLayoutItem
+      AlignHorz = ahRight
+      AlignVert = avClient
+      CaptionOptions.Text = 'cxRadioButton1'
+      CaptionOptions.Visible = False
+      Parent = dxlytgrp_Config
+      Control = rbConnMySQL
+      ControlOptions.AutoColor = True
+      ControlOptions.ShowBorder = False
+      Index = 1
     end
   end
   object dxskncntrlr: TdxSkinController

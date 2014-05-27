@@ -12,7 +12,7 @@ uses
   cxStyles, cxTL, cxTextEdit, cxTLdxBarBuiltInMenu, cxInplaceContainer,
   DBClient, SimpleDS, ActnList, dxSkinsdxStatusBarPainter, dxStatusBar,
   cxContainer, cxEdit, dxLayoutcxEditAdapters, cxMaskEdit, cxSpinEdit,
-  ImgList;
+  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses;
 
 type
   TfrmKeyHook = class(TForm)
@@ -27,56 +27,66 @@ type
     dxlytlkndflst: TdxLayoutLookAndFeelList;
     dxskncntrlr: TdxSkinController;
     dxlytsknlkndfl: TdxLayoutSkinLookAndFeel;
-    MainMenu: TMainMenu;
-    mniFile: TMenuItem;
-    mniWindow: TMenuItem;
-    mniSkin: TMenuItem;
     cxTLst_Info: TcxTreeList;
     dxlytm_cxTLst_Info: TdxLayoutItem;
     cxtrlstclmn_ID: TcxTreeListColumn;
     cxtrlstclmn_Info: TcxTreeListColumn;
     popMenu_cxTLst: TPopupMenu;
     DelSelectItem: TMenuItem;
-    SysExit: TMenuItem;
     Btn_Start: TcxButton;
     dxlytm_Begin: TdxLayoutItem;
     Btn_Stop: TcxButton;
     dxlytm_Stop: TdxLayoutItem;
     ClearAll: TMenuItem;
     conMySQL: TADOConnection;
-    WriteSelectedToDB: TMenuItem;
+    mniWriteSelToDB: TMenuItem;
     qryMySQL: TADOQuery;
     actlst: TActionList;
     actRecordKeys: TAction;
     actRecordNumKeys: TAction;
     dxStatusBar: TdxStatusBar;
     Timer_DelText: TTimer;
-    Pumpkin: TMenuItem;
-    McSkin: TMenuItem;
     cxSpinEdit: TcxSpinEdit;
     dxlytm_Count: TdxLayoutItem;
     cxImageList: TcxImageList;
+    acWriteToDB: TAction;
+    acWriteSelToDB: TAction;
+    dxbrmngr: TdxBarManager;
+    dxbrmngrBar: TdxBar;
+    dxbrsbtmFile: TdxBarSubItem;
+    dxbrsbtmWin: TdxBarSubItem;
+    dxbrsbtm_Skin: TdxBarSubItem;
+    dxbrbtn_Exit: TdxBarButton;
+    dxbrbtn_McSkin: TdxBarButton;
+    dxbrbtn_Pumpkin: TdxBarButton;
     procedure Timer_KeyRecTimer(Sender: TObject);
     procedure Timer_SaveToTxTTimer(Sender: TObject);
     procedure Timer_ThreadTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Btn_StartClick(Sender: TObject);
     procedure Btn_StopClick(Sender: TObject);
-    procedure SysExitClick(Sender: TObject);
     procedure DelSelectItemClick(Sender: TObject);
     procedure cxTLst_InfoFocusedNodeChanged(Sender: TcxCustomTreeList;
       APrevFocusedNode, AFocusedNode: TcxTreeListNode);
     procedure ClearAllClick(Sender: TObject);
-    procedure WriteSelectedToDBClick(Sender: TObject);
     procedure Btn_WriteToDBClick(Sender: TObject);
     procedure actRecordNumKeysExecute(Sender: TObject);
     procedure actRecordKeysExecute(Sender: TObject);
     procedure Timer_DelTextTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure PumpkinClick(Sender: TObject);
-    procedure McSkinClick(Sender: TObject);
+    procedure acWriteToDBExecute(Sender: TObject);
+    procedure acWriteSelToDBExecute(Sender: TObject);
+    procedure acWriteSelToDBUpdate(Sender: TObject);
+    procedure cxTLst_InfoChange(Sender: TObject);
+    procedure dxbrbtn_ExitClick(Sender: TObject);
+    procedure dxbrbtn_McSkinClick(Sender: TObject);
+    procedure dxbrbtn_PumpkinClick(Sender: TObject);
   private
     { Private declarations }
+    procedure ChangeSkin(SkinName: string);
+
+    procedure WriteToSQLiteDB;
+    procedure WriteToMySQLDB;
   public
     { Public declarations }
   end;
@@ -87,7 +97,7 @@ var
 implementation
 
 uses
-  Variants, U_Login, KeyHookFunc;
+  Variants, U_Login, KeyHookFunc, SQLite3, SQLite3Wrap, SQLite3Utils;
 
 var
   F: Textfile;
@@ -150,45 +160,7 @@ end;
 procedure TfrmKeyHook.FormCreate(Sender: TObject);
 //var
   //Registry_Key: TRegistry;
-  //ConnADO: TADOConnection;
-  //DsADO: TADODataSet;
 begin
-  inherited;
-  Self.Visible := False;
-  LoginForm := TLoginForm.Create(nil);
-  LoginForm.ShowModal;
-  Self.Visible := True;
-  (*
-  ConnADO := TADOConnection.Create(nil);
-  DsADO := TADODataSet.Create(nil);
-  ConnADO.LoginPrompt := False;
-  with ConnADO do
-  begin
-    Close;
-    ConnectionString := ('DRIVER={MySQL ODBC 5.2 Unicode Driver}; '+
-      'SERVER=' + DBConn.DBSvr + '; DATABASE=' + DBConn.DBName +'; USER=' +
-      DBConn.DBUserName + '; ' + 'PASSWORD=' + DBConn.DBUserPass + '; PORT=' +
-      DBConn.DBPort + '; OPTION=3; ');
-    ConnADO.Open;
-    DsADO.Connection := ConnADO;
-    DsADO.CommandText := 'select * from sysuser where username = "' + SysUser.UserName + '"';
-    DsADO.Open;
-    DsADO.Active := True;
-    DsADO.Refresh;
-    TmpStr := dsMySQL.Lookup('username', SysUser.UserName, 'userpass');
-    if TmpStr = SysUser.UserPass then
-      ShowMessage('登陆成功！');
-    try
-
-      Open;
-      Application.MessageBox( '连接成功！', '提示 ',MB_ICONINFORMATION);
-
-    except
-        Application.MessageBox( '无法连接数据库服务器.请与管理员联系 ', '提示 ',MB_ICONINFORMATION);
-    end;
-
-  end;
-  *)
   {
   Registry_Key := TRegistry.Create();
   Registry_Key.RootKey := HKEY_LOCAL_MACHINE;
@@ -196,12 +168,18 @@ begin
   Registry_Key.WriteString('KeyboardHook', ExtractFilename(Application.ExeName));
   Registry_Key.Free;
   }
+
+  LoginForm := TLoginForm.Create(nil);
+  LoginForm.ShowModal;
 end;
 
 procedure TfrmKeyHook.Btn_StartClick(Sender: TObject);
 begin
   Timer_KeyRec.Enabled := True;
   dxStatusBar.Panels[1].Text := '键盘按键记录正在进行...';
+
+  Btn_Start.Enabled := False;
+  Btn_Stop.Enabled := True;
 end;
 
 procedure TfrmKeyHook.Btn_StopClick(Sender: TObject);
@@ -209,11 +187,9 @@ begin
   Timer_KeyRec.Enabled := False;
 
   dxStatusBar.Panels[1].Text := '键盘按键记录已经停止';
-end;
 
-procedure TfrmKeyHook.SysExitClick(Sender: TObject);
-begin
-  Application.Terminate;
+  Btn_Stop.Enabled := False;
+  Btn_Start.Enabled := True;
 end;
 
 procedure TfrmKeyHook.DelSelectItemClick(Sender: TObject);
@@ -238,61 +214,9 @@ begin
   cxTLst_Info.Clear;
 end;
 
-procedure TfrmKeyHook.WriteSelectedToDBClick(Sender: TObject);
-var
-  Node: TcxTreeListNode;
-  TmpStr: string;
-  rCount: Integer;
-begin
-  Node := cxTLst_Info.FocusedNode;
-  if not Assigned(Node) then Exit;
-
-  TmpStr := Node.Values[cxtrlstclmn_Info.ItemIndex];
-
-  try
-    conMySQL.Open;
-  except
-    ShowMessage('数据库连接打开失败！');
-    Exit;
-  end;
-
-  qryMySQL.SQL.Clear;
-  qryMySQL.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
-  rCount := qryMySQL.ExecSQL;
-
-  if rCount > 0 then
-    dxStatusBar.Panels[1].Text := '写入数据库成功！'
-  else
-    dxStatusBar.Panels[1].Text := '写入数据库失败！';
-end;
-
 procedure TfrmKeyHook.Btn_WriteToDBClick(Sender: TObject);
-var
-  I: Integer;
-  Node: TcxTreeListNode;
-  TmpStr: string;
-  rCount: Integer;
 begin
-  try
-    conMySQL.Open;
-  except
-    ShowMessage('数据库连接打开失败！');
-    Exit;
-  end;
-
-  for I := 0 to cxTLst_Info.Count - 1 do
-  begin
-    Node := cxTLst_Info.Items[I];
-    TmpStr := Node.Values[cxtrlstclmn_Info.ItemIndex];
-    qryMySQL.SQL.Clear;
-    qryMySQL.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
-    rCount := qryMySQL.ExecSQL;
-
-    if rCount > 0 then
-      dxStatusBar.Panels[1].Text := '写入数据库成功！'
-    else
-      dxStatusBar.Panels[1].Text := '写入数据库失败！';
-  end;
+  acWriteToDBExecute(nil);
 end;
 
 //只记录数字按键
@@ -486,7 +410,8 @@ begin
         111: Node.Values[cxtrlstclmn_Info.ItemIndex] := '/';
         144: Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Num Lock]';
 
-        112..123: //F1-F12
+        //F1-F12
+        112..123:
              Node.Values[cxtrlstclmn_Info.ItemIndex] := '[F' + IntToStr(I - 111) + ']';
 
         186: if GetKeyState(VK_SHIFT) < 0 then
@@ -550,26 +475,212 @@ end;
 
 procedure TfrmKeyHook.FormShow(Sender: TObject);
 begin
+  ChangeSkin('Mcskin');
+end;
+
+procedure TfrmKeyHook.ChangeSkin(SkinName: string);
+begin
   dxskncntrlr.UseSkins := False;
-  dxskncntrlr.SkinName := 'Mcskin';
+  dxskncntrlr.SkinName := SkinName;
   dxskncntrlr.NativeStyle := False;
   dxskncntrlr.UseSkins := True;
 end;
 
-procedure TfrmKeyHook.PumpkinClick(Sender: TObject);
+procedure TfrmKeyHook.WriteToSQLiteDB;
+var
+  I: Integer;
+  rCount: Integer;
+  DBPath: string;
+  SQLiteDB: TSQLite3DataBase;
+  SQLiteStmt: TSQLite3Statement;
 begin
-  dxskncntrlr.UseSkins := False;
-  dxskncntrlr.SkinName := 'Pumpkin';
-  dxskncntrlr.NativeStyle := False;
-  dxskncntrlr.UseSkins := True;
+  if cxTLst_Info.Count <= 0 then Exit;
+
+  DBPath := ExtractFilePath(ParamStr(0)) + 'Data.db';
+
+  SQLiteDB := TSQLite3Database.Create;
+  try
+    if not FileExists(DBPath) then
+    begin
+      SQLiteDB.Open(DBPath);
+      SQLiteDB.Execute('CREATE TABLE SYSUSER(USERNAME TEXT, USERPASS TEXT)');
+      SQLiteDB.Execute('CREATE TABLE SCANINFO(BARCODE TEXT)');
+
+      SQLiteStmt := SQLiteDB.Prepare('INSERT INTO SYSUSER (USERNAME, USERPASS) VALUES ("admin", "admin")');
+      try
+        SQLiteStmt.StepAndReset;
+      finally
+        SQLiteStmt.Free;
+      end;
+
+      SQLiteDB.Close;
+    end;
+
+    SQLiteDB.Open(DBPath);
+
+    SQLiteStmt := SQLiteDB.Prepare('INSERT INTO SCANINFO (BARCODE) VALUES (?)');
+    try
+      for I := 0 to cxTLst_Info.Count - 1 do
+      begin
+        SQLiteStmt.BindText(1, cxTLst_Info.Items[I].Texts[1]);
+        rCount := SQLiteStmt.StepAndReset;
+
+        if rCount > 0 then
+          dxStatusBar.Panels[1].Text := '写入数据库成功！'
+        else
+          dxStatusBar.Panels[1].Text := '写入数据库失败！';
+      end;
+    finally
+      SQLiteStmt.Free;
+    end;
+
+  finally
+    SQLiteDB.Free;
+  end;
 end;
 
-procedure TfrmKeyHook.McSkinClick(Sender: TObject);
+procedure TfrmKeyHook.acWriteToDBExecute(Sender: TObject);
 begin
-  dxskncntrlr.UseSkins := False;
-  dxskncntrlr.SkinName := 'McSkin';
-  dxskncntrlr.NativeStyle := False;
-  dxskncntrlr.UseSkins := True;
+  case DBFlag of
+    //采用SQLite数据库存储数据
+    dbSQLite:
+      WriteToSQLiteDB;
+
+    //采用MySQL数据库存储数据
+    dbMYSQL:
+      WriteToMySQLDB;
+  end;
+end;
+
+procedure TfrmKeyHook.WriteToMySQLDB;
+var
+  I: Integer;
+  Node: TcxTreeListNode;
+  TmpStr: string;
+  rCount: Integer;
+begin
+  try
+    conMySQL.Open;
+  except
+    ShowMessage('无法连接MySQL数据库！');
+    Exit;
+  end;
+
+  for I := 0 to cxTLst_Info.Count - 1 do
+  begin
+    Node := cxTLst_Info.Items[I];
+    TmpStr := Node.Values[cxtrlstclmn_Info.ItemIndex];
+    qryMySQL.SQL.Clear;
+    qryMySQL.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
+    rCount := qryMySQL.ExecSQL;
+
+    if rCount > 0 then
+      dxStatusBar.Panels[1].Text := '写入数据库成功！'
+    else
+      dxStatusBar.Panels[1].Text := '写入数据库失败！';
+  end;
+end;
+
+procedure TfrmKeyHook.acWriteSelToDBExecute(Sender: TObject);
+var
+  Node: TcxTreeListNode;
+  TmpStr: string;
+  rCount: Integer;
+  DBPath: string;
+  SQLiteDB: TSQLite3DataBase;
+  SQLiteStmt: TSQLite3Statement;
+begin
+  Node := cxTLst_Info.FocusedNode;
+  if not Assigned(Node) then Exit;
+
+  rCount := 0;
+
+  TmpStr := Node.Values[cxtrlstclmn_Info.ItemIndex];
+
+  case DBFlag of
+    dbSQLite:
+    begin
+      DBPath := ExtractFilePath(ParamStr(0)) + 'Data.db';
+
+      SQLiteDB := TSQLite3Database.Create;
+      try
+        if not FileExists(DBPath) then
+        begin
+          SQLiteDB.Open(DBPath);
+          SQLiteDB.Execute('CREATE TABLE SYSUSER(USERNAME TEXT, USERPASS TEXT)');
+          SQLiteDB.Execute('CREATE TABLE SCANINFO(BARCODE TEXT)');
+
+          SQLiteStmt := SQLiteDB.Prepare('INSERT INTO SYSUSER (USERNAME, USERPASS) VALUES ("admin", "admin")');
+          try
+            SQLiteStmt.StepAndReset;
+          finally
+            SQLiteStmt.Free;
+          end;
+
+          SQLiteDB.Close;
+        end;
+
+        SQLiteDB.Open(DBPath);
+
+        SQLiteStmt := SQLiteDB.Prepare('INSERT INTO SCANINFO (BARCODE) VALUES (?)');
+        try
+          SQLiteStmt.BindText(1, TmpStr);
+          rCount := SQLiteStmt.StepAndReset;
+        finally
+          SQLiteStmt.Free;
+        end;
+
+      finally
+        SQLiteDB.Free;
+      end;
+    end;
+
+    dbMYSQL:
+    begin
+      try
+        conMySQL.Open;
+      except
+        ShowMessage('无法连接MySQL数据库！');
+        Exit;
+      end;
+
+      qryMySQL.SQL.Clear;
+      qryMySQL.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
+      rCount := qryMySQL.ExecSQL;
+    end;
+  end;
+
+  if rCount > 0 then
+    dxStatusBar.Panels[1].Text := '写入数据库成功！'
+  else
+    dxStatusBar.Panels[1].Text := '写入数据库失败！';
+end;
+
+procedure TfrmKeyHook.acWriteSelToDBUpdate(Sender: TObject);
+begin
+  mniWriteSelToDB.Enabled := cxTLst_Info.FocusedNode <> nil;
+  DelSelectItem.Enabled := cxTLst_Info.FocusedNode <> nil;
+end;
+
+procedure TfrmKeyHook.cxTLst_InfoChange(Sender: TObject);
+begin
+  Self.ClearAll.Enabled := cxTLst_Info.Count <> 0;
+  Btn_WriteToDB.Enabled := cxTLst_Info.Count <> 0;
+end;
+
+procedure TfrmKeyHook.dxbrbtn_ExitClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TfrmKeyHook.dxbrbtn_McSkinClick(Sender: TObject);
+begin
+  ChangeSkin('McSkin');
+end;
+
+procedure TfrmKeyHook.dxbrbtn_PumpkinClick(Sender: TObject);
+begin
+  ChangeSkin('Pumpkin');
 end;
 
 end.

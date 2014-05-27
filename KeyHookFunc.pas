@@ -7,6 +7,9 @@ uses
   ImgList, Menus, ShellApi, ExtCtrls, StdCtrls, Dialogs, TLHelp32, strutils, Buttons;
 
 type
+  //数据库类型
+  TDBFlag = (dbSQLite, dbMYSQL);
+
   //进程信息类
   TProcessInfo = record
     ExeFile: string;
@@ -50,6 +53,7 @@ type
 var
   SysUser: TSysUser;
   DBConn: TDBConn;
+  DBFlag: TDBFlag;
 
 implementation
 
