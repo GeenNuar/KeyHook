@@ -158,37 +158,6 @@ begin
   LoginForm := TLoginForm.Create(nil);
   LoginForm.ShowModal;
   Self.Visible := True;
-  (*
-  ConnADO := TADOConnection.Create(nil);
-  DsADO := TADODataSet.Create(nil);
-  ConnADO.LoginPrompt := False;
-  with ConnADO do
-  begin
-    Close;
-    ConnectionString := ('DRIVER={MySQL ODBC 5.2 Unicode Driver}; '+
-      'SERVER=' + DBConn.DBSvr + '; DATABASE=' + DBConn.DBName +'; USER=' +
-      DBConn.DBUserName + '; ' + 'PASSWORD=' + DBConn.DBUserPass + '; PORT=' +
-      DBConn.DBPort + '; OPTION=3; ');
-    ConnADO.Open;
-    DsADO.Connection := ConnADO;
-    DsADO.CommandText := 'select * from sysuser where username = "' + SysUser.UserName + '"';
-    DsADO.Open;
-    DsADO.Active := True;
-    DsADO.Refresh;
-    TmpStr := dsMySQL.Lookup('username', SysUser.UserName, 'userpass');
-    if TmpStr = SysUser.UserPass then
-      ShowMessage('登陆成功！');
-    try
-
-      Open;
-      Application.MessageBox( '连接成功！', '提示 ',MB_ICONINFORMATION);
-
-    except
-        Application.MessageBox( '无法连接数据库服务器.请与管理员联系 ', '提示 ',MB_ICONINFORMATION);
-    end;
-
-  end;
-  *)
   {
   Registry_Key := TRegistry.Create();
   Registry_Key.RootKey := HKEY_LOCAL_MACHINE;
@@ -486,7 +455,8 @@ begin
         111: Node.Values[cxtrlstclmn_Info.ItemIndex] := '/';
         144: Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Num Lock]';
 
-        112..123: //F1-F12
+        //F1-F12
+        112..123:
              Node.Values[cxtrlstclmn_Info.ItemIndex] := '[F' + IntToStr(I - 111) + ']';
 
         186: if GetKeyState(VK_SHIFT) < 0 then
