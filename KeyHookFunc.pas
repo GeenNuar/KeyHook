@@ -81,11 +81,11 @@ begin
 
   if I < 1 then
   begin
-    Result := ('notexist');
+    Result := ('NOTEXIST');
   end
   else
   begin
-    Result := ('exist');
+    Result := ('EXIST');
   end;
 end;
 
@@ -96,5 +96,6 @@ initialization
 finalization
   SysUser.Free;
   DBConn.Free;
+  
 end.
 
