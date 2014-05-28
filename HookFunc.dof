@@ -101,7 +101,7 @@ DebugSourceDirs=
 UsePackages=0
 [Parameters]
 RunParams=
-HostApplication=
+HostApplication=F:\RAD Studio\Projects\keyhook\Bin\KeyHook.exe
 Launcher=
 UseLauncher=0
 DebugCWD=
