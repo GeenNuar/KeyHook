@@ -10,6 +10,10 @@ type
   //数据库类型
   TDBFlag = (dbSQLite, dbMYSQL);
 
+  //键盘按键捕获方式: cfDefault采用全局钩子捕获按键(实时截取按键事件信息)
+  //cfNumber只捕获数字按键, cfAll捕获所有按键(这两种方式每隔1MS检测下键盘按键状态)
+  TCaptureFlag = (cfDefault, cfNumber, cfAll);
+
   //进程信息类
   TProcessInfo = record
     ExeFile: string;
@@ -54,6 +58,7 @@ var
   SysUser: TSysUser;
   DBConn: TDBConn;
   DBFlag: TDBFlag;
+  CPFlag: TCaptureFlag;
 
 implementation
 

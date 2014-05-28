@@ -12,7 +12,7 @@ uses
   cxStyles, cxTL, cxTextEdit, cxTLdxBarBuiltInMenu, cxInplaceContainer,
   DBClient, SimpleDS, ActnList, dxSkinsdxStatusBarPainter, dxStatusBar,
   cxContainer, cxEdit, dxLayoutcxEditAdapters, cxMaskEdit, cxSpinEdit,
-  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses;
+  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses, cxDropDownEdit;
 
 type
   TfrmKeyHook = class(TForm)
@@ -60,6 +60,8 @@ type
     dxbrbtn_McSkin: TdxBarButton;
     dxbrbtn_Pumpkin: TdxBarButton;
     acRecordKeysWithHookDLL: TAction;
+    cxcmbx: TcxComboBox;
+    dxlytm_cxcmbox: TdxLayoutItem;
     procedure Timer_KeyRecTimer(Sender: TObject);
     procedure Timer_SaveToTxTTimer(Sender: TObject);
     procedure Timer_ThreadTimer(Sender: TObject);
@@ -83,6 +85,7 @@ type
     procedure dxbrbtn_McSkinClick(Sender: TObject);
     procedure dxbrbtn_PumpkinClick(Sender: TObject);
     procedure acRecordKeysWithHookDLLExecute(Sender: TObject);
+    procedure cxcmbxPropertiesChange(Sender: TObject);
   private
     { Private declarations }
     procedure ChangeSkin(SkinName: string);
@@ -117,14 +120,19 @@ var
 
 procedure TfrmKeyHook.Timer_KeyRecTimer(Sender: TObject);
 begin
-  //记录所有按键
-  actRecordKeysExecute(nil);
+  case CPFlag of
+    //采用全局钩子函数获取键盘按键信息
+    cfDefault:
+      acRecordKeysWithHookDLLExecute(nil);
 
-  //只记录数字按键
-  //actRecordNumKeysExecute(nil);
+    //只记录数字按键
+    cfNumber:
+      actRecordNumKeysExecute(nil);
 
-  //采用全局钩子函数获取键盘按键信息
-  //acRecordKeysWithHookDLLExecute(nil);
+    //记录所有按键
+    cfAll:
+      actRecordKeysExecute(nil);
+  end;
 end;
 
 procedure TfrmKeyHook.Timer_SaveToTxTTimer(Sender: TObject);
@@ -761,6 +769,18 @@ begin
 
   KeyCount := GetKeyCount;
 
+end;
+
+procedure TfrmKeyHook.cxcmbxPropertiesChange(Sender: TObject);
+begin
+  case cxcmbx.ItemIndex of
+    0:
+      CPFlag := cfDefault;
+    1:
+      CPFlag := cfNumber;
+    2:
+      CPFlag := cfAll;
+  end;
 end;
 
 end.
