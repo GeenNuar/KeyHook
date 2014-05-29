@@ -123,6 +123,8 @@ Private=0
 DLL=0
 Locale=2052
 CodePage=936
+[Version Info Keys]
+FileVersion=1.0.0.0
 [HistoryLists\hlConditionals]
 Count=1
 Item0=EUREKALOG;EUREKALOG_VER6

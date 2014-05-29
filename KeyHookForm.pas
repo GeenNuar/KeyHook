@@ -80,8 +80,6 @@ type
     procedure Btn_StartClick(Sender: TObject);
     procedure Btn_StopClick(Sender: TObject);
     procedure DelSelectItemClick(Sender: TObject);
-    procedure cxTLst_InfoFocusedNodeChanged(Sender: TcxCustomTreeList;
-      APrevFocusedNode, AFocusedNode: TcxTreeListNode);
     procedure ClearAllClick(Sender: TObject);
     procedure Btn_WriteToDBClick(Sender: TObject);
     procedure actRecordNumKeysExecute(Sender: TObject);
@@ -232,19 +230,19 @@ end;
 
 procedure TfrmKeyHook.DelSelectItemClick(Sender: TObject);
 var
+  I: Integer;
+  Next: Integer;
   Node: TcxTreeListNode;
 begin
   Node := cxTLst_Info.FocusedNode;
   if not Assigned(Node) then Exit;
 
+  Next := Node.Index;
   Node.Delete;
-end;
 
-procedure TfrmKeyHook.cxTLst_InfoFocusedNodeChanged(
-  Sender: TcxCustomTreeList; APrevFocusedNode,
-  AFocusedNode: TcxTreeListNode);
-begin
-  //自动更正序号
+  for I := Next to cxTLst_Info.Count - 1 do
+    cxTLst_Info.Items[I].Values[cxtrlstclmn_ID.ItemIndex] :=
+      cxTLst_Info.Items[I].Index + 1;
 end;
 
 procedure TfrmKeyHook.ClearAllClick(Sender: TObject);
