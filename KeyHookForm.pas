@@ -118,7 +118,7 @@ uses
   function EnableKeyHook: Bool; external 'HookFunc.DLL';
   function DisableKeyHook: Bool; external 'HookFunc.DLL';
   function GetKeyCount: Integer; external 'HookFunc.DLL';
-  function GetKey(Index: Integer): Char; external 'HookFunc.DLL';
+  function GetKey(Index: Integer): ShortString; external 'HookFunc.DLL';
   procedure ClearKeyString; external 'HookFunc.DLL';
 
 var
@@ -206,31 +206,28 @@ end;
 
 procedure TfrmKeyHook.Btn_StartClick(Sender: TObject);
 begin
-  //Timer_KeyRec.Enabled := True;
-  if EnableKeyHook then
-  begin
-    Timer_KeyRec.Enabled := True;
+  Timer_KeyRec.Enabled := True;
 
-    dxStatusBar.Panels[1].Text := '键盘按键记录正在进行...';
+  dxStatusBar.Panels[1].Text := '键盘按键记录正在进行...';
 
-    Btn_Start.Enabled := False;
-    Btn_Stop.Enabled := True;
-  end;
+  Btn_Start.Enabled := False;
+  Btn_Stop.Enabled := True;
+
+  if CPFlag = cfDefault then
+    EnableKeyHook;
 end;
 
 procedure TfrmKeyHook.Btn_StopClick(Sender: TObject);
 begin
-  //Timer_KeyRec.Enabled := False;
+  Timer_KeyRec.Enabled := False;
 
-  if DisableKeyHook then
-  begin
-    Timer_KeyRec.Enabled := False;
+  dxStatusBar.Panels[1].Text := '键盘按键记录已经停止';
 
-    dxStatusBar.Panels[1].Text := '键盘按键记录已经停止';
+  Btn_Stop.Enabled := False;
+  Btn_Start.Enabled := True;
 
-    Btn_Stop.Enabled := False;
-    Btn_Start.Enabled := True;
-  end;
+  if CPFlag = cfDefault then
+    DisableKeyHook;
 end;
 
 procedure TfrmKeyHook.DelSelectItemClick(Sender: TObject);
@@ -470,7 +467,7 @@ begin
              //Number: 0..9
              Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + IntToStr(I - 96);
         106: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '*';
-        107: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '&';
+        107: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '+';
         109: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '-';
         110: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '.';
         111: Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + '/';
@@ -792,6 +789,11 @@ begin
     2:
       CPFlag := cfAll;
   end;
+
+  if CPFlag = cfDefault then
+    EnableKeyHook
+  else
+    DisableKeyHook;
 end;
 
 end.
