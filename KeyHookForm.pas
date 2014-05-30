@@ -105,7 +105,7 @@ uses
   function EnableKeyHook: Bool; external 'HookFunc.DLL';
   function DisableKeyHook: Bool; external 'HookFunc.DLL';
   function GetKeyCount: Integer; external 'HookFunc.DLL';
-  function GetKey(Index: Integer): string; external 'HookFunc.DLL';
+  function GetKey(Index: Integer): ShortString; external 'HookFunc.DLL';
   procedure ClearKeyString; external 'HookFunc.DLL';
 
 var
@@ -742,8 +742,8 @@ end;
 procedure TfrmKeyHook.acRecordKeysWithHookDLLExecute(Sender: TObject);
 var
   I: Integer;
-  OldStr: string;
-  NewStr: string;
+  OldStr: ShortString;
+  NewStr: ShortString;
   Node: TcxTreeListNode;
 begin
   for I := KeyCount to GetKeyCount - 1 do

@@ -11,8 +11,6 @@ library HookFunc;
   using PChar or ShortString parameters. }
 
 uses
-  ShareMem,
-  ExceptionLog,
   U_HookDLL in 'U_HookDLL.pas';
 
 begin

