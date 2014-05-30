@@ -8,265 +8,272 @@
   resources were bound to the produced executable.
 */
 
-#define dxStatusBar_cxSKeyboardStatePanelStyle 64496
-#define dxStatusBar_cxSStateIndicatorPanelStyle 64497
-#define dxStatusBar_cxSCantDeleteAncestor 64498
-#define dxBarStrs_dxSBAR_BUTTONDEFAULTACTIONDESCRIPTION 64512
-#define dxBarStrs_SBlob 64513
-#define dxBarStrs_dxSBAR_APPMENUOUTSIDERIBBON 64514
-#define dxBarStrs_dxSBAR_GDIPLUSNEEDED 64515
-#define dxBarStrs_dxSBAR_RIBBONMORETHANONE 64516
-#define dxBarStrs_dxSBAR_RIBBONBADOWNER 64517
-#define dxBarStrs_dxSBAR_RIBBONBADPARENT 64518
-#define dxBarStrs_dxSBAR_RIBBONADDTAB 64519
-#define dxBarStrs_dxSBAR_RIBBONDELETETAB 64520
-#define dxBarStrs_dxSBAR_RIBBONADDEMPTYGROUP 64521
-#define dxBarStrs_dxSBAR_RIBBONADDGROUPWITHTOOLBAR 64522
-#define dxBarStrs_dxSBAR_RIBBONDELETEGROUP 64523
-#define dxBarStrs_dxSBAR_ACCESSIBILITY_RIBBONNAME 64524
-#define dxBarStrs_dxSBAR_ACCESSIBILITY_RIBBONTABCOLLECTIONNAME 64525
-#define dxStatusBar_cxSTextPanelStyle 64526
-#define dxStatusBar_cxSContainerPanelStyle 64527
-#define dxBarStrs_dxSBAR_MODIFY 64528
-#define dxBarStrs_dxSBAR_PERSMENUSANDTOOLBARS 64529
-#define dxBarStrs_dxSBAR_MENUSSHOWRECENTITEMS 64530
-#define dxBarStrs_dxSBAR_SHOWFULLMENUSAFTERDELAY 64531
-#define dxBarStrs_dxSBAR_RESETUSAGEDATA 64532
-#define dxBarStrs_dxSBAR_OTHEROPTIONS 64533
-#define dxBarStrs_dxSBAR_LARGEICONS 64534
-#define dxBarStrs_dxSBAR_HINTOPT1 64535
-#define dxBarStrs_dxSBAR_HINTOPT2 64536
-#define dxBarStrs_dxSBAR_MENUANIMATIONS 64537
-#define dxBarStrs_dxSBAR_MENUANIM1 64538
-#define dxBarStrs_dxSBAR_MENUANIM2 64539
-#define dxBarStrs_dxSBAR_MENUANIM3 64540
-#define dxBarStrs_dxSBAR_MENUANIM4 64541
-#define dxBarStrs_dxSBAR_MENUANIM5 64542
-#define dxBarStrs_dxSBAR_CANTFINDBARMANAGERFORSTATUSBAR 64543
-#define dxBarStrs_dxSBAR_REMOVEFROMQAT 64544
-#define dxBarStrs_dxSBAR_CUSTOMIZEQAT 64545
-#define dxBarStrs_dxSBAR_ADDGALLERYNAME 64546
-#define dxBarStrs_dxSBAR_SHOWALLGALLERYGROUPS 64547
-#define dxBarStrs_dxSBAR_HIDEALLGALLERYGROUPS 64548
-#define dxBarStrs_dxSBAR_CLEARGALLERYFILTER 64549
-#define dxBarStrs_dxSBAR_GALLERYEMPTYFILTERCAPTION 64550
-#define dxBarStrs_dxSBAR_TOOLBARNEWNAME 64551
-#define dxBarStrs_dxSBAR_CATEGORYADD 64552
-#define dxBarStrs_dxSBAR_CATEGORYINSERT 64553
-#define dxBarStrs_dxSBAR_CATEGORYRENAME 64554
-#define dxBarStrs_dxSBAR_TOOLBARADD 64555
-#define dxBarStrs_dxSBAR_TOOLBARRENAME 64556
-#define dxBarStrs_dxSBAR_CATEGORYNAME 64557
-#define dxBarStrs_dxSBAR_TOOLBARNAME 64558
-#define dxBarStrs_dxSBAR_CUSTOMIZINGFORM 64559
-#define dxBarStrs_dxSBAR_DESCRIPTION 64560
-#define dxBarStrs_dxSBAR_MDIMINIMIZE 64561
-#define dxBarStrs_dxSBAR_MDIRESTORE 64562
-#define dxBarStrs_dxSBAR_MDICLOSE 64563
-#define dxBarStrs_dxSBAR_CUSTOMIZE 64564
-#define dxBarStrs_dxSBAR_ADDREMOVEBUTTONS 64565
-#define dxBarStrs_dxSBAR_MOREBUTTONS 64566
-#define dxBarStrs_dxSBAR_RESETTOOLBAR 64567
-#define dxBarStrs_dxSBAR_EXPAND 64568
-#define dxBarStrs_dxSBAR_DRAGTOMAKEMENUFLOAT 64569
-#define dxBarStrs_dxSBAR_MORECOMMANDS 64570
-#define dxBarStrs_dxSBAR_SHOWBELOWRIBBON 64571
-#define dxBarStrs_dxSBAR_SHOWABOVERIBBON 64572
-#define dxBarStrs_dxSBAR_MINIMIZERIBBON 64573
-#define dxBarStrs_dxSBAR_ADDTOQAT 64574
-#define dxBarStrs_dxSBAR_ADDTOQATITEMNAME 64575
-#define dxBarStrs_dxSBAR_INSERTEX 64576
-#define dxBarStrs_dxSBAR_MOVEUP 64577
-#define dxBarStrs_dxSBAR_MOVEDOWN 64578
-#define dxBarStrs_dxSBAR_POPUPMENUEDITOR 64579
-#define dxBarStrs_dxSBAR_TABSHEET1 64580
-#define dxBarStrs_dxSBAR_TABSHEET2 64581
-#define dxBarStrs_dxSBAR_TABSHEET3 64582
-#define dxBarStrs_dxSBAR_TOOLBARS 64583
-#define dxBarStrs_dxSBAR_TNEW 64584
-#define dxBarStrs_dxSBAR_TRENAME 64585
-#define dxBarStrs_dxSBAR_TDELETE 64586
-#define dxBarStrs_dxSBAR_TRESET 64587
-#define dxBarStrs_dxSBAR_CLOSE 64588
-#define dxBarStrs_dxSBAR_CAPTION 64589
-#define dxBarStrs_dxSBAR_CATEGORIES 64590
-#define dxBarStrs_dxSBAR_COMMANDS 64591
-#define dxBarStrs_dxSBAR_CP_POSITIONMENU 64592
-#define dxBarStrs_dxSBAR_CP_VIEWLEVELSMENU 64593
-#define dxBarStrs_dxSBAR_CP_ALLVIEWLEVELS 64594
-#define dxBarStrs_dxSBAR_CP_SINGLEVIEWLEVELITEMSUFFIX 64595
-#define dxBarStrs_dxSBAR_CP_BUTTONGROUPMENU 64596
-#define dxBarStrs_dxSBAR_CP_BUTTONGROUP 64597
-#define dxBarStrs_dxSBAR_CP_BUTTONUNGROUP 64598
-#define dxBarStrs_dxSBAR_ADDEX 64599
-#define dxBarStrs_dxSBAR_RENAMEEX 64600
-#define dxBarStrs_dxSBAR_DELETE 64601
-#define dxBarStrs_dxSBAR_CLEAR 64602
-#define dxBarStrs_dxSBAR_VISIBLE 64603
-#define dxBarStrs_dxSBAR_OK 64604
-#define dxBarStrs_dxSBAR_CANCEL 64605
-#define dxBarStrs_dxSBAR_SUBMENUEDITOR 64606
-#define dxBarStrs_dxSBAR_SUBMENUEDITORCAPTION 64607
-#define dxBarStrs_dxSBAR_CP_ADDGROUPBUTTON 64608
-#define dxBarStrs_dxSBAR_CP_DELETEITEM 64609
-#define dxBarStrs_dxSBAR_CP_DELETELINK 64610
-#define dxBarStrs_dxSBAR_CP_RESET 64611
-#define dxBarStrs_dxSBAR_CP_DELETE 64612
-#define dxBarStrs_dxSBAR_CP_NAME 64613
-#define dxBarStrs_dxSBAR_CP_CAPTION 64614
-#define dxBarStrs_dxSBAR_CP_BUTTONPAINTSTYLEMENU 64615
-#define dxBarStrs_dxSBAR_CP_DEFAULTSTYLE 64616
-#define dxBarStrs_dxSBAR_CP_TEXTONLYALWAYS 64617
-#define dxBarStrs_dxSBAR_CP_TEXTONLYINMENUS 64618
-#define dxBarStrs_dxSBAR_CP_IMAGEANDTEXT 64619
-#define dxBarStrs_dxSBAR_CP_BEGINAGROUP 64620
-#define dxBarStrs_dxSBAR_CP_VISIBLE 64621
-#define dxBarStrs_dxSBAR_CP_MOSTRECENTLYUSED 64622
-#define dxBarStrs_dxSBAR_CP_DISTRIBUTED 64623
-#define dxBarStrs_dxSBAR_RIBBONCANTUNMERGETAB 64624
-#define dxBarStrs_dxSBAR_RIBBONONEOFTABGROUPSALREADYMERGED 64625
-#define dxBarStrs_dxSBAR_RIBBONSARENOTMERGED 64626
-#define dxBarStrs_dxSBAR_RIBBONTABSARENOTMERGED 64627
-#define dxBarStrs_dxSBAR_DEFAULTCATEGORYNAME 64628
-#define dxBarStrs_dxSBAR_NEWBUTTONCAPTION 64629
-#define dxBarStrs_dxSBAR_NEWITEMCAPTION 64630
-#define dxBarStrs_dxSBAR_NEWRIBBONGALLERYITEMCAPTION 64631
-#define dxBarStrs_dxSBAR_NEWSEPARATORCAPTION 64632
-#define dxBarStrs_dxSBAR_NEWSUBITEMCAPTION 64633
-#define dxBarStrs_dxSBAR_CP_ADDSUBITEM 64634
-#define dxBarStrs_dxSBAR_CP_ADDBUTTON 64635
-#define dxBarStrs_dxSBAR_CP_ADDLARGEBUTTON 64636
-#define dxBarStrs_dxSBAR_CP_ADDSEPARATOR 64637
-#define dxBarStrs_dxSBAR_CP_ADDDXITEM 64638
-#define dxBarStrs_dxSBAR_CP_ADDCXITEM 64639
-#define dxBarStrs_dxSBAR_CANTPLACESEPARATOR 64640
-#define dxBarStrs_dxSBAR_CANTPLACERIBBONGALLERY 64641
-#define dxBarStrs_dxSBAR_CANTPLACESKINCHOOSERGALLERY 64642
-#define dxBarStrs_dxSBAR_CANTMERGEBARMANAGER 64643
-#define dxBarStrs_dxSBAR_CANTMERGETOOLBAR 64644
-#define dxBarStrs_dxSBAR_CANTMERGEWITHMERGEDTOOLBAR 64645
-#define dxBarStrs_dxSBAR_CANTUNMERGETOOLBAR 64646
-#define dxBarStrs_dxSBAR_ONEOFTOOLBARSALREADYMERGED 64647
-#define dxBarStrs_dxSBAR_ONEOFTOOLBARSHASMERGEDTOOLBARS 64648
-#define dxBarStrs_dxSBAR_TOOLBARHASMERGEDTOOLBARS 64649
-#define dxBarStrs_dxSBAR_TOOLBARSALREADYMERGED 64650
-#define dxBarStrs_dxSBAR_TOOLBARSARENOTMERGED 64651
-#define dxBarStrs_dxSBAR_RIBBONCANTMERGE 64652
-#define dxBarStrs_dxSBAR_RIBBONCANTMERGETAB 64653
-#define dxBarStrs_dxSBAR_RIBBONCANTMERGEWITHOUTBARMANAGER 64654
-#define dxBarStrs_dxSBAR_RIBBONCANTUNMERGE 64655
-#define dxBarStrs_dxSBAR_WANTTORESETUSAGEDATA 64656
-#define dxBarStrs_dxSBAR_BARMANAGERMORETHANONE 64657
-#define dxBarStrs_dxSBAR_BARMANAGERBADOWNER 64658
-#define dxBarStrs_dxSBAR_NOBARMANAGERS 64659
-#define dxBarStrs_dxSBAR_WANTTODELETETOOLBAR 64660
-#define dxBarStrs_dxSBAR_WANTTODELETETOOLBARS 64661
-#define dxBarStrs_dxSBAR_WANTTODELETECATEGORY 64662
-#define dxBarStrs_dxSBAR_WANTTOCLEARCOMMANDS 64663
-#define dxBarStrs_dxSBAR_RECURSIVEMENUS 64664
-#define dxBarStrs_dxSBAR_COMMANDNAMECANNOTBEBLANK 64665
-#define dxBarStrs_dxSBAR_TOOLBAREXISTS 64666
-#define dxBarStrs_dxSBAR_RECURSIVEGROUPS 64667
-#define dxBarStrs_dxSBAR_WANTTODELETECOMPLEXITEM 64668
-#define dxBarStrs_dxSBAR_CANTPLACEQUICKACCESSGROUPBUTTON 64669
-#define dxBarStrs_dxSBAR_QUICKACCESSGROUPBUTTONTOOLBARNOTDOCKEDINRIBBON 64670
-#define dxBarStrs_dxSBAR_QUICKACCESSALREADYHASGROUPBUTTON 64671
-#define dxBarStrs_dxSBAR_COLOR_STR_13 64672
-#define dxBarStrs_dxSBAR_COLOR_STR_14 64673
-#define dxBarStrs_dxSBAR_COLOR_STR_15 64674
-#define dxBarStrs_dxSBAR_COLORAUTOTEXT 64675
-#define dxBarStrs_dxSBAR_COLORCUSTOMTEXT 64676
-#define dxBarStrs_dxSBAR_DATETODAY 64677
-#define dxBarStrs_dxSBAR_DATECLEAR 64678
-#define dxBarStrs_dxSBAR_DATEDIALOGCAPTION 64679
-#define dxBarStrs_dxSBAR_TREEVIEWDIALOGCAPTION 64680
-#define dxBarStrs_dxSBAR_IMAGEDIALOGCAPTION 64681
-#define dxBarStrs_dxSBAR_IMAGEINDEX 64682
-#define dxBarStrs_dxSBAR_IMAGETEXT 64683
-#define dxBarStrs_dxSBAR_PLACEFORCONTROL 64684
-#define dxBarStrs_dxSBAR_CANTASSIGNCONTROL 64685
-#define dxBarStrs_dxSBAR_CXEDITVALUEDIALOGCAPTION 64686
-#define dxBarStrs_dxSBAR_WANTTORESETTOOLBAR 64687
-#define dxBarStrs_dxSBAR_LOOKUPDIALOGCANCEL 64688
-#define dxBarStrs_dxSBAR_DIALOGOK 64689
-#define dxBarStrs_dxSBAR_DIALOGCANCEL 64690
-#define dxBarStrs_dxSBAR_COLOR_STR_0 64691
-#define dxBarStrs_dxSBAR_COLOR_STR_1 64692
-#define dxBarStrs_dxSBAR_COLOR_STR_2 64693
-#define dxBarStrs_dxSBAR_COLOR_STR_3 64694
-#define dxBarStrs_dxSBAR_COLOR_STR_4 64695
-#define dxBarStrs_dxSBAR_COLOR_STR_5 64696
-#define dxBarStrs_dxSBAR_COLOR_STR_6 64697
-#define dxBarStrs_dxSBAR_COLOR_STR_7 64698
-#define dxBarStrs_dxSBAR_COLOR_STR_8 64699
-#define dxBarStrs_dxSBAR_COLOR_STR_9 64700
-#define dxBarStrs_dxSBAR_COLOR_STR_10 64701
-#define dxBarStrs_dxSBAR_COLOR_STR_11 64702
-#define dxBarStrs_dxSBAR_COLOR_STR_12 64703
-#define cxTLStrs_scxTreeListHorizontalAlignmentLeftMenuItem 64704
-#define cxTLStrs_scxTreeListHorizontalAlignmentCenterMenuItem 64705
-#define cxTLStrs_scxTreeListHorizontalAlignmentRightMenuItem 64706
-#define cxTLStrs_scxTreeListVerticalAlignmentMenuItem 64707
-#define cxTLStrs_scxTreeListVerticalAlignmentBottomMenuItem 64708
-#define cxTLStrs_scxTreeListVerticalAlignmentCenterMenuItem 64709
-#define cxTLStrs_scxTreeListVerticalAlignmentTopMenuItem 64710
-#define cxTLStrs_scxTreeListBestFitMenuItem 64711
-#define cxTLStrs_scxTreeListBestFitAllColumnsMenuItem 64712
-#define cxTLStrs_scxOperationNotSupported 64713
-#define cxTLStrs_scxTreeListDeletingFocusedConfirmationText 64714
-#define cxTLStrs_scxTreeListDeletingConfirmationCaption 64715
-#define cxTLStrs_scxExportNotVisibleControl 64716
-#define OleConst_sNoRunningObject 64717
-#define dxBarStrs_dxSBAR_LOOKUPDIALOGCAPTION 64718
-#define dxBarStrs_dxSBAR_LOOKUPDIALOGOK 64719
-#define cxTLStrs_scxTreeListMinMenuItem 64720
-#define cxTLStrs_scxTreeListMaxMenuItem 64721
-#define cxTLStrs_scxTreeListCountMenuItem 64722
-#define cxTLStrs_scxTreeListAvgMenuItem 64723
-#define cxTLStrs_scxTreeListAllNodesMenuItem 64724
-#define cxTLStrs_scxTreeListSortAscendingMenuItem 64725
-#define cxTLStrs_scxTreeListSortDescendingMenuItem 64726
-#define cxTLStrs_scxTreeListClearSortingMenuItem 64727
-#define cxTLStrs_scxTreeListFooterMenuItem 64728
-#define cxTLStrs_scxTreeListGroupFootersMenuItem 64729
-#define cxTLStrs_scxTreeListGroupFootersInvisibleMenuItem 64730
-#define cxTLStrs_scxTreeListGroupFootersVisibleWhenExpandedMenuItem 64731
-#define cxTLStrs_scxTreeListGroupFootersAlwaysVisibleMenuItem 64732
-#define cxTLStrs_scxTreeListRemoveThisColumnMenuItem 64733
-#define cxTLStrs_scxTreeListFieldChooserMenuItem 64734
-#define cxTLStrs_scxTreeListHorizontalAlignmentMenuItem 64735
-#define SqlConst_SMULTIPLETRANSNOTENABLED 64736
-#define cxTLStrs_scxTLPrefixName 64737
-#define cxTLStrs_scxIndexOutOfBounds 64738
-#define cxTLStrs_scxInvalidStreamFormat 64739
-#define cxTLStrs_scxMultiSelectRequired 64740
-#define cxTLStrs_scxDesignerCaption 64741
-#define cxTLStrs_scxBands 64742
-#define cxTLStrs_scxColumns 64743
-#define cxTLStrs_scxCreateAllItems 64744
-#define cxTLStrs_scxDeleteAllItems 64745
-#define cxTLStrs_scxItems 64746
-#define cxTLStrs_scxCustomizeCaption 64747
-#define cxTLStrs_scxColumnsCaption 64748
-#define cxTLStrs_scxBandsCaption 64749
-#define cxTLStrs_scxTreeListNoneMenuItem 64750
-#define cxTLStrs_scxTreeListSumMenuItem 64751
-#define SqlConst_SINVALIDHNDL 64752
-#define SqlConst_SINVALIDTIME 64753
-#define SqlConst_SNOTSUPPORTED 64754
-#define SqlConst_SINVALIDXLATION 64755
-#define SqlConst_SINVALIDPARAM 64756
-#define SqlConst_SOUTOFRANGE 64757
-#define SqlConst_SSQLPARAMNOTSET 64758
-#define SqlConst_SEOF 64759
-#define SqlConst_SINVALIDUSRPASS 64760
-#define SqlConst_SINVALIDPRECISION 64761
-#define SqlConst_SINVALIDLEN 64762
-#define SqlConst_SINVALIDXISOLEVEL 64763
-#define SqlConst_SINVALIDTXNID 64764
-#define SqlConst_SDUPLICATETXNID 64765
-#define SqlConst_SDRIVERRESTRICTED 64766
-#define SqlConst_SLOCALTRANSACTIVE 64767
+#define dxBarStrs_dxSBAR_RIBBONADDEMPTYGROUP 64496
+#define dxBarStrs_dxSBAR_RIBBONADDGROUPWITHTOOLBAR 64497
+#define dxBarStrs_dxSBAR_RIBBONDELETEGROUP 64498
+#define dxBarStrs_dxSBAR_ACCESSIBILITY_RIBBONNAME 64499
+#define dxBarStrs_dxSBAR_ACCESSIBILITY_RIBBONTABCOLLECTIONNAME 64500
+#define dxStatusBar_cxSTextPanelStyle 64501
+#define dxStatusBar_cxSContainerPanelStyle 64502
+#define dxStatusBar_cxSKeyboardStatePanelStyle 64503
+#define dxStatusBar_cxSStateIndicatorPanelStyle 64504
+#define dxStatusBar_cxSCantDeleteAncestor 64505
+#define dxBarStrs_dxSBAR_MENUANIMATIONS 64512
+#define dxBarStrs_dxSBAR_MENUANIM1 64513
+#define dxBarStrs_dxSBAR_MENUANIM2 64514
+#define dxBarStrs_dxSBAR_MENUANIM3 64515
+#define dxBarStrs_dxSBAR_MENUANIM4 64516
+#define dxBarStrs_dxSBAR_MENUANIM5 64517
+#define dxBarStrs_dxSBAR_CANTFINDBARMANAGERFORSTATUSBAR 64518
+#define dxBarStrs_dxSBAR_BUTTONDEFAULTACTIONDESCRIPTION 64519
+#define dxBarStrs_SBlob 64520
+#define dxBarStrs_dxSBAR_APPMENUOUTSIDERIBBON 64521
+#define dxBarStrs_dxSBAR_GDIPLUSNEEDED 64522
+#define dxBarStrs_dxSBAR_RIBBONMORETHANONE 64523
+#define dxBarStrs_dxSBAR_RIBBONBADOWNER 64524
+#define dxBarStrs_dxSBAR_RIBBONBADPARENT 64525
+#define dxBarStrs_dxSBAR_RIBBONADDTAB 64526
+#define dxBarStrs_dxSBAR_RIBBONDELETETAB 64527
+#define dxBarStrs_dxSBAR_CATEGORYINSERT 64528
+#define dxBarStrs_dxSBAR_CATEGORYRENAME 64529
+#define dxBarStrs_dxSBAR_TOOLBARADD 64530
+#define dxBarStrs_dxSBAR_TOOLBARRENAME 64531
+#define dxBarStrs_dxSBAR_CATEGORYNAME 64532
+#define dxBarStrs_dxSBAR_TOOLBARNAME 64533
+#define dxBarStrs_dxSBAR_CUSTOMIZINGFORM 64534
+#define dxBarStrs_dxSBAR_MODIFY 64535
+#define dxBarStrs_dxSBAR_PERSMENUSANDTOOLBARS 64536
+#define dxBarStrs_dxSBAR_MENUSSHOWRECENTITEMS 64537
+#define dxBarStrs_dxSBAR_SHOWFULLMENUSAFTERDELAY 64538
+#define dxBarStrs_dxSBAR_RESETUSAGEDATA 64539
+#define dxBarStrs_dxSBAR_OTHEROPTIONS 64540
+#define dxBarStrs_dxSBAR_LARGEICONS 64541
+#define dxBarStrs_dxSBAR_HINTOPT1 64542
+#define dxBarStrs_dxSBAR_HINTOPT2 64543
+#define dxBarStrs_dxSBAR_DRAGTOMAKEMENUFLOAT 64544
+#define dxBarStrs_dxSBAR_MORECOMMANDS 64545
+#define dxBarStrs_dxSBAR_SHOWBELOWRIBBON 64546
+#define dxBarStrs_dxSBAR_SHOWABOVERIBBON 64547
+#define dxBarStrs_dxSBAR_MINIMIZERIBBON 64548
+#define dxBarStrs_dxSBAR_ADDTOQAT 64549
+#define dxBarStrs_dxSBAR_ADDTOQATITEMNAME 64550
+#define dxBarStrs_dxSBAR_REMOVEFROMQAT 64551
+#define dxBarStrs_dxSBAR_CUSTOMIZEQAT 64552
+#define dxBarStrs_dxSBAR_ADDGALLERYNAME 64553
+#define dxBarStrs_dxSBAR_SHOWALLGALLERYGROUPS 64554
+#define dxBarStrs_dxSBAR_HIDEALLGALLERYGROUPS 64555
+#define dxBarStrs_dxSBAR_CLEARGALLERYFILTER 64556
+#define dxBarStrs_dxSBAR_GALLERYEMPTYFILTERCAPTION 64557
+#define dxBarStrs_dxSBAR_TOOLBARNEWNAME 64558
+#define dxBarStrs_dxSBAR_CATEGORYADD 64559
+#define dxBarStrs_dxSBAR_TRENAME 64560
+#define dxBarStrs_dxSBAR_TDELETE 64561
+#define dxBarStrs_dxSBAR_TRESET 64562
+#define dxBarStrs_dxSBAR_CLOSE 64563
+#define dxBarStrs_dxSBAR_CAPTION 64564
+#define dxBarStrs_dxSBAR_CATEGORIES 64565
+#define dxBarStrs_dxSBAR_COMMANDS 64566
+#define dxBarStrs_dxSBAR_DESCRIPTION 64567
+#define dxBarStrs_dxSBAR_MDIMINIMIZE 64568
+#define dxBarStrs_dxSBAR_MDIRESTORE 64569
+#define dxBarStrs_dxSBAR_MDICLOSE 64570
+#define dxBarStrs_dxSBAR_CUSTOMIZE 64571
+#define dxBarStrs_dxSBAR_ADDREMOVEBUTTONS 64572
+#define dxBarStrs_dxSBAR_MOREBUTTONS 64573
+#define dxBarStrs_dxSBAR_RESETTOOLBAR 64574
+#define dxBarStrs_dxSBAR_EXPAND 64575
+#define dxBarStrs_dxSBAR_DELETE 64576
+#define dxBarStrs_dxSBAR_CLEAR 64577
+#define dxBarStrs_dxSBAR_VISIBLE 64578
+#define dxBarStrs_dxSBAR_OK 64579
+#define dxBarStrs_dxSBAR_CANCEL 64580
+#define dxBarStrs_dxSBAR_SUBMENUEDITOR 64581
+#define dxBarStrs_dxSBAR_SUBMENUEDITORCAPTION 64582
+#define dxBarStrs_dxSBAR_INSERTEX 64583
+#define dxBarStrs_dxSBAR_MOVEUP 64584
+#define dxBarStrs_dxSBAR_MOVEDOWN 64585
+#define dxBarStrs_dxSBAR_POPUPMENUEDITOR 64586
+#define dxBarStrs_dxSBAR_TABSHEET1 64587
+#define dxBarStrs_dxSBAR_TABSHEET2 64588
+#define dxBarStrs_dxSBAR_TABSHEET3 64589
+#define dxBarStrs_dxSBAR_TOOLBARS 64590
+#define dxBarStrs_dxSBAR_TNEW 64591
+#define dxBarStrs_dxSBAR_CP_TEXTONLYALWAYS 64592
+#define dxBarStrs_dxSBAR_CP_TEXTONLYINMENUS 64593
+#define dxBarStrs_dxSBAR_CP_IMAGEANDTEXT 64594
+#define dxBarStrs_dxSBAR_CP_BEGINAGROUP 64595
+#define dxBarStrs_dxSBAR_CP_VISIBLE 64596
+#define dxBarStrs_dxSBAR_CP_MOSTRECENTLYUSED 64597
+#define dxBarStrs_dxSBAR_CP_DISTRIBUTED 64598
+#define dxBarStrs_dxSBAR_CP_POSITIONMENU 64599
+#define dxBarStrs_dxSBAR_CP_VIEWLEVELSMENU 64600
+#define dxBarStrs_dxSBAR_CP_ALLVIEWLEVELS 64601
+#define dxBarStrs_dxSBAR_CP_SINGLEVIEWLEVELITEMSUFFIX 64602
+#define dxBarStrs_dxSBAR_CP_BUTTONGROUPMENU 64603
+#define dxBarStrs_dxSBAR_CP_BUTTONGROUP 64604
+#define dxBarStrs_dxSBAR_CP_BUTTONUNGROUP 64605
+#define dxBarStrs_dxSBAR_ADDEX 64606
+#define dxBarStrs_dxSBAR_RENAMEEX 64607
+#define dxBarStrs_dxSBAR_NEWSUBITEMCAPTION 64608
+#define dxBarStrs_dxSBAR_CP_ADDSUBITEM 64609
+#define dxBarStrs_dxSBAR_CP_ADDBUTTON 64610
+#define dxBarStrs_dxSBAR_CP_ADDLARGEBUTTON 64611
+#define dxBarStrs_dxSBAR_CP_ADDSEPARATOR 64612
+#define dxBarStrs_dxSBAR_CP_ADDDXITEM 64613
+#define dxBarStrs_dxSBAR_CP_ADDCXITEM 64614
+#define dxBarStrs_dxSBAR_CP_ADDGROUPBUTTON 64615
+#define dxBarStrs_dxSBAR_CP_DELETEITEM 64616
+#define dxBarStrs_dxSBAR_CP_DELETELINK 64617
+#define dxBarStrs_dxSBAR_CP_RESET 64618
+#define dxBarStrs_dxSBAR_CP_DELETE 64619
+#define dxBarStrs_dxSBAR_CP_NAME 64620
+#define dxBarStrs_dxSBAR_CP_CAPTION 64621
+#define dxBarStrs_dxSBAR_CP_BUTTONPAINTSTYLEMENU 64622
+#define dxBarStrs_dxSBAR_CP_DEFAULTSTYLE 64623
+#define dxBarStrs_dxSBAR_TOOLBARHASMERGEDTOOLBARS 64624
+#define dxBarStrs_dxSBAR_TOOLBARSALREADYMERGED 64625
+#define dxBarStrs_dxSBAR_TOOLBARSARENOTMERGED 64626
+#define dxBarStrs_dxSBAR_RIBBONCANTMERGE 64627
+#define dxBarStrs_dxSBAR_RIBBONCANTMERGETAB 64628
+#define dxBarStrs_dxSBAR_RIBBONCANTMERGEWITHOUTBARMANAGER 64629
+#define dxBarStrs_dxSBAR_RIBBONCANTUNMERGE 64630
+#define dxBarStrs_dxSBAR_RIBBONCANTUNMERGETAB 64631
+#define dxBarStrs_dxSBAR_RIBBONONEOFTABGROUPSALREADYMERGED 64632
+#define dxBarStrs_dxSBAR_RIBBONSARENOTMERGED 64633
+#define dxBarStrs_dxSBAR_RIBBONTABSARENOTMERGED 64634
+#define dxBarStrs_dxSBAR_DEFAULTCATEGORYNAME 64635
+#define dxBarStrs_dxSBAR_NEWBUTTONCAPTION 64636
+#define dxBarStrs_dxSBAR_NEWITEMCAPTION 64637
+#define dxBarStrs_dxSBAR_NEWRIBBONGALLERYITEMCAPTION 64638
+#define dxBarStrs_dxSBAR_NEWSEPARATORCAPTION 64639
+#define dxBarStrs_dxSBAR_COMMANDNAMECANNOTBEBLANK 64640
+#define dxBarStrs_dxSBAR_TOOLBAREXISTS 64641
+#define dxBarStrs_dxSBAR_RECURSIVEGROUPS 64642
+#define dxBarStrs_dxSBAR_WANTTODELETECOMPLEXITEM 64643
+#define dxBarStrs_dxSBAR_CANTPLACEQUICKACCESSGROUPBUTTON 64644
+#define dxBarStrs_dxSBAR_QUICKACCESSGROUPBUTTONTOOLBARNOTDOCKEDINRIBBON 64645
+#define dxBarStrs_dxSBAR_QUICKACCESSALREADYHASGROUPBUTTON 64646
+#define dxBarStrs_dxSBAR_CANTPLACESEPARATOR 64647
+#define dxBarStrs_dxSBAR_CANTPLACERIBBONGALLERY 64648
+#define dxBarStrs_dxSBAR_CANTPLACESKINCHOOSERGALLERY 64649
+#define dxBarStrs_dxSBAR_CANTMERGEBARMANAGER 64650
+#define dxBarStrs_dxSBAR_CANTMERGETOOLBAR 64651
+#define dxBarStrs_dxSBAR_CANTMERGEWITHMERGEDTOOLBAR 64652
+#define dxBarStrs_dxSBAR_CANTUNMERGETOOLBAR 64653
+#define dxBarStrs_dxSBAR_ONEOFTOOLBARSALREADYMERGED 64654
+#define dxBarStrs_dxSBAR_ONEOFTOOLBARSHASMERGEDTOOLBARS 64655
+#define dxBarStrs_dxSBAR_IMAGEDIALOGCAPTION 64656
+#define dxBarStrs_dxSBAR_IMAGEINDEX 64657
+#define dxBarStrs_dxSBAR_IMAGETEXT 64658
+#define dxBarStrs_dxSBAR_PLACEFORCONTROL 64659
+#define dxBarStrs_dxSBAR_CANTASSIGNCONTROL 64660
+#define dxBarStrs_dxSBAR_CXEDITVALUEDIALOGCAPTION 64661
+#define dxBarStrs_dxSBAR_WANTTORESETTOOLBAR 64662
+#define dxBarStrs_dxSBAR_WANTTORESETUSAGEDATA 64663
+#define dxBarStrs_dxSBAR_BARMANAGERMORETHANONE 64664
+#define dxBarStrs_dxSBAR_BARMANAGERBADOWNER 64665
+#define dxBarStrs_dxSBAR_NOBARMANAGERS 64666
+#define dxBarStrs_dxSBAR_WANTTODELETETOOLBAR 64667
+#define dxBarStrs_dxSBAR_WANTTODELETETOOLBARS 64668
+#define dxBarStrs_dxSBAR_WANTTODELETECATEGORY 64669
+#define dxBarStrs_dxSBAR_WANTTOCLEARCOMMANDS 64670
+#define dxBarStrs_dxSBAR_RECURSIVEMENUS 64671
+#define dxBarStrs_dxSBAR_COLOR_STR_6 64672
+#define dxBarStrs_dxSBAR_COLOR_STR_7 64673
+#define dxBarStrs_dxSBAR_COLOR_STR_8 64674
+#define dxBarStrs_dxSBAR_COLOR_STR_9 64675
+#define dxBarStrs_dxSBAR_COLOR_STR_10 64676
+#define dxBarStrs_dxSBAR_COLOR_STR_11 64677
+#define dxBarStrs_dxSBAR_COLOR_STR_12 64678
+#define dxBarStrs_dxSBAR_COLOR_STR_13 64679
+#define dxBarStrs_dxSBAR_COLOR_STR_14 64680
+#define dxBarStrs_dxSBAR_COLOR_STR_15 64681
+#define dxBarStrs_dxSBAR_COLORAUTOTEXT 64682
+#define dxBarStrs_dxSBAR_COLORCUSTOMTEXT 64683
+#define dxBarStrs_dxSBAR_DATETODAY 64684
+#define dxBarStrs_dxSBAR_DATECLEAR 64685
+#define dxBarStrs_dxSBAR_DATEDIALOGCAPTION 64686
+#define dxBarStrs_dxSBAR_TREEVIEWDIALOGCAPTION 64687
+#define cxTLStrs_scxOperationNotSupported 64688
+#define cxTLStrs_scxTreeListDeletingFocusedConfirmationText 64689
+#define cxTLStrs_scxTreeListDeletingConfirmationCaption 64690
+#define cxTLStrs_scxExportNotVisibleControl 64691
+#define OleConst_sNoRunningObject 64692
+#define dxBarStrs_dxSBAR_LOOKUPDIALOGCAPTION 64693
+#define dxBarStrs_dxSBAR_LOOKUPDIALOGOK 64694
+#define dxBarStrs_dxSBAR_LOOKUPDIALOGCANCEL 64695
+#define dxBarStrs_dxSBAR_DIALOGOK 64696
+#define dxBarStrs_dxSBAR_DIALOGCANCEL 64697
+#define dxBarStrs_dxSBAR_COLOR_STR_0 64698
+#define dxBarStrs_dxSBAR_COLOR_STR_1 64699
+#define dxBarStrs_dxSBAR_COLOR_STR_2 64700
+#define dxBarStrs_dxSBAR_COLOR_STR_3 64701
+#define dxBarStrs_dxSBAR_COLOR_STR_4 64702
+#define dxBarStrs_dxSBAR_COLOR_STR_5 64703
+#define cxTLStrs_scxTreeListGroupFootersMenuItem 64704
+#define cxTLStrs_scxTreeListGroupFootersInvisibleMenuItem 64705
+#define cxTLStrs_scxTreeListGroupFootersVisibleWhenExpandedMenuItem 64706
+#define cxTLStrs_scxTreeListGroupFootersAlwaysVisibleMenuItem 64707
+#define cxTLStrs_scxTreeListRemoveThisColumnMenuItem 64708
+#define cxTLStrs_scxTreeListFieldChooserMenuItem 64709
+#define cxTLStrs_scxTreeListHorizontalAlignmentMenuItem 64710
+#define cxTLStrs_scxTreeListHorizontalAlignmentLeftMenuItem 64711
+#define cxTLStrs_scxTreeListHorizontalAlignmentCenterMenuItem 64712
+#define cxTLStrs_scxTreeListHorizontalAlignmentRightMenuItem 64713
+#define cxTLStrs_scxTreeListVerticalAlignmentMenuItem 64714
+#define cxTLStrs_scxTreeListVerticalAlignmentBottomMenuItem 64715
+#define cxTLStrs_scxTreeListVerticalAlignmentCenterMenuItem 64716
+#define cxTLStrs_scxTreeListVerticalAlignmentTopMenuItem 64717
+#define cxTLStrs_scxTreeListBestFitMenuItem 64718
+#define cxTLStrs_scxTreeListBestFitAllColumnsMenuItem 64719
+#define cxTLStrs_scxDeleteAllItems 64720
+#define cxTLStrs_scxItems 64721
+#define cxTLStrs_scxCustomizeCaption 64722
+#define cxTLStrs_scxColumnsCaption 64723
+#define cxTLStrs_scxBandsCaption 64724
+#define cxTLStrs_scxTreeListNoneMenuItem 64725
+#define cxTLStrs_scxTreeListSumMenuItem 64726
+#define cxTLStrs_scxTreeListMinMenuItem 64727
+#define cxTLStrs_scxTreeListMaxMenuItem 64728
+#define cxTLStrs_scxTreeListCountMenuItem 64729
+#define cxTLStrs_scxTreeListAvgMenuItem 64730
+#define cxTLStrs_scxTreeListAllNodesMenuItem 64731
+#define cxTLStrs_scxTreeListSortAscendingMenuItem 64732
+#define cxTLStrs_scxTreeListSortDescendingMenuItem 64733
+#define cxTLStrs_scxTreeListClearSortingMenuItem 64734
+#define cxTLStrs_scxTreeListFooterMenuItem 64735
+#define SqlConst_SDRIVERRESTRICTED 64736
+#define SqlConst_SLOCALTRANSACTIVE 64737
+#define SqlConst_SMULTIPLETRANSNOTENABLED 64738
+#define SqlConst_SCONNECTIONFAILED 64739
+#define SqlConst_SDRIVERINITFAILED 64740
+#define SqlConst_SOPTLOCKFAILED 64741
+#define SqlConst_SINVALIDREF 64742
+#define SqlConst_SNOTABLE 64743
+#define cxTLStrs_scxTLPrefixName 64744
+#define cxTLStrs_scxIndexOutOfBounds 64745
+#define cxTLStrs_scxInvalidStreamFormat 64746
+#define cxTLStrs_scxMultiSelectRequired 64747
+#define cxTLStrs_scxDesignerCaption 64748
+#define cxTLStrs_scxBands 64749
+#define cxTLStrs_scxColumns 64750
+#define cxTLStrs_scxCreateAllItems 64751
+#define SqlConst_SNOMEMORY 64752
+#define SqlConst_SINVALIDFLDTYPE 64753
+#define SqlConst_SINVALIDHNDL 64754
+#define SqlConst_SNOTSUPPORTED 64755
+#define SqlConst_SINVALIDTIME 64756
+#define SqlConst_SINVALIDXLATION 64757
+#define SqlConst_SOUTOFRANGE 64758
+#define SqlConst_SINVALIDPARAM 64759
+#define SqlConst_SEOF 64760
+#define SqlConst_SSQLPARAMNOTSET 64761
+#define SqlConst_SINVALIDUSRPASS 64762
+#define SqlConst_SINVALIDPRECISION 64763
+#define SqlConst_SINVALIDLEN 64764
+#define SqlConst_SINVALIDXISOLEVEL 64765
+#define SqlConst_SINVALIDTXNID 64766
+#define SqlConst_SDUPLICATETXNID 64767
 #define ADOConst_SMissingCommandText 64768
 #define ADOConst_SNoResultSet 64769
 #define ADOConst_SADOCreateError 64770
@@ -281,8 +288,8 @@
 #define SQLite3Wrap_SErrorMessage 64779
 #define SQLite3Wrap_SDatabaseNotConnected 64780
 #define SQLite3Wrap_SNoTransactionOpen 64781
-#define SqlConst_SNOMEMORY 64782
-#define SqlConst_SINVALIDFLDTYPE 64783
+#define SqlConst_SNOERROR 64782
+#define SqlConst_SWARNING 64783
 #define cxExtEditConsts_cxSEditRichEditSelectionSaveFail 64784
 #define cxExtEditConsts_cxSEditRichEditOleInterfaceFail 64785
 #define cxExtEditConsts_cxSEditRichEditCallBackFail 64786
@@ -715,13 +722,13 @@
 #define cxLibraryStrs_cxSDateSeventh 65213
 #define cxLibraryStrs_cxSDateBOM 65214
 #define cxLibraryStrs_cxSDateEOM 65215
-#define ComStrs_sTabFailSet 65216
-#define ComStrs_sTabFailSetObject 65217
-#define ComStrs_sTabMustBeMultiLine 65218
-#define ComStrs_sInvalidIndex 65219
-#define ComStrs_sInsertError 65220
-#define ComStrs_sPageIndexError 65221
-#define WinHelpViewer_hNoKeyword 65222
+#define ComStrs_sTabFailGetObject 65216
+#define ComStrs_sTabFailSet 65217
+#define ComStrs_sTabFailSetObject 65218
+#define ComStrs_sTabMustBeMultiLine 65219
+#define ComStrs_sInvalidIndex 65220
+#define ComStrs_sInsertError 65221
+#define ComStrs_sPageIndexError 65222
 #define dxGDIPlusAPI_scxGdipInvalidOperation 65223
 #define cxLibraryStrs_scxCantCreateRegistryKey 65224
 #define cxLibraryStrs_scxCantOpenRegistryKey 65225
@@ -743,10 +750,10 @@
 #define ExtCtrls_clNameWindow 65241
 #define ExtCtrls_clNameWindowFrame 65242
 #define ExtCtrls_clNameWindowText 65243
-#define ComStrs_sTabFailClear 65244
-#define ComStrs_sTabFailDelete 65245
-#define ComStrs_sTabFailRetrieve 65246
-#define ComStrs_sTabFailGetObject 65247
+#define WinHelpViewer_hNoKeyword 65244
+#define ComStrs_sTabFailClear 65245
+#define ComStrs_sTabFailDelete 65246
+#define ComStrs_sTabFailRetrieve 65247
 #define ExtCtrls_clNameMedGray 65248
 #define ExtCtrls_clNameActiveBorder 65249
 #define ExtCtrls_clNameActiveCaption 65250
@@ -1037,9 +1044,23 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
+	dxBarStrs_dxSBAR_RIBBONADDEMPTYGROUP,	"Add Empty Group"
+	dxBarStrs_dxSBAR_RIBBONADDGROUPWITHTOOLBAR,	"Add Group With Toolbar"
+	dxBarStrs_dxSBAR_RIBBONDELETEGROUP,	"Delete Group"
+	dxBarStrs_dxSBAR_ACCESSIBILITY_RIBBONNAME,	"Ribbon"
+	dxBarStrs_dxSBAR_ACCESSIBILITY_RIBBONTABCOLLECTIONNAME,	"Ribbon Tabs"
+	dxStatusBar_cxSTextPanelStyle,	"Text Panel"
+	dxStatusBar_cxSContainerPanelStyle,	"Container Panel"
 	dxStatusBar_cxSKeyboardStatePanelStyle,	"Keyboard State Panel"
 	dxStatusBar_cxSStateIndicatorPanelStyle,	"State Indicator Panel"
 	dxStatusBar_cxSCantDeleteAncestor,	"Selection contains a component introduced in an ancestor form which cannot be deleted"
+	dxBarStrs_dxSBAR_MENUANIMATIONS,	"&Menu animations:"
+	dxBarStrs_dxSBAR_MENUANIM1,	"(None)"
+	dxBarStrs_dxSBAR_MENUANIM2,	"Random"
+	dxBarStrs_dxSBAR_MENUANIM3,	"Unfold"
+	dxBarStrs_dxSBAR_MENUANIM4,	"Slide"
+	dxBarStrs_dxSBAR_MENUANIM5,	"Fade"
+	dxBarStrs_dxSBAR_CANTFINDBARMANAGERFORSTATUSBAR,	"A bar manager cannot be found for the status bar"
 	dxBarStrs_dxSBAR_BUTTONDEFAULTACTIONDESCRIPTION,	"Press"
 	dxBarStrs_SBlob,	"(Blob)"
 	dxBarStrs_dxSBAR_APPMENUOUTSIDERIBBON,	"The Application Menu cannot be displayed outside the Ribbon"
@@ -1049,13 +1070,13 @@ BEGIN
 	dxBarStrs_dxSBAR_RIBBONBADPARENT,	"%s should have TCustomForm as its Parent"
 	dxBarStrs_dxSBAR_RIBBONADDTAB,	"Add Tab"
 	dxBarStrs_dxSBAR_RIBBONDELETETAB,	"Delete Tab"
-	dxBarStrs_dxSBAR_RIBBONADDEMPTYGROUP,	"Add Empty Group"
-	dxBarStrs_dxSBAR_RIBBONADDGROUPWITHTOOLBAR,	"Add Group With Toolbar"
-	dxBarStrs_dxSBAR_RIBBONDELETEGROUP,	"Delete Group"
-	dxBarStrs_dxSBAR_ACCESSIBILITY_RIBBONNAME,	"Ribbon"
-	dxBarStrs_dxSBAR_ACCESSIBILITY_RIBBONTABCOLLECTIONNAME,	"Ribbon Tabs"
-	dxStatusBar_cxSTextPanelStyle,	"Text Panel"
-	dxStatusBar_cxSContainerPanelStyle,	"Container Panel"
+	dxBarStrs_dxSBAR_CATEGORYINSERT,	"Insert Category"
+	dxBarStrs_dxSBAR_CATEGORYRENAME,	"Rename Category"
+	dxBarStrs_dxSBAR_TOOLBARADD,	"Add Toolbar"
+	dxBarStrs_dxSBAR_TOOLBARRENAME,	"Rename Toolbar"
+	dxBarStrs_dxSBAR_CATEGORYNAME,	"&Category name:"
+	dxBarStrs_dxSBAR_TOOLBARNAME,	"&Toolbar name:"
+	dxBarStrs_dxSBAR_CUSTOMIZINGFORM,	"Customization Form..."
 	dxBarStrs_dxSBAR_MODIFY,	"... modify"
 	dxBarStrs_dxSBAR_PERSMENUSANDTOOLBARS,	"Personalized Menus and Toolbars  "
 	dxBarStrs_dxSBAR_MENUSSHOWRECENTITEMS,	"Me&nus show recently used commands first"
@@ -1065,13 +1086,13 @@ BEGIN
 	dxBarStrs_dxSBAR_LARGEICONS,	"&Large icons"
 	dxBarStrs_dxSBAR_HINTOPT1,	"Show Tool&Tips on toolbars"
 	dxBarStrs_dxSBAR_HINTOPT2,	"Show s&hortcut keys in ToolTips"
-	dxBarStrs_dxSBAR_MENUANIMATIONS,	"&Menu animations:"
-	dxBarStrs_dxSBAR_MENUANIM1,	"(None)"
-	dxBarStrs_dxSBAR_MENUANIM2,	"Random"
-	dxBarStrs_dxSBAR_MENUANIM3,	"Unfold"
-	dxBarStrs_dxSBAR_MENUANIM4,	"Slide"
-	dxBarStrs_dxSBAR_MENUANIM5,	"Fade"
-	dxBarStrs_dxSBAR_CANTFINDBARMANAGERFORSTATUSBAR,	"A bar manager cannot be found for the status bar"
+	dxBarStrs_dxSBAR_DRAGTOMAKEMENUFLOAT,	"Drag to make this menu float"
+	dxBarStrs_dxSBAR_MORECOMMANDS,	"&More Commands..."
+	dxBarStrs_dxSBAR_SHOWBELOWRIBBON,	"&Show Quick Access Toolbar Below the Ribbon"
+	dxBarStrs_dxSBAR_SHOWABOVERIBBON,	"&Show Quick Access Toolbar Above the Ribbon"
+	dxBarStrs_dxSBAR_MINIMIZERIBBON,	"Mi&nimize the Ribbon"
+	dxBarStrs_dxSBAR_ADDTOQAT,	"&Add to Quick Access Toolbar"
+	dxBarStrs_dxSBAR_ADDTOQATITEMNAME,	"&Add %s to Quick Access Toolbar"
 	dxBarStrs_dxSBAR_REMOVEFROMQAT,	"&Remove from Quick Access Toolbar"
 	dxBarStrs_dxSBAR_CUSTOMIZEQAT,	"Customize Quick Access Toolbar"
 	dxBarStrs_dxSBAR_ADDGALLERYNAME,	"Gallery"
@@ -1081,13 +1102,13 @@ BEGIN
 	dxBarStrs_dxSBAR_GALLERYEMPTYFILTERCAPTION,	"<empty>"
 	dxBarStrs_dxSBAR_TOOLBARNEWNAME,	"Custom "
 	dxBarStrs_dxSBAR_CATEGORYADD,	"Add Category"
-	dxBarStrs_dxSBAR_CATEGORYINSERT,	"Insert Category"
-	dxBarStrs_dxSBAR_CATEGORYRENAME,	"Rename Category"
-	dxBarStrs_dxSBAR_TOOLBARADD,	"Add Toolbar"
-	dxBarStrs_dxSBAR_TOOLBARRENAME,	"Rename Toolbar"
-	dxBarStrs_dxSBAR_CATEGORYNAME,	"&Category name:"
-	dxBarStrs_dxSBAR_TOOLBARNAME,	"&Toolbar name:"
-	dxBarStrs_dxSBAR_CUSTOMIZINGFORM,	"Customization Form..."
+	dxBarStrs_dxSBAR_TRENAME,	"R&ename..."
+	dxBarStrs_dxSBAR_TDELETE,	"&Delete"
+	dxBarStrs_dxSBAR_TRESET,	"&Reset..."
+	dxBarStrs_dxSBAR_CLOSE,	"Close"
+	dxBarStrs_dxSBAR_CAPTION,	"Customize"
+	dxBarStrs_dxSBAR_CATEGORIES,	"Cate&gories:"
+	dxBarStrs_dxSBAR_COMMANDS,	"Comman&ds:"
 	dxBarStrs_dxSBAR_DESCRIPTION,	"Description  "
 	dxBarStrs_dxSBAR_MDIMINIMIZE,	"Minimize Window"
 	dxBarStrs_dxSBAR_MDIRESTORE,	"Restore Window"
@@ -1097,13 +1118,13 @@ BEGIN
 	dxBarStrs_dxSBAR_MOREBUTTONS,	"More Buttons"
 	dxBarStrs_dxSBAR_RESETTOOLBAR,	"&Reset Toolbar"
 	dxBarStrs_dxSBAR_EXPAND,	"Expand (Ctrl-Down)"
-	dxBarStrs_dxSBAR_DRAGTOMAKEMENUFLOAT,	"Drag to make this menu float"
-	dxBarStrs_dxSBAR_MORECOMMANDS,	"&More Commands..."
-	dxBarStrs_dxSBAR_SHOWBELOWRIBBON,	"&Show Quick Access Toolbar Below the Ribbon"
-	dxBarStrs_dxSBAR_SHOWABOVERIBBON,	"&Show Quick Access Toolbar Above the Ribbon"
-	dxBarStrs_dxSBAR_MINIMIZERIBBON,	"Mi&nimize the Ribbon"
-	dxBarStrs_dxSBAR_ADDTOQAT,	"&Add to Quick Access Toolbar"
-	dxBarStrs_dxSBAR_ADDTOQATITEMNAME,	"&Add %s to Quick Access Toolbar"
+	dxBarStrs_dxSBAR_DELETE,	"Delete"
+	dxBarStrs_dxSBAR_CLEAR,	"Clear"
+	dxBarStrs_dxSBAR_VISIBLE,	"Visible"
+	dxBarStrs_dxSBAR_OK,	"OK"
+	dxBarStrs_dxSBAR_CANCEL,	"Cancel"
+	dxBarStrs_dxSBAR_SUBMENUEDITOR,	"SubMenu Editor..."
+	dxBarStrs_dxSBAR_SUBMENUEDITORCAPTION,	"ExpressBars SubMenu Editor"
 	dxBarStrs_dxSBAR_INSERTEX,	"Insert..."
 	dxBarStrs_dxSBAR_MOVEUP,	"Move Up"
 	dxBarStrs_dxSBAR_MOVEDOWN,	"Move Down"
@@ -1113,13 +1134,13 @@ BEGIN
 	dxBarStrs_dxSBAR_TABSHEET3,	" Options "
 	dxBarStrs_dxSBAR_TOOLBARS,	"Toolb&ars:"
 	dxBarStrs_dxSBAR_TNEW,	"&New..."
-	dxBarStrs_dxSBAR_TRENAME,	"R&ename..."
-	dxBarStrs_dxSBAR_TDELETE,	"&Delete"
-	dxBarStrs_dxSBAR_TRESET,	"&Reset..."
-	dxBarStrs_dxSBAR_CLOSE,	"Close"
-	dxBarStrs_dxSBAR_CAPTION,	"Customize"
-	dxBarStrs_dxSBAR_CATEGORIES,	"Cate&gories:"
-	dxBarStrs_dxSBAR_COMMANDS,	"Comman&ds:"
+	dxBarStrs_dxSBAR_CP_TEXTONLYALWAYS,	"&Text Only (Always)"
+	dxBarStrs_dxSBAR_CP_TEXTONLYINMENUS,	"Text &Only (in Menus)"
+	dxBarStrs_dxSBAR_CP_IMAGEANDTEXT,	"Image &and Text"
+	dxBarStrs_dxSBAR_CP_BEGINAGROUP,	"Begin a &Group"
+	dxBarStrs_dxSBAR_CP_VISIBLE,	"&Visible"
+	dxBarStrs_dxSBAR_CP_MOSTRECENTLYUSED,	"&Most recently used"
+	dxBarStrs_dxSBAR_CP_DISTRIBUTED,	"Dis&tributed"
 	dxBarStrs_dxSBAR_CP_POSITIONMENU,	"&Position"
 	dxBarStrs_dxSBAR_CP_VIEWLEVELSMENU,	"View&Levels"
 	dxBarStrs_dxSBAR_CP_ALLVIEWLEVELS,	"All"
@@ -1129,13 +1150,13 @@ BEGIN
 	dxBarStrs_dxSBAR_CP_BUTTONUNGROUP,	"Ungroup"
 	dxBarStrs_dxSBAR_ADDEX,	"Add..."
 	dxBarStrs_dxSBAR_RENAMEEX,	"Rename..."
-	dxBarStrs_dxSBAR_DELETE,	"Delete"
-	dxBarStrs_dxSBAR_CLEAR,	"Clear"
-	dxBarStrs_dxSBAR_VISIBLE,	"Visible"
-	dxBarStrs_dxSBAR_OK,	"OK"
-	dxBarStrs_dxSBAR_CANCEL,	"Cancel"
-	dxBarStrs_dxSBAR_SUBMENUEDITOR,	"SubMenu Editor..."
-	dxBarStrs_dxSBAR_SUBMENUEDITORCAPTION,	"ExpressBars SubMenu Editor"
+	dxBarStrs_dxSBAR_NEWSUBITEMCAPTION,	"New SubItem"
+	dxBarStrs_dxSBAR_CP_ADDSUBITEM,	"Add &SubItem"
+	dxBarStrs_dxSBAR_CP_ADDBUTTON,	"Add &Button"
+	dxBarStrs_dxSBAR_CP_ADDLARGEBUTTON,	"Add L&argeButton"
+	dxBarStrs_dxSBAR_CP_ADDSEPARATOR,	"Add &Separator"
+	dxBarStrs_dxSBAR_CP_ADDDXITEM,	"Add &Item"
+	dxBarStrs_dxSBAR_CP_ADDCXITEM,	"Add &cxEditItem"
 	dxBarStrs_dxSBAR_CP_ADDGROUPBUTTON,	"Add Gro&upButton"
 	dxBarStrs_dxSBAR_CP_DELETEITEM,	"Delete Item"
 	dxBarStrs_dxSBAR_CP_DELETELINK,	"Delete Link"
@@ -1145,13 +1166,13 @@ BEGIN
 	dxBarStrs_dxSBAR_CP_CAPTION,	"&Caption:"
 	dxBarStrs_dxSBAR_CP_BUTTONPAINTSTYLEMENU,	"Button Paint &Style"
 	dxBarStrs_dxSBAR_CP_DEFAULTSTYLE,	"Defa&ult style"
-	dxBarStrs_dxSBAR_CP_TEXTONLYALWAYS,	"&Text Only (Always)"
-	dxBarStrs_dxSBAR_CP_TEXTONLYINMENUS,	"Text &Only (in Menus)"
-	dxBarStrs_dxSBAR_CP_IMAGEANDTEXT,	"Image &and Text"
-	dxBarStrs_dxSBAR_CP_BEGINAGROUP,	"Begin a &Group"
-	dxBarStrs_dxSBAR_CP_VISIBLE,	"&Visible"
-	dxBarStrs_dxSBAR_CP_MOSTRECENTLYUSED,	"&Most recently used"
-	dxBarStrs_dxSBAR_CP_DISTRIBUTED,	"Dis&tributed"
+	dxBarStrs_dxSBAR_TOOLBARHASMERGEDTOOLBARS,	"The '%s' toolbar has merged toolbars"
+	dxBarStrs_dxSBAR_TOOLBARSALREADYMERGED,	"The '%s' toolbar is already merged with the '%s' toolbar"
+	dxBarStrs_dxSBAR_TOOLBARSARENOTMERGED,	"The '%s' toolbar is not merged with the '%s' toolbar"
+	dxBarStrs_dxSBAR_RIBBONCANTMERGE,	"You cannot merge with the specified Ribbon"
+	dxBarStrs_dxSBAR_RIBBONCANTMERGETAB,	"You cannot merge with the specified Ribbon tab"
+	dxBarStrs_dxSBAR_RIBBONCANTMERGEWITHOUTBARMANAGER,	"You cannot merge Ribbons with no bar managers specified"
+	dxBarStrs_dxSBAR_RIBBONCANTUNMERGE,	"You cannot unmerge the specified Ribbon"
 	dxBarStrs_dxSBAR_RIBBONCANTUNMERGETAB,	"You cannot unmerge the specified Ribbon tab"
 	dxBarStrs_dxSBAR_RIBBONONEOFTABGROUPSALREADYMERGED,	"One of the Ribbon tab groups of the specified Ribbon tab is already merged"
 	dxBarStrs_dxSBAR_RIBBONSARENOTMERGED,	"The '%s' Ribbon is not merged with the '%s' Ribbon"
@@ -1161,13 +1182,13 @@ BEGIN
 	dxBarStrs_dxSBAR_NEWITEMCAPTION,	"New Item"
 	dxBarStrs_dxSBAR_NEWRIBBONGALLERYITEMCAPTION,	"New Gallery"
 	dxBarStrs_dxSBAR_NEWSEPARATORCAPTION,	"New Separator"
-	dxBarStrs_dxSBAR_NEWSUBITEMCAPTION,	"New SubItem"
-	dxBarStrs_dxSBAR_CP_ADDSUBITEM,	"Add &SubItem"
-	dxBarStrs_dxSBAR_CP_ADDBUTTON,	"Add &Button"
-	dxBarStrs_dxSBAR_CP_ADDLARGEBUTTON,	"Add L&argeButton"
-	dxBarStrs_dxSBAR_CP_ADDSEPARATOR,	"Add &Separator"
-	dxBarStrs_dxSBAR_CP_ADDDXITEM,	"Add &Item"
-	dxBarStrs_dxSBAR_CP_ADDCXITEM,	"Add &cxEditItem"
+	dxBarStrs_dxSBAR_COMMANDNAMECANNOTBEBLANK,	"A command name cannot be blank. Please enter a name."
+	dxBarStrs_dxSBAR_TOOLBAREXISTS,	"A toolbar named '%s' already exists. Type another name."
+	dxBarStrs_dxSBAR_RECURSIVEGROUPS,	"You cannot create recursive groups"
+	dxBarStrs_dxSBAR_WANTTODELETECOMPLEXITEM,	"One of the selected objects is an item which has several links. Are you sure you want to delete these links?"
+	dxBarStrs_dxSBAR_CANTPLACEQUICKACCESSGROUPBUTTON,	"You can place TdxRibbonQuickAccessGroupButton only on TdxRibbonQuickAccessToolbar"
+	dxBarStrs_dxSBAR_QUICKACCESSGROUPBUTTONTOOLBARNOTDOCKEDINRIBBON,	"Quick Access Group Button's Toolbar is not docked in the Ribbon"
+	dxBarStrs_dxSBAR_QUICKACCESSALREADYHASGROUPBUTTON,	"The Quick Access Toolbar already contains GroupButton with the same toolbar"
 	dxBarStrs_dxSBAR_CANTPLACESEPARATOR,	"A separator item cannot be placed on the specified toolbar"
 	dxBarStrs_dxSBAR_CANTPLACERIBBONGALLERY,	"You can place TdxRibbonGalleryItem into a submenu or Ribbon control"
 	dxBarStrs_dxSBAR_CANTPLACESKINCHOOSERGALLERY,	"You can place TdxSkinChooserGalleryItem into a submenu or Ribbon control"
@@ -1177,13 +1198,13 @@ BEGIN
 	dxBarStrs_dxSBAR_CANTUNMERGETOOLBAR,	"You cannot unmerge the specified toolbar"
 	dxBarStrs_dxSBAR_ONEOFTOOLBARSALREADYMERGED,	"One of the toolbars of the specified bar manager is already merged"
 	dxBarStrs_dxSBAR_ONEOFTOOLBARSHASMERGEDTOOLBARS,	"One of the toolbars of the specified bar manager has merged toolbars"
-	dxBarStrs_dxSBAR_TOOLBARHASMERGEDTOOLBARS,	"The '%s' toolbar has merged toolbars"
-	dxBarStrs_dxSBAR_TOOLBARSALREADYMERGED,	"The '%s' toolbar is already merged with the '%s' toolbar"
-	dxBarStrs_dxSBAR_TOOLBARSARENOTMERGED,	"The '%s' toolbar is not merged with the '%s' toolbar"
-	dxBarStrs_dxSBAR_RIBBONCANTMERGE,	"You cannot merge with the specified Ribbon"
-	dxBarStrs_dxSBAR_RIBBONCANTMERGETAB,	"You cannot merge with the specified Ribbon tab"
-	dxBarStrs_dxSBAR_RIBBONCANTMERGEWITHOUTBARMANAGER,	"You cannot merge Ribbons with no bar managers specified"
-	dxBarStrs_dxSBAR_RIBBONCANTUNMERGE,	"You cannot unmerge the specified Ribbon"
+	dxBarStrs_dxSBAR_IMAGEDIALOGCAPTION,	"Select item"
+	dxBarStrs_dxSBAR_IMAGEINDEX,	"Image Index"
+	dxBarStrs_dxSBAR_IMAGETEXT,	"Text"
+	dxBarStrs_dxSBAR_PLACEFORCONTROL,	"The place for the "
+	dxBarStrs_dxSBAR_CANTASSIGNCONTROL,	"You cannot assign the same control to more than one TdxBarControlContainerItem"
+	dxBarStrs_dxSBAR_CXEDITVALUEDIALOGCAPTION,	"Enter value"
+	dxBarStrs_dxSBAR_WANTTORESETTOOLBAR,	"Are you sure you want to reset the changes made to the '%s' toolbar?"
 	dxBarStrs_dxSBAR_WANTTORESETUSAGEDATA,	"This will delete the record of the commands you've used in this application and restore the default set of visible commands to the menus and toolbars. It will not undo any explicit customizations.   Are you sure you want to proceed?"
 	dxBarStrs_dxSBAR_BARMANAGERMORETHANONE,	"A control should contain only a single TdxBarManager"
 	dxBarStrs_dxSBAR_BARMANAGERBADOWNER,	"TdxBarManager should have TWinControl as its Owner"
@@ -1193,13 +1214,13 @@ BEGIN
 	dxBarStrs_dxSBAR_WANTTODELETECATEGORY,	"Are you sure you want to delete the '%s' category?"
 	dxBarStrs_dxSBAR_WANTTOCLEARCOMMANDS,	"Are you sure you want to delete all commands in the '%s' category?"
 	dxBarStrs_dxSBAR_RECURSIVEMENUS,	"You cannot create recursive menus"
-	dxBarStrs_dxSBAR_COMMANDNAMECANNOTBEBLANK,	"A command name cannot be blank. Please enter a name."
-	dxBarStrs_dxSBAR_TOOLBAREXISTS,	"A toolbar named '%s' already exists. Type another name."
-	dxBarStrs_dxSBAR_RECURSIVEGROUPS,	"You cannot create recursive groups"
-	dxBarStrs_dxSBAR_WANTTODELETECOMPLEXITEM,	"One of the selected objects is an item which has several links. Are you sure you want to delete these links?"
-	dxBarStrs_dxSBAR_CANTPLACEQUICKACCESSGROUPBUTTON,	"You can place TdxRibbonQuickAccessGroupButton only on TdxRibbonQuickAccessToolbar"
-	dxBarStrs_dxSBAR_QUICKACCESSGROUPBUTTONTOOLBARNOTDOCKEDINRIBBON,	"Quick Access Group Button's Toolbar is not docked in the Ribbon"
-	dxBarStrs_dxSBAR_QUICKACCESSALREADYHASGROUPBUTTON,	"The Quick Access Toolbar already contains GroupButton with the same toolbar"
+	dxBarStrs_dxSBAR_COLOR_STR_6,	"Teal"
+	dxBarStrs_dxSBAR_COLOR_STR_7,	"Gray"
+	dxBarStrs_dxSBAR_COLOR_STR_8,	"Silver"
+	dxBarStrs_dxSBAR_COLOR_STR_9,	"Red"
+	dxBarStrs_dxSBAR_COLOR_STR_10,	"Lime"
+	dxBarStrs_dxSBAR_COLOR_STR_11,	"Yellow"
+	dxBarStrs_dxSBAR_COLOR_STR_12,	"Blue"
 	dxBarStrs_dxSBAR_COLOR_STR_13,	"Fuchsia"
 	dxBarStrs_dxSBAR_COLOR_STR_14,	"Aqua"
 	dxBarStrs_dxSBAR_COLOR_STR_15,	"White"
@@ -1209,13 +1230,13 @@ BEGIN
 	dxBarStrs_dxSBAR_DATECLEAR,	"Clear"
 	dxBarStrs_dxSBAR_DATEDIALOGCAPTION,	"Select the date"
 	dxBarStrs_dxSBAR_TREEVIEWDIALOGCAPTION,	"Select item"
-	dxBarStrs_dxSBAR_IMAGEDIALOGCAPTION,	"Select item"
-	dxBarStrs_dxSBAR_IMAGEINDEX,	"Image Index"
-	dxBarStrs_dxSBAR_IMAGETEXT,	"Text"
-	dxBarStrs_dxSBAR_PLACEFORCONTROL,	"The place for the "
-	dxBarStrs_dxSBAR_CANTASSIGNCONTROL,	"You cannot assign the same control to more than one TdxBarControlContainerItem"
-	dxBarStrs_dxSBAR_CXEDITVALUEDIALOGCAPTION,	"Enter value"
-	dxBarStrs_dxSBAR_WANTTORESETTOOLBAR,	"Are you sure you want to reset the changes made to the '%s' toolbar?"
+	cxTLStrs_scxOperationNotSupported,	"Operation is not supported"
+	cxTLStrs_scxTreeListDeletingFocusedConfirmationText,	"Delete record(s)?"
+	cxTLStrs_scxTreeListDeletingConfirmationCaption,	"Confirm"
+	cxTLStrs_scxExportNotVisibleControl,	"Control must be visible for export"
+	OleConst_sNoRunningObject,	"Unable to retrieve a pointer to a running object registered with OLE for %s/%s"
+	dxBarStrs_dxSBAR_LOOKUPDIALOGCAPTION,	"Select value"
+	dxBarStrs_dxSBAR_LOOKUPDIALOGOK,	"OK"
 	dxBarStrs_dxSBAR_LOOKUPDIALOGCANCEL,	"Cancel"
 	dxBarStrs_dxSBAR_DIALOGOK,	"OK"
 	dxBarStrs_dxSBAR_DIALOGCANCEL,	"Cancel"
@@ -1225,13 +1246,13 @@ BEGIN
 	dxBarStrs_dxSBAR_COLOR_STR_3,	"Olive"
 	dxBarStrs_dxSBAR_COLOR_STR_4,	"Navy"
 	dxBarStrs_dxSBAR_COLOR_STR_5,	"Purple"
-	dxBarStrs_dxSBAR_COLOR_STR_6,	"Teal"
-	dxBarStrs_dxSBAR_COLOR_STR_7,	"Gray"
-	dxBarStrs_dxSBAR_COLOR_STR_8,	"Silver"
-	dxBarStrs_dxSBAR_COLOR_STR_9,	"Red"
-	dxBarStrs_dxSBAR_COLOR_STR_10,	"Lime"
-	dxBarStrs_dxSBAR_COLOR_STR_11,	"Yellow"
-	dxBarStrs_dxSBAR_COLOR_STR_12,	"Blue"
+	cxTLStrs_scxTreeListGroupFootersMenuItem,	"&Group Footers"
+	cxTLStrs_scxTreeListGroupFootersInvisibleMenuItem,	"&Hidden"
+	cxTLStrs_scxTreeListGroupFootersVisibleWhenExpandedMenuItem,	"&Visible When Expanded"
+	cxTLStrs_scxTreeListGroupFootersAlwaysVisibleMenuItem,	"&Always Visible"
+	cxTLStrs_scxTreeListRemoveThisColumnMenuItem,	"R&emove This Column"
+	cxTLStrs_scxTreeListFieldChooserMenuItem,	"F&ield Chooser"
+	cxTLStrs_scxTreeListHorizontalAlignmentMenuItem,	"Ho&rizontal Alignment"
 	cxTLStrs_scxTreeListHorizontalAlignmentLeftMenuItem,	"&Left"
 	cxTLStrs_scxTreeListHorizontalAlignmentCenterMenuItem,	"Ce&nter"
 	cxTLStrs_scxTreeListHorizontalAlignmentRightMenuItem,	"&Right"
@@ -1241,13 +1262,13 @@ BEGIN
 	cxTLStrs_scxTreeListVerticalAlignmentTopMenuItem,	"&Top"
 	cxTLStrs_scxTreeListBestFitMenuItem,	"&Best Fit"
 	cxTLStrs_scxTreeListBestFitAllColumnsMenuItem,	"Bes&t Fit (all columns)"
-	cxTLStrs_scxOperationNotSupported,	"Operation is not supported"
-	cxTLStrs_scxTreeListDeletingFocusedConfirmationText,	"Delete record(s)?"
-	cxTLStrs_scxTreeListDeletingConfirmationCaption,	"Confirm"
-	cxTLStrs_scxExportNotVisibleControl,	"Control must be visible for export"
-	OleConst_sNoRunningObject,	"Unable to retrieve a pointer to a running object registered with OLE for %s/%s"
-	dxBarStrs_dxSBAR_LOOKUPDIALOGCAPTION,	"Select value"
-	dxBarStrs_dxSBAR_LOOKUPDIALOGOK,	"OK"
+	cxTLStrs_scxDeleteAllItems,	"Delete all columns"
+	cxTLStrs_scxItems,	"Items editor..."
+	cxTLStrs_scxCustomizeCaption,	"Customization"
+	cxTLStrs_scxColumnsCaption,	"   Columns   "
+	cxTLStrs_scxBandsCaption,	"    Bands    "
+	cxTLStrs_scxTreeListNoneMenuItem,	"None"
+	cxTLStrs_scxTreeListSumMenuItem,	"Sum"
 	cxTLStrs_scxTreeListMinMenuItem,	"Min"
 	cxTLStrs_scxTreeListMaxMenuItem,	"Max"
 	cxTLStrs_scxTreeListCountMenuItem,	"Count"
@@ -1257,14 +1278,14 @@ BEGIN
 	cxTLStrs_scxTreeListSortDescendingMenuItem,	"S&ort Descending"
 	cxTLStrs_scxTreeListClearSortingMenuItem,	"&Clear Sorting"
 	cxTLStrs_scxTreeListFooterMenuItem,	"&Footer"
-	cxTLStrs_scxTreeListGroupFootersMenuItem,	"&Group Footers"
-	cxTLStrs_scxTreeListGroupFootersInvisibleMenuItem,	"&Hidden"
-	cxTLStrs_scxTreeListGroupFootersVisibleWhenExpandedMenuItem,	"&Visible When Expanded"
-	cxTLStrs_scxTreeListGroupFootersAlwaysVisibleMenuItem,	"&Always Visible"
-	cxTLStrs_scxTreeListRemoveThisColumnMenuItem,	"R&emove This Column"
-	cxTLStrs_scxTreeListFieldChooserMenuItem,	"F&ield Chooser"
-	cxTLStrs_scxTreeListHorizontalAlignmentMenuItem,	"Ho&rizontal Alignment"
-	SqlConst_SMULTIPLETRANSNOTENABLED,	"dbExpress Error: Multiple Transactions not Enabled"
+	SqlConst_SDRIVERRESTRICTED,	"[0x0012]: Application is not licensed to use this feature"
+	SqlConst_SLOCALTRANSACTIVE,	"[0x0013]: Local Transaction already active"
+	SqlConst_SMULTIPLETRANSNOTENABLED,	"[0x0014]: Multiple Transactions not Enabled"
+	SqlConst_SCONNECTIONFAILED,	"[0x0015]: Connection failed"
+	SqlConst_SDRIVERINITFAILED,	"[0x0016]: Driver initialization failed"
+	SqlConst_SOPTLOCKFAILED,	"[0x0017]: Optimistic Locking failed"
+	SqlConst_SINVALIDREF,	"[0x0018]: Invalid REF"
+	SqlConst_SNOTABLE,	"[0x0019]: No table found"
 	cxTLStrs_scxTLPrefixName,	"TcxTreeList"
 	cxTLStrs_scxIndexOutOfBounds,	"Index %d out of bounds"
 	cxTLStrs_scxInvalidStreamFormat,	"Invalid stream format"
@@ -1273,29 +1294,22 @@ BEGIN
 	cxTLStrs_scxBands,	"Bands..."
 	cxTLStrs_scxColumns,	"Columns..."
 	cxTLStrs_scxCreateAllItems,	"Create all columns"
-	cxTLStrs_scxDeleteAllItems,	"Delete all columns"
-	cxTLStrs_scxItems,	"Items editor..."
-	cxTLStrs_scxCustomizeCaption,	"Customization"
-	cxTLStrs_scxColumnsCaption,	"   Columns   "
-	cxTLStrs_scxBandsCaption,	"    Bands    "
-	cxTLStrs_scxTreeListNoneMenuItem,	"None"
-	cxTLStrs_scxTreeListSumMenuItem,	"Sum"
-	SqlConst_SINVALIDHNDL,	"dbExpress Error: Invalid Handle"
-	SqlConst_SINVALIDTIME,	"dbExpress Error: Invalid Time"
-	SqlConst_SNOTSUPPORTED,	"dbExpress Error: Operation Not Supported"
-	SqlConst_SINVALIDXLATION,	"dbExpress Error: Invalid Data Translation"
-	SqlConst_SINVALIDPARAM,	"dbExpress Error: Invalid Parameter"
-	SqlConst_SOUTOFRANGE,	"dbExpress Error: Parameter/Column out of Range"
-	SqlConst_SSQLPARAMNOTSET,	"dbExpress Error: Parameter Not Set"
-	SqlConst_SEOF,	"dbExpress Error: Result set at EOF"
-	SqlConst_SINVALIDUSRPASS,	"dbExpress Error: Invalid Username/Password"
-	SqlConst_SINVALIDPRECISION,	"dbExpress Error: Invalid Precision"
-	SqlConst_SINVALIDLEN,	"dbExpress Error: Invalid Length"
-	SqlConst_SINVALIDXISOLEVEL,	"dbExpress Error: Invalid Transaction Isolation Level"
-	SqlConst_SINVALIDTXNID,	"dbExpress Error: Invalid Transaction ID"
-	SqlConst_SDUPLICATETXNID,	"dbExpress Error: Duplicate Transaction ID"
-	SqlConst_SDRIVERRESTRICTED,	"dbExpress Error: Application is not licensed to use this feature"
-	SqlConst_SLOCALTRANSACTIVE,	"dbExpress Error: Local Transaction already active"
+	SqlConst_SNOMEMORY,	"[0x0002]: Insufficient Memory for Operation"
+	SqlConst_SINVALIDFLDTYPE,	"[0x0003]: Invalid Field Type"
+	SqlConst_SINVALIDHNDL,	"[0x0004]: Invalid Handle"
+	SqlConst_SNOTSUPPORTED,	"[0x0005]: Operation Not Supported"
+	SqlConst_SINVALIDTIME,	"[0x0006]: Invalid Time"
+	SqlConst_SINVALIDXLATION,	"[0x0007]: Invalid Data Translation"
+	SqlConst_SOUTOFRANGE,	"[0x0008]: Parameter/Column out of Range"
+	SqlConst_SINVALIDPARAM,	"[0x0009]: Invalid Parameter"
+	SqlConst_SEOF,	"[0x000A]: Result set at EOF"
+	SqlConst_SSQLPARAMNOTSET,	"dbExpress Error [0x000B]: Parameter Not Set"
+	SqlConst_SINVALIDUSRPASS,	"[0x000C] Invalid Username/Password"
+	SqlConst_SINVALIDPRECISION,	"[0x000D]: Invalid Precision"
+	SqlConst_SINVALIDLEN,	"[0x000E]: Invalid Length"
+	SqlConst_SINVALIDXISOLEVEL,	"[0x000F]: Invalid Transaction Isolation Level"
+	SqlConst_SINVALIDTXNID,	"[0x0010]: Invalid Transaction ID"
+	SqlConst_SDUPLICATETXNID,	"[0x0011]: Duplicate Transaction ID"
 	ADOConst_SMissingCommandText,	"Missing %s property"
 	ADOConst_SNoResultSet,	"CommandText does not return a result set"
 	ADOConst_SADOCreateError,	"Error creating object.  Please verify that the Microsoft Data Access Components 2.1 (or later) have been properly installed"
@@ -1310,8 +1324,8 @@ BEGIN
 	SQLite3Wrap_SErrorMessage,	"SQLite3 error: %s"
 	SQLite3Wrap_SDatabaseNotConnected,	"SQLite3 error: database is not connected."
 	SQLite3Wrap_SNoTransactionOpen,	"No transaction is open"
-	SqlConst_SNOMEMORY,	"dbExpress Error: Insufficient Memory for Operation"
-	SqlConst_SINVALIDFLDTYPE,	"dbExpress Error: Invalid Field Type"
+	SqlConst_SNOERROR,	""
+	SqlConst_SWARNING,	"[0x0001]: Warning"
 	cxExtEditConsts_cxSEditRichEditSelectionSaveFail,	"Failed to selection Save Stream"
 	cxExtEditConsts_cxSEditRichEditOleInterfaceFail,	"RichEdit: failed to get IRichEditOle interface"
 	cxExtEditConsts_cxSEditRichEditCallBackFail,	"RichEdit: failed to set callback"
@@ -1744,13 +1758,13 @@ BEGIN
 	cxLibraryStrs_cxSDateSeventh,	"seventh"
 	cxLibraryStrs_cxSDateBOM,	"bom"
 	cxLibraryStrs_cxSDateEOM,	"eom"
+	ComStrs_sTabFailGetObject,	"Failed to get object at index %d"
 	ComStrs_sTabFailSet,	"Failed to set tab \"%s\" at index %d"
 	ComStrs_sTabFailSetObject,	"Failed to set object at index %d"
 	ComStrs_sTabMustBeMultiLine,	"MultiLine must be True when TabPosition is tpLeft or tpRight"
 	ComStrs_sInvalidIndex,	"Invalid index"
 	ComStrs_sInsertError,	"Unable to insert an item"
 	ComStrs_sPageIndexError,	"%d is an invalid PageIndex value.  PageIndex must be between 0 and %d"
-	WinHelpViewer_hNoKeyword,	"No help keyword specified."
 	dxGDIPlusAPI_scxGdipInvalidOperation,	"Invalid operation in GDI+ (Code: %d)"
 	cxLibraryStrs_scxCantCreateRegistryKey,	"Can't create the registry key: \\%s"
 	cxLibraryStrs_scxCantOpenRegistryKey,	"Can't open the registry key: \\%s"
@@ -1772,10 +1786,10 @@ BEGIN
 	ExtCtrls_clNameWindow,	"Window Background"
 	ExtCtrls_clNameWindowFrame,	"Window Frame"
 	ExtCtrls_clNameWindowText,	"Window Text"
+	WinHelpViewer_hNoKeyword,	"No help keyword specified."
 	ComStrs_sTabFailClear,	"Failed to clear tab control"
 	ComStrs_sTabFailDelete,	"Failed to delete tab at index %d"
 	ComStrs_sTabFailRetrieve,	"Failed to retrieve tab at index %d"
-	ComStrs_sTabFailGetObject,	"Failed to get object at index %d"
 	ExtCtrls_clNameMedGray,	"Medium Gray"
 	ExtCtrls_clNameActiveBorder,	"Active Border"
 	ExtCtrls_clNameActiveCaption,	"Active Caption"

@@ -20,14 +20,14 @@ object LoginForm: TLoginForm
   object dxlytcntrl: TdxLayoutControl
     Left = 0
     Top = 0
-    Width = 251
-    Height = 146
+    Width = 243
+    Height = 141
     Align = alClient
     TabOrder = 0
     LayoutLookAndFeel = dxlytsknlkndfl
     object Btn_Cancel: TcxButton
-      Left = 149
-      Top = 153
+      Left = 141
+      Top = 244
       Width = 75
       Height = 25
       Cancel = True
@@ -39,8 +39,8 @@ object LoginForm: TLoginForm
       Align = alClient
     end
     object Btn_Login: TcxButton
-      Left = 68
-      Top = 153
+      Left = 60
+      Top = 244
       Width = 75
       Height = 25
       Caption = #30331#24405'(&L)'
@@ -52,7 +52,7 @@ object LoginForm: TLoginForm
     end
     object cxtxtdt_UserName: TcxTextEdit
       Left = 85
-      Top = -68
+      Top = 23
       Hint = #35831#36755#20837#29992#25143#21517
       Align = alClient
       AutoSize = False
@@ -66,7 +66,7 @@ object LoginForm: TLoginForm
     end
     object cxtxtdt_UserPass: TcxTextEdit
       Left = 85
-      Top = -42
+      Top = 49
       Hint = #35831#36755#20837#29992#25143#23494#30721
       Align = alClient
       AutoSize = False
@@ -82,7 +82,7 @@ object LoginForm: TLoginForm
     end
     object cxtxtdt_DBName: TcxTextEdit
       Left = 85
-      Top = 10
+      Top = 101
       Hint = #20351#29992#30340#25968#25454#24211#21517#31216#40664#35748#20026'testdb'
       Align = alClient
       ParentShowHint = False
@@ -94,7 +94,7 @@ object LoginForm: TLoginForm
     end
     object cxtxtdt_DBSvr: TcxTextEdit
       Left = 85
-      Top = 36
+      Top = 127
       Hint = 'MySQL'#25968#25454#24211#26381#21153#22120'IP'
       Align = alClient
       ParentShowHint = False
@@ -106,7 +106,7 @@ object LoginForm: TLoginForm
     end
     object cxtxtdt_DBPort: TcxTextEdit
       Left = 85
-      Top = 62
+      Top = 153
       Hint = 'MySQL'#25968#25454#24211#26381#21153#22120#31471#21475
       Align = alClient
       ParentShowHint = False
@@ -118,7 +118,7 @@ object LoginForm: TLoginForm
     end
     object cxtxtdt_DBUserName: TcxTextEdit
       Left = 85
-      Top = 88
+      Top = 179
       Hint = #36830#25509#25968#25454#24211#25152#29992#30340#36134#25143#21517#40664#35748#20026'root'
       Align = alClient
       ParentShowHint = False
@@ -130,7 +130,7 @@ object LoginForm: TLoginForm
     end
     object cxtxtdt_DBUserPass: TcxTextEdit
       Left = 85
-      Top = 114
+      Top = 205
       Hint = #36830#25509#25968#25454#24211#25152#29992#30340#36134#25143#23494#30721#40664#35748#20026#31354
       Align = alClient
       ParentShowHint = False
@@ -144,7 +144,7 @@ object LoginForm: TLoginForm
     end
     object rbConnSQLite: TcxRadioButton
       Left = 20
-      Top = -16
+      Top = 75
       Width = 80
       Height = 20
       Caption = #26412#22320#25968#25454#24211
@@ -156,8 +156,8 @@ object LoginForm: TLoginForm
       OnClick = rbConnSQLiteClick
     end
     object rbConnMySQL: TcxRadioButton
-      Left = 124
-      Top = -16
+      Left = 116
+      Top = 75
       Width = 90
       Height = 20
       Caption = 'MySQL'#25968#25454#24211

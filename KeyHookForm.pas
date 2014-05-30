@@ -12,7 +12,18 @@ uses
   cxStyles, cxTL, cxTextEdit, cxTLdxBarBuiltInMenu, cxInplaceContainer,
   DBClient, SimpleDS, ActnList, dxSkinsdxStatusBarPainter, dxStatusBar,
   cxContainer, cxEdit, dxLayoutcxEditAdapters, cxMaskEdit, cxSpinEdit,
-  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses, cxDropDownEdit;
+  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses, cxDropDownEdit,
+  dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee,
+  dxSkinDarkRoom, dxSkinDarkSide, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans,
+  dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
+  dxSkinLondonLiquidSky, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinSeven, dxSkinSevenClassic, dxSkinSharp,
+  dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
+  dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue;
 
 type
   TfrmKeyHook = class(TForm)
@@ -275,12 +286,14 @@ begin
         begin
           TmpStr := '';
           Node := cxTLst_Info.Add;
+          cxTLst_Info.GotoEOF;
         end;
       end
       else
       begin
         TmpStr := '';
         Node := cxTLst_Info.Add;
+        cxTLst_Info.GotoEOF;
       end;
 
       Node.Values[cxtrlstclmn_ID.ItemIndex] := cxTLst_Info.Count;
@@ -355,12 +368,14 @@ begin
         begin
           TmpStr := '';
           Node := cxTLst_Info.Add;
+          cxTLst_Info.GotoEOF;
         end;
       end
       else
       begin
         TmpStr := '';
         Node := cxTLst_Info.Add;
+        cxTLst_Info.GotoEOF;
       end;
 
       Node.Values[cxtrlstclmn_ID.ItemIndex] := cxTLst_Info.Count;
@@ -751,10 +766,16 @@ begin
     NewStr := GetKey(I);
 
     if cxTLst_Info.Count <= 0 then
-      cxTLst_Info.Add
+    begin
+      cxTLst_Info.Add;
+      cxTLst_Info.GotoEOF;
+    end
     else
       if NewStr = '[Enter]' then
+      begin
         cxTLst_Info.Add;
+        cxTLst_Info.GotoEOF;
+      end;
 
     if NewStr = '[Enter]' then
       NewStr := '';
