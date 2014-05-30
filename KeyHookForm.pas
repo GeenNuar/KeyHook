@@ -12,18 +12,7 @@ uses
   cxStyles, cxTL, cxTextEdit, cxTLdxBarBuiltInMenu, cxInplaceContainer,
   DBClient, SimpleDS, ActnList, dxSkinsdxStatusBarPainter, dxStatusBar,
   cxContainer, cxEdit, dxLayoutcxEditAdapters, cxMaskEdit, cxSpinEdit,
-  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses, cxDropDownEdit,
-  dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee,
-  dxSkinDarkRoom, dxSkinDarkSide, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans,
-  dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
-  dxSkinLondonLiquidSky, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinSeven, dxSkinSevenClassic, dxSkinSharp,
-  dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
-  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
-  dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue;
+  ImgList, dxSkinsdxBarPainter, dxBar, cxClasses, cxDropDownEdit;
 
 type
   TfrmKeyHook = class(TForm)
@@ -116,7 +105,7 @@ uses
   function EnableKeyHook: Bool; external 'HookFunc.DLL';
   function DisableKeyHook: Bool; external 'HookFunc.DLL';
   function GetKeyCount: Integer; external 'HookFunc.DLL';
-  function GetKey(Index: Integer): ShortString; external 'HookFunc.DLL';
+  function GetKey(Index: Integer): string; external 'HookFunc.DLL';
   procedure ClearKeyString; external 'HookFunc.DLL';
 
 var
@@ -212,7 +201,10 @@ begin
   Btn_Stop.Enabled := True;
 
   if CPFlag = cfDefault then
+  begin
     EnableKeyHook;
+    cxSpinEdit.Enabled := False;
+  end;
 end;
 
 procedure TfrmKeyHook.Btn_StopClick(Sender: TObject);
@@ -225,7 +217,10 @@ begin
   Btn_Start.Enabled := True;
 
   if CPFlag = cfDefault then
+  begin
     DisableKeyHook;
+    cxSpinEdit.Enabled := False;
+  end;
 end;
 
 procedure TfrmKeyHook.DelSelectItemClick(Sender: TObject);
@@ -747,34 +742,33 @@ end;
 procedure TfrmKeyHook.acRecordKeysWithHookDLLExecute(Sender: TObject);
 var
   I: Integer;
-  TmpStr: string;
+  OldStr: string;
+  NewStr: string;
   Node: TcxTreeListNode;
 begin
   for I := KeyCount to GetKeyCount - 1 do
   begin
-    if cxTLst_Info.Count > 0 then
-    begin
-      Node := cxTLst_Info.Items[cxTLst_Info.Count - 1];
-      TmpStr := VarToStr(Node.Values[cxtrlstclmn_Info.ItemIndex]);
-      if Length(TmpStr) >= cxSpinEdit.Value then
-      begin
-        TmpStr := '';
-        Node := cxTLst_Info.Add;
-      end;
-    end
+    NewStr := GetKey(I);
+
+    if cxTLst_Info.Count <= 0 then
+      cxTLst_Info.Add
     else
-    begin
-      TmpStr := '';
-      Node := cxTLst_Info.Add;
-    end;
+      if NewStr = '[Enter]' then
+        cxTLst_Info.Add;
 
-    Node.Values[cxtrlstclmn_ID.ItemIndex] := cxTLst_Info.Count;
+    if NewStr = '[Enter]' then
+      NewStr := '';
 
-    Node.Values[cxtrlstclmn_Info.ItemIndex] := TmpStr + GetKey(I);
+    Node := cxTLst_Info.Items[cxTLst_Info.Count - 1];
+
+    Node.Values[cxtrlstclmn_ID.ItemIndex] := Node.Index + 1;
+
+    OldStr := VarToStr(Node.Values[cxtrlstclmn_Info.ItemIndex]);
+
+    Node.Values[cxtrlstclmn_Info.ItemIndex] :=  OldStr + NewStr;
   end;
 
   KeyCount := GetKeyCount;
-
 end;
 
 procedure TfrmKeyHook.cxcmbxPropertiesChange(Sender: TObject);
@@ -789,9 +783,15 @@ begin
   end;
 
   if CPFlag = cfDefault then
-    EnableKeyHook
+  begin
+    EnableKeyHook;
+    cxSpinEdit.Enabled := False;
+  end
   else
+  begin
     DisableKeyHook;
+    cxSpinEdit.Enabled := True;
+  end;
 end;
 
 end.
