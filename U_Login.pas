@@ -9,18 +9,8 @@ uses
   cxEdit, cxTextEdit, dxLayoutContainer, StdCtrls, cxButtons, ActnList,
   dxLayoutControl, cxCheckBox, dxLayoutLookAndFeels, dxSkinsForm, DB, ADODB,
   dxSkinsCore, dxSkinsDefaultPainters, dxSkinscxPCPainter, dxSkinMcSkin,
-  dxSkinPumpkin, cxRadioGroup, dxSkinBlack, dxSkinBlue, dxSkinBlueprint,
-  dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
-  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
-  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinSeven,
-  dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSilver,
-  dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
-  dxSkinTheAsphaltWorld, dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint,
-  dxSkinXmas2008Blue;
+  dxSkinPumpkin, cxRadioGroup, ZAbstractRODataset, ZAbstractDataset, ZDataset,
+  ZAbstractConnection, ZConnection;
 
 type
   TLoginForm = class(TForm)
@@ -51,8 +41,6 @@ type
     dxskncntrlr: TdxSkinController;
     dxlytlkndflst: TdxLayoutLookAndFeelList;
     dxlytsknlkndfl: TdxLayoutSkinLookAndFeel;
-    con_ADO: TADOConnection;
-    ds_ADO: TADODataSet;
     actlst: TActionList;
     actValidateUser: TAction;
     dxlytgrp_Config: TdxLayoutGroup;
@@ -60,6 +48,8 @@ type
     dxlytm_ConnSQLite: TdxLayoutItem;
     rbConnMySQL: TcxRadioButton;
     dxlytm_ConnMySQL: TdxLayoutItem;
+    ZConn: TZConnection;
+    ZQry: TZQuery;
     procedure Btn_CancelClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Btn_LoginClick(Sender: TObject);
@@ -178,14 +168,28 @@ begin
       end;
     end;
 
-    dbMySQl:
+    dbMYSQL:
     begin
-      ds_ADO.CommandText := 'select * from sysuser where username = "' +
-        SysUser.UserName + '"';
       try
-        ds_ADO.Open;
-        TmpStr := VarToStr(ds_ADO.Lookup('username', SysUser.UserName, 'userpass'));
-        ds_ADO.Close;
+        with ZConn do
+        begin
+          HostName := '127.0.0.1';
+          Port := 3306;
+          Database := 'testdb';
+          User := 'root';
+          Password := '1120';
+          Protocol := 'mysql';
+          LibraryLocation := ExtractFilePath(Application.ExeName) + 'libmysql.dll';
+          Connect;
+        end;
+        ZQry.Connection := ZConn;
+
+        ZQry.SQL.Clear;
+        ZQry.SQL.Add('select * from sysuser where username = "' +
+          SysUser.UserName + '"');
+        ZQry.Open;
+        TmpStr := VarToStr(ZQry.Lookup('username', SysUser.UserName, 'userpass'));
+        ZQry.Close;
       except
         ShowMessage('无法连接MySQL数据库！');
         Exit;

@@ -333,33 +333,17 @@ object LoginForm: TLoginForm
     Kind = lfOffice11
     NativeStyle = False
     SkinName = 'UserSkin'
-    Left = 144
+    Left = 80
     Top = 65
   end
   object dxlytlkndflst: TdxLayoutLookAndFeelList
-    Left = 112
+    Left = 48
     Top = 65
     object dxlytsknlkndfl: TdxLayoutSkinLookAndFeel
       LookAndFeel.Kind = lfOffice11
       LookAndFeel.NativeStyle = False
       LookAndFeel.SkinName = 'UserSkin'
     end
-  end
-  object con_ADO: TADOConnection
-    ConnectionString = 
-      'Provider=MSDASQL.1;Persist Security Info=False;User ID=root;Data' +
-      ' Source=MySQLODBC;Initial Catalog=testdb'
-    DefaultDatabase = 'testdb'
-    LoginPrompt = False
-    Provider = 'MSDASQL.1'
-    Left = 48
-    Top = 65
-  end
-  object ds_ADO: TADODataSet
-    Connection = con_ADO
-    Parameters = <>
-    Left = 80
-    Top = 65
   end
   object actlst: TActionList
     Left = 16
@@ -368,5 +352,17 @@ object LoginForm: TLoginForm
       Caption = 'actValidateUser'
       OnExecute = actValidateUserExecute
     end
+  end
+  object ZConn: TZConnection
+    ControlsCodePage = cGET_ACP
+    AutoEncodeStrings = False
+    Port = 0
+    Left = 112
+    Top = 65
+  end
+  object ZQry: TZQuery
+    Params = <>
+    Left = 144
+    Top = 65
   end
 end

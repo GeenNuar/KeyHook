@@ -13,17 +13,8 @@ uses
   DBClient, SimpleDS, ActnList, dxSkinsdxStatusBarPainter, dxStatusBar,
   cxContainer, cxEdit, dxLayoutcxEditAdapters, cxMaskEdit, cxSpinEdit,
   ImgList, dxSkinsdxBarPainter, dxBar, cxClasses, cxDropDownEdit,
-  dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee,
-  dxSkinDarkRoom, dxSkinDarkSide, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans,
-  dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
-  dxSkinLondonLiquidSky, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinSeven, dxSkinSevenClassic, dxSkinSharp,
-  dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
-  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
-  dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue;
+  ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
+  ZDataset;
 
 type
   TfrmKeyHook = class(TForm)
@@ -49,9 +40,7 @@ type
     Btn_Stop: TcxButton;
     dxlytm_Stop: TdxLayoutItem;
     ClearAll: TMenuItem;
-    conMySQL: TADOConnection;
     mniWriteSelToDB: TMenuItem;
-    qryMySQL: TADOQuery;
     actlst: TActionList;
     actRecordKeys: TAction;
     actRecordNumKeys: TAction;
@@ -73,6 +62,8 @@ type
     acRecordKeysWithHookDLL: TAction;
     cxcmbx: TcxComboBox;
     dxlytm_cxcmbox: TdxLayoutItem;
+    ZConn: TZConnection;
+    ZQry: TZQuery;
     procedure Timer_KeyRecTimer(Sender: TObject);
     procedure Timer_SaveToTxTTimer(Sender: TObject);
     procedure Timer_ThreadTimer(Sender: TObject);
@@ -124,8 +115,6 @@ var
   KeyCount: Integer;
 
 {$R *.DFM}
-
-//Detect Key Pressed Action From Any Window
 
 procedure TfrmKeyHook.Timer_KeyRecTimer(Sender: TObject);
 begin
@@ -631,7 +620,19 @@ var
   rCount: Integer;
 begin
   try
-    conMySQL.Open;
+    with ZConn do
+    begin
+      HostName := '127.0.0.1';
+      Port := 3306;
+      Database := 'testdb';
+      User := 'root';
+      Password := '1120';
+      Protocol := 'mysql';
+      LibraryLocation := ExtractFilePath(Application.ExeName) + 'libmysql.dll';
+      Connect;
+    end;
+
+    ZQry.Connection := ZConn;
   except
     ShowMessage('无法连接MySQL数据库！');
     Exit;
@@ -641,15 +642,17 @@ begin
   begin
     Node := cxTLst_Info.Items[I];
     TmpStr := Node.Values[cxtrlstclmn_Info.ItemIndex];
-    qryMySQL.SQL.Clear;
-    qryMySQL.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
-    rCount := qryMySQL.ExecSQL;
-
+    ZQry.SQL.Clear;
+    ZQry.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
+    ZQry.ExecSQL;
+    {
     if rCount > 0 then
       dxStatusBar.Panels[1].Text := '写入数据库成功！'
     else
       dxStatusBar.Panels[1].Text := '写入数据库失败！';
+    }
   end;
+
 end;
 
 procedure TfrmKeyHook.acWriteSelToDBExecute(Sender: TObject);
@@ -709,15 +712,27 @@ begin
     dbMYSQL:
     begin
       try
-        conMySQL.Open;
+        with ZConn do
+        begin
+          HostName := '127.0.0.1';
+          Port := 3306;
+          Database := 'testdb';
+          User := 'root';
+          Password := '1120';
+          Protocol := 'mysql';
+          LibraryLocation := ExtractFilePath(Application.ExeName) + 'libmysql.dll';
+          Connect;
+        end;
+
+        ZQry.Connection := ZConn;
       except
         ShowMessage('无法连接MySQL数据库！');
         Exit;
       end;
 
-      qryMySQL.SQL.Clear;
-      qryMySQL.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
-      rCount := qryMySQL.ExecSQL;
+      ZQry.SQL.Clear;
+      ZQry.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
+      ZQry.ExecSQL;
     end;
   end;
 
