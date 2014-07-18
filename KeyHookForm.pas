@@ -622,11 +622,11 @@ begin
   try
     with ZConn do
     begin
-      HostName := '127.0.0.1';
-      Port := 3306;
-      Database := 'testdb';
-      User := 'root';
-      Password := '1120';
+      HostName := DBConn.DBSvr;
+      Port := StrToInt(DBConn.DBPort);
+      Database := DBConn.DBName;
+      User := DBConn.DBUserName;
+      Password := DBConn.DBUserPass;
       Protocol := 'mysql';
       LibraryLocation := ExtractFilePath(Application.ExeName) + 'libmysql.dll';
       Connect;
@@ -643,7 +643,7 @@ begin
     Node := cxTLst_Info.Items[I];
     TmpStr := Node.Values[cxtrlstclmn_Info.ItemIndex];
     ZQry.SQL.Clear;
-    ZQry.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
+    ZQry.SQL.Add('INSERT INTO SCANINFO (BARCODE) VALUES ("' + TmpStr + '")');
     ZQry.ExecSQL;
     {
     if rCount > 0 then
@@ -714,11 +714,11 @@ begin
       try
         with ZConn do
         begin
-          HostName := '127.0.0.1';
-          Port := 3306;
-          Database := 'testdb';
-          User := 'root';
-          Password := '1120';
+          HostName := DBConn.DBSvr;
+          Port := StrToInt(DBConn.DBPort);
+          Database := DBConn.DBName;
+          User := DBConn.DBUserName;
+          Password := DBConn.DBUserPass;
           Protocol := 'mysql';
           LibraryLocation := ExtractFilePath(Application.ExeName) + 'libmysql.dll';
           Connect;
@@ -731,7 +731,7 @@ begin
       end;
 
       ZQry.SQL.Clear;
-      ZQry.SQL.Add('insert into scaninfo (barcode) values ("' + TmpStr + '")');
+      ZQry.SQL.Add('INSERT INTO SCANINFO (BARCODE) VALUES ("' + TmpStr + '")');
       ZQry.ExecSQL;
     end;
   end;

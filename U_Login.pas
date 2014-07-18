@@ -10,7 +10,7 @@ uses
   dxLayoutControl, cxCheckBox, dxLayoutLookAndFeels, dxSkinsForm, DB, ADODB,
   dxSkinsCore, dxSkinsDefaultPainters, dxSkinscxPCPainter, dxSkinMcSkin,
   dxSkinPumpkin, cxRadioGroup, ZAbstractRODataset, ZAbstractDataset, ZDataset,
-  ZAbstractConnection, ZConnection;
+  ZAbstractConnection, ZConnection, cxClasses;
 
 type
   TLoginForm = class(TForm)
@@ -38,7 +38,6 @@ type
     dxlytm_DBUserPass: TdxLayoutItem;
     dxlytgrp_DB: TdxLayoutGroup;
     dxlytgrp_Top: TdxLayoutGroup;
-    dxskncntrlr: TdxSkinController;
     dxlytlkndflst: TdxLayoutLookAndFeelList;
     dxlytsknlkndfl: TdxLayoutSkinLookAndFeel;
     actlst: TActionList;
@@ -50,6 +49,7 @@ type
     dxlytm_ConnMySQL: TdxLayoutItem;
     ZConn: TZConnection;
     ZQry: TZQuery;
+    dxskncntrlr: TdxSkinController;
     procedure Btn_CancelClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Btn_LoginClick(Sender: TObject);
@@ -173,11 +173,11 @@ begin
       try
         with ZConn do
         begin
-          HostName := '127.0.0.1';
-          Port := 3306;
-          Database := 'testdb';
-          User := 'root';
-          Password := '1120';
+          HostName := DBConn.DBSvr;
+          Port := StrToInt(DBConn.DBPort);
+          Database := DBConn.DBName;
+          User := DBConn.DBUserName;
+          Password := DBConn.DBUserPass;
           Protocol := 'mysql';
           LibraryLocation := ExtractFilePath(Application.ExeName) + 'libmysql.dll';
           Connect;
@@ -185,10 +185,10 @@ begin
         ZQry.Connection := ZConn;
 
         ZQry.SQL.Clear;
-        ZQry.SQL.Add('select * from sysuser where username = "' +
+        ZQry.SQL.Add('SELECT * FROM SYSUSER WHERE USERNAME = "' +
           SysUser.UserName + '"');
         ZQry.Open;
-        TmpStr := VarToStr(ZQry.Lookup('username', SysUser.UserName, 'userpass'));
+        TmpStr := VarToStr(ZQry.Lookup('USERNAME', SysUser.UserName, 'USERPASS'));
         ZQry.Close;
       except
         ShowMessage('无法连接MySQL数据库！');
@@ -226,6 +226,41 @@ begin
   begin
     ShowMessage('用户密码不能为空！');
     Exit;
+  end;
+
+  case DBFlag of
+    dbMYSQL:
+    begin
+      if Trim(cxtxtdt_DBName.Text) = '' then
+      begin
+        ShowMessage('请输入所使用的数据库名称！');
+        Exit;
+      end;
+
+      if Trim(cxtxtdt_DBSvr.Text) = '' then
+      begin
+        ShowMessage('请输入MySQL服务器IP地址！');
+        Exit;
+      end;
+
+      if Trim(cxtxtdt_DBPort.Text) = '' then
+      begin
+        ShowMessage('请输入MySQL服务器端口号！');
+        Exit;
+      end;
+
+      if Trim(cxtxtdt_DBUserName.Text) = '' then
+      begin
+        ShowMessage('请输入MySQL服务器账户名！');
+        Exit;
+      end;
+
+      if Trim(cxtxtdt_DBUserPass.Text) = '' then
+      begin
+        ShowMessage('请输入MySQL服务器账户密码！');
+        Exit;
+      end;
+    end;
   end;
 
   Result := True;
