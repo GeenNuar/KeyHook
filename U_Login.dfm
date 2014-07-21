@@ -77,7 +77,7 @@ object LoginForm: TLoginForm
     object cxtxtdt_DBName: TcxTextEdit
       Left = 85
       Top = 101
-      Hint = #20351#29992#30340#25968#25454#24211#21517#31216#40664#35748#20026'testdb'
+      Hint = #25968#25454#24211#21517#31216
       ParentShowHint = False
       ShowHint = True
       Style.HotTrack = False
@@ -107,7 +107,7 @@ object LoginForm: TLoginForm
     object cxtxtdt_DBUserName: TcxTextEdit
       Left = 85
       Top = 179
-      Hint = #36830#25509#25968#25454#24211#25152#29992#30340#36134#25143#21517#40664#35748#20026'root'
+      Hint = #36830#25509#25968#25454#24211#26381#21153#22120#25152#29992#30340#36134#25143#21517
       ParentShowHint = False
       ShowHint = True
       Style.HotTrack = False
@@ -117,7 +117,7 @@ object LoginForm: TLoginForm
     object cxtxtdt_DBUserPass: TcxTextEdit
       Left = 85
       Top = 205
-      Hint = #36830#25509#25968#25454#24211#25152#29992#30340#36134#25143#23494#30721#40664#35748#20026#31354
+      Hint = #36830#25509#25968#25454#24211#26381#21153#22120#25152#29992#30340#36134#25143#23494#30721
       ParentShowHint = False
       Properties.EchoMode = eemPassword
       Properties.PasswordChar = '*'
@@ -129,9 +129,9 @@ object LoginForm: TLoginForm
     object rbConnSQLite: TcxRadioButton
       Left = 20
       Top = 75
-      Width = 80
+      Width = 90
       Height = 20
-      Caption = #26412#22320#25968#25454#24211
+      Caption = 'SQLite'#25968#25454#24211
       Checked = True
       Color = 16053234
       ParentColor = False
@@ -159,48 +159,48 @@ object LoginForm: TLoginForm
       Index = -1
     end
     object dxlytm_No: TdxLayoutItem
-      Parent = dxlytgrp_Btn
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = 'cxButton1'
       CaptionOptions.Visible = False
+      Parent = dxlytgrp_Btn
       Control = Btn_Cancel
       ControlOptions.ShowBorder = False
       Index = 1
     end
     object dxlytm_Yes: TdxLayoutItem
-      Parent = dxlytgrp_Btn
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = 'cxButton1'
       CaptionOptions.Visible = False
+      Parent = dxlytgrp_Btn
       Control = Btn_Login
       ControlOptions.ShowBorder = False
       Index = 0
     end
     object dxlytmItem_UserName: TdxLayoutItem
-      Parent = dxlytgrp_Top
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = #29992#25143#21517'    '#65306
+      Parent = dxlytgrp_Top
       Control = cxtxtdt_UserName
       ControlOptions.ShowBorder = False
       Index = 0
     end
     object dxlytmItem_UserPass: TdxLayoutItem
-      Parent = dxlytgrp_Top
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = #29992#25143#23494#30721#65306
+      Parent = dxlytgrp_Top
       Control = cxtxtdt_UserPass
       ControlOptions.ShowBorder = False
       Index = 1
     end
     object dxlytgrp_Btn: TdxLayoutGroup
-      Parent = dxlytgrp_Root
       AlignHorz = ahRight
       AlignVert = avClient
       CaptionOptions.Text = 'Hidden Group'
+      Parent = dxlytgrp_Root
       ButtonOptions.Buttons = <>
       Hidden = True
       LayoutDirection = ldHorizontal
@@ -208,62 +208,62 @@ object LoginForm: TLoginForm
       Index = 1
     end
     object dxlytgrp_Login: TdxLayoutGroup
-      Parent = dxlytgrp_Root
       AlignHorz = ahClient
       AlignVert = avClient
+      Parent = dxlytgrp_Root
       ButtonOptions.Buttons = <>
       Index = 0
     end
     object dxlytm_DBName: TdxLayoutItem
-      Parent = dxlytgrp_DB
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = #25968#25454#24211#65306
+      Parent = dxlytgrp_DB
       Control = cxtxtdt_DBName
       ControlOptions.ShowBorder = False
       Index = 0
     end
     object dxlytm_Svr: TdxLayoutItem
-      Parent = dxlytgrp_DB
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = #26381#21153#22120#65306
+      Parent = dxlytgrp_DB
       Control = cxtxtdt_DBSvr
       ControlOptions.ShowBorder = False
       Index = 1
     end
     object dxlytm_Port: TdxLayoutItem
-      Parent = dxlytgrp_DB
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = #31471#21475#65306
+      Parent = dxlytgrp_DB
       Control = cxtxtdt_DBPort
       ControlOptions.ShowBorder = False
       Index = 2
     end
     object dxlytm_DBUserName: TdxLayoutItem
-      Parent = dxlytgrp_DB
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = #36134#25143#21517#65306
+      Parent = dxlytgrp_DB
       Control = cxtxtdt_DBUserName
       ControlOptions.ShowBorder = False
       Index = 3
     end
     object dxlytm_DBUserPass: TdxLayoutItem
-      Parent = dxlytgrp_DB
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = #36134#25143#23494#30721#65306
+      Parent = dxlytgrp_DB
       Control = cxtxtdt_DBUserPass
       ControlOptions.ShowBorder = False
       Index = 4
     end
     object dxlytgrp_DB: TdxLayoutGroup
-      Parent = dxlytgrp_Login
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = 'Hidden Group'
+      Parent = dxlytgrp_Login
       Visible = False
       ButtonOptions.Buttons = <>
       Hidden = True
@@ -271,19 +271,19 @@ object LoginForm: TLoginForm
       Index = 1
     end
     object dxlytgrp_Top: TdxLayoutGroup
-      Parent = dxlytgrp_Login
       AlignHorz = ahClient
       AlignVert = avClient
       CaptionOptions.Text = 'Hidden Group'
+      Parent = dxlytgrp_Login
       ButtonOptions.Buttons = <>
       Hidden = True
       ShowBorder = False
       Index = 0
     end
     object dxlytgrp_Config: TdxLayoutGroup
-      Parent = dxlytgrp_Top
       AlignVert = avClient
       CaptionOptions.Text = 'Hidden Group'
+      Parent = dxlytgrp_Top
       ButtonOptions.Buttons = <>
       Hidden = True
       LayoutDirection = ldHorizontal
@@ -291,22 +291,22 @@ object LoginForm: TLoginForm
       Index = 2
     end
     object dxlytm_ConnSQLite: TdxLayoutItem
-      Parent = dxlytgrp_Config
       AlignHorz = ahLeft
       AlignVert = avClient
       CaptionOptions.Text = 'cxRadioButton1'
       CaptionOptions.Visible = False
+      Parent = dxlytgrp_Config
       Control = rbConnSQLite
       ControlOptions.AutoColor = True
       ControlOptions.ShowBorder = False
       Index = 0
     end
     object dxlytm_ConnMySQL: TdxLayoutItem
-      Parent = dxlytgrp_Config
       AlignHorz = ahRight
       AlignVert = avClient
       CaptionOptions.Text = 'cxRadioButton1'
       CaptionOptions.Visible = False
+      Parent = dxlytgrp_Config
       Control = rbConnMySQL
       ControlOptions.AutoColor = True
       ControlOptions.ShowBorder = False

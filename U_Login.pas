@@ -10,7 +10,7 @@ uses
   dxLayoutControl, cxCheckBox, dxLayoutLookAndFeels, dxSkinsForm, DB, ADODB,
   dxSkinsCore, dxSkinsDefaultPainters, dxSkinscxPCPainter, dxSkinMcSkin,
   dxSkinPumpkin, cxRadioGroup, ZAbstractRODataset, ZAbstractDataset, ZDataset,
-  ZAbstractConnection, ZConnection, cxClasses;
+  ZAbstractConnection, ZConnection, cxClasses, IniFiles;
 
 type
   TLoginForm = class(TForm)
@@ -118,7 +118,6 @@ end;
 procedure TLoginForm.actValidateUserExecute(Sender: TObject);
 var
   TmpStr: string;
-  rCount: Integer;
   DBPath: string;
   SQLiteDB: TSQLite3DataBase;
   SQLiteStmt: TSQLite3Statement;
@@ -267,9 +266,19 @@ begin
 end;
 
 procedure TLoginForm.FormShow(Sender: TObject);
+var
+  CfgFile: TIniFile;
+  CfgFileName: string;
+  Skin: string;
 begin
+  CfgFileName := ExtractFilePath(Application.ExeName) + 'Config.ini';
+
+  CfgFile := TIniFile.Create(CfgFileName);
+  Skin := CfgFile.ReadString('SkinCfg', 'Skin', 'McSkin');
+  CfgFile.Free;
+
   dxskncntrlr.UseSkins := False;
-  dxskncntrlr.SkinName := 'McSkin';
+  dxskncntrlr.SkinName := Skin;
   dxskncntrlr.NativeStyle := False;
   dxskncntrlr.UseSkins := True;
 end;

@@ -14,7 +14,7 @@ uses
   cxContainer, cxEdit, dxLayoutcxEditAdapters, cxMaskEdit, cxSpinEdit,
   ImgList, dxSkinsdxBarPainter, dxBar, cxClasses, cxDropDownEdit,
   ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
-  ZDataset;
+  ZDataset, IniFiles;
 
 type
   TfrmKeyHook = class(TForm)
@@ -176,8 +176,9 @@ begin
 end;
 
 procedure TfrmKeyHook.FormCreate(Sender: TObject);
-//var
+var
   //Registry_Key: TRegistry;
+  DriverFileName: string;
 begin
   {
   Registry_Key := TRegistry.Create();
@@ -186,6 +187,20 @@ begin
   Registry_Key.WriteString('KeyboardHook', ExtractFilename(Application.ExeName));
   Registry_Key.Free;
   }
+
+  DriverFileName := ExtractFilePath(Application.ExeName) + 'sqlite3.dll';
+  if not FileExists(DriverFileName) then
+  begin
+    ShowMessage('SQLite数据库驱动文件sqlite3.dll丢失, 程序无法启动!');
+    Exit;
+  end;
+
+  DriverFileName := ExtractFilePath(Application.ExeName) + 'libmysql.dll';
+  if not FileExists(DriverFileName) then
+  begin
+    ShowMessage('MySQL数据库驱动文件libmysql.dll丢失, 程序无法启动!');
+    Exit;
+  end;
 
   LoginForm := TLoginForm.Create(nil);
   LoginForm.ShowModal;
@@ -534,16 +549,34 @@ begin
 end;
 
 procedure TfrmKeyHook.FormShow(Sender: TObject);
+var
+  CfgFile: TIniFile;
+  CfgFileName: string;
+  Skin: string;
 begin
-  ChangeSkin('Mcskin');
+  CfgFileName := ExtractFilePath(Application.ExeName) + 'Config.ini';
+
+  CfgFile := TIniFile.Create(CfgFileName);
+  Skin := CfgFile.ReadString('SkinCfg', 'Skin', 'McSkin');
+  CfgFile.Free;
+
+  ChangeSkin(Skin);
 end;
 
 procedure TfrmKeyHook.ChangeSkin(SkinName: string);
+var
+  CfgFile: TIniFile;
+  CfgFileName: string;
 begin
   dxskncntrlr.UseSkins := False;
   dxskncntrlr.SkinName := SkinName;
   dxskncntrlr.NativeStyle := False;
   dxskncntrlr.UseSkins := True;
+
+  CfgFileName := ExtractFilePath(Application.ExeName) + 'Config.ini';
+  CfgFile := TIniFile.Create(CfgFileName);
+  CfgFile.WriteString('SkinCfg', 'Skin', SkinName);
+  CfgFile.Free;
 end;
 
 procedure TfrmKeyHook.WriteToSQLiteDB;
@@ -645,12 +678,12 @@ begin
     ZQry.SQL.Clear;
     ZQry.SQL.Add('INSERT INTO SCANINFO (BARCODE) VALUES ("' + TmpStr + '")');
     ZQry.ExecSQL;
-    {
+
+    rCount := ZQry.RowsAffected;
     if rCount > 0 then
       dxStatusBar.Panels[1].Text := '写入数据库成功！'
     else
       dxStatusBar.Panels[1].Text := '写入数据库失败！';
-    }
   end;
 
 end;
@@ -733,6 +766,7 @@ begin
       ZQry.SQL.Clear;
       ZQry.SQL.Add('INSERT INTO SCANINFO (BARCODE) VALUES ("' + TmpStr + '")');
       ZQry.ExecSQL;
+      rCount := ZQry.RowsAffected;
     end;
   end;
 
