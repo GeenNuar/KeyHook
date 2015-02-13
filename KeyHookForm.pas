@@ -92,6 +92,7 @@ type
 
     procedure WriteToSQLiteDB;
     procedure WriteToMySQLDB;
+    procedure WriteToOracleDB;
   public
     { Public declarations }
   end;
@@ -164,7 +165,7 @@ end;
 procedure TfrmKeyHook.Timer_ThreadTimer(Sender: TObject);
 begin
   {
-  if DetecThread('TEST.EXE') = 'EXIST' then
+  if DetecteThread('TEST.EXE') = 'EXIST' then
     begin
       Timer_KeyRec.Enabled := True;
     end
@@ -642,6 +643,10 @@ begin
     //采用MySQL数据库存储数据
     dbMYSQL:
       WriteToMySQLDB;
+
+    //采用Oracle数据库存储数据
+    dbOracle:
+      WriteToOracleDB;
   end;
 end;
 
@@ -656,7 +661,7 @@ begin
     with ZConn do
     begin
       HostName := DBConn.DBSvr;
-      Port := StrToInt(DBConn.DBPort);
+      Port := DBConn.DBPort;
       Database := DBConn.DBName;
       User := DBConn.DBUserName;
       Password := DBConn.DBUserPass;
@@ -748,7 +753,7 @@ begin
         with ZConn do
         begin
           HostName := DBConn.DBSvr;
-          Port := StrToInt(DBConn.DBPort);
+          Port := DBConn.DBPort;
           Database := DBConn.DBName;
           User := DBConn.DBUserName;
           Password := DBConn.DBUserPass;
@@ -765,6 +770,33 @@ begin
 
       ZQry.SQL.Clear;
       ZQry.SQL.Add('INSERT INTO SCANINFO (BARCODE) VALUES ("' + TmpStr + '")');
+      ZQry.ExecSQL;
+      rCount := ZQry.RowsAffected;
+    end;
+
+    dbOracle:
+    begin
+      try
+        with ZConn do
+        begin
+          HostName := DBConn.DBSvr;
+          Port := DBConn.DBPort;
+          Database := '';
+          User := DBConn.DBUserName;
+          Password := DBConn.DBUserPass;
+          Protocol := 'oracle';
+          LibraryLocation := '';
+          Connect;
+        end;
+
+        ZQry.Connection := ZConn;
+      except
+        ShowMessage('无法连接Oracle数据库！');
+        Exit;
+      end;
+
+      ZQry.SQL.Clear;
+      ZQry.SQL.Add('INSERT INTO SCANINFO (BARCODE) VALUES (''' + TmpStr + ''')');
       ZQry.ExecSQL;
       rCount := ZQry.RowsAffected;
     end;
@@ -861,6 +893,48 @@ begin
   begin
     DisableKeyHook;
     cxSpinEdit.Enabled := True;
+  end;
+end;
+
+procedure TfrmKeyHook.WriteToOracleDB;
+var
+  I: Integer;
+  Node: TcxTreeListNode;
+  TmpStr: string;
+  rCount: Integer;
+begin
+  try
+    with ZConn do
+    begin
+      HostName := DBConn.DBSvr;
+      Port := DBConn.DBPort;
+      Database := '';
+      User := DBConn.DBUserName;
+      Password := DBConn.DBUserPass;
+      Protocol := 'oracle';
+      LibraryLocation := '';
+      Connect;
+    end;
+
+    ZQry.Connection := ZConn;
+  except
+    ShowMessage('无法连接Oracle数据库！');
+    Exit;
+  end;
+
+  for I := 0 to cxTLst_Info.Count - 1 do
+  begin
+    Node := cxTLst_Info.Items[I];
+    TmpStr := Node.Values[cxtrlstclmn_Info.ItemIndex];
+    ZQry.SQL.Clear;
+    ZQry.SQL.Add('INSERT INTO SCANINFO (BARCODE) VALUES (''' + TmpStr + ''')');
+    ZQry.ExecSQL;
+
+    rCount := ZQry.RowsAffected;
+    if rCount > 0 then
+      dxStatusBar.Panels[1].Text := '写入数据库成功！'
+    else
+      dxStatusBar.Panels[1].Text := '写入数据库失败！';
   end;
 end;
 

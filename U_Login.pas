@@ -10,7 +10,8 @@ uses
   dxLayoutControl, cxCheckBox, dxLayoutLookAndFeels, dxSkinsForm, DB, ADODB,
   dxSkinsCore, dxSkinsDefaultPainters, dxSkinscxPCPainter, dxSkinMcSkin,
   dxSkinPumpkin, cxRadioGroup, ZAbstractRODataset, ZAbstractDataset, ZDataset,
-  ZAbstractConnection, ZConnection, cxClasses, IniFiles;
+  ZAbstractConnection, ZConnection, cxClasses, IniFiles, cxMaskEdit,
+  cxSpinEdit;
 
 type
   TLoginForm = class(TForm)
@@ -30,8 +31,6 @@ type
     dxlytm_DBName: TdxLayoutItem;
     cxtxtdt_DBSvr: TcxTextEdit;
     dxlytm_Svr: TdxLayoutItem;
-    cxtxtdt_DBPort: TcxTextEdit;
-    dxlytm_Port: TdxLayoutItem;
     cxtxtdt_DBUserName: TcxTextEdit;
     dxlytm_DBUserName: TdxLayoutItem;
     cxtxtdt_DBUserPass: TcxTextEdit;
@@ -50,6 +49,10 @@ type
     ZConn: TZConnection;
     ZQry: TZQuery;
     dxskncntrlr: TdxSkinController;
+    rbConnOracle: TcxRadioButton;
+    dxlytm_ConnOracle: TdxLayoutItem;
+    cxspndt_DBPort: TcxSpinEdit;
+    dxlytm_DBPort: TdxLayoutItem;
     procedure Btn_CancelClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Btn_LoginClick(Sender: TObject);
@@ -57,9 +60,9 @@ type
     procedure FormShow(Sender: TObject);
     procedure rbConnSQLiteClick(Sender: TObject);
     procedure rbConnMySQLClick(Sender: TObject);
+    procedure rbConnOracleClick(Sender: TObject);
   private
     { Private declarations }
-
     function CheckInputData: Boolean;
   public
     { Public declarations }
@@ -106,7 +109,7 @@ begin
   begin
     DBName := Trim(cxtxtdt_DBName.Text);
     DBSvr := Trim(cxtxtdt_DBSvr.Text);
-    DBPort := Trim(cxtxtdt_DBPort.Text);
+    DBPort := cxspndt_DBPort.Value;
     DBUserName := Trim(cxtxtdt_DBUserName.Text);
     DBUserPass := Trim(cxtxtdt_DBUserPass.Text);
   end;
@@ -173,7 +176,7 @@ begin
         with ZConn do
         begin
           HostName := DBConn.DBSvr;
-          Port := StrToInt(DBConn.DBPort);
+          Port := DBConn.DBPort;
           Database := DBConn.DBName;
           User := DBConn.DBUserName;
           Password := DBConn.DBUserPass;
@@ -194,6 +197,34 @@ begin
         Exit;
       end;
     end;
+
+    dbOracle:
+    begin
+      try
+        with ZConn do
+        begin
+          HostName := DBConn.DBSvr;
+          Port := DBConn.DBPort;
+          Database := '';
+          User := DBConn.DBUserName;
+          Password := DBConn.DBUserPass;
+          Protocol := 'oracle';
+          LibraryLocation := '';
+          Connect;
+        end;
+        ZQry.Connection := ZConn;
+
+        ZQry.SQL.Clear;
+        ZQry.SQL.Add('SELECT * FROM SYSUSER WHERE USERNAME = ''' +
+          SysUser.UserName + '''');
+        ZQry.Open;
+        TmpStr := VarToStr(ZQry.Lookup('USERNAME', SysUser.UserName, 'USERPASS'));
+        ZQry.Close;
+      except
+        ShowMessage('无法连接Oracle数据库！');
+        Exit;
+      end;
+    end;
   end;
 
   if TmpStr = SysUser.UserPass then
@@ -208,7 +239,6 @@ begin
       Application.Terminate;
     end;
   end;
-
 end;
 
 function TLoginForm.CheckInputData: Boolean;
@@ -242,9 +272,9 @@ begin
         Exit;
       end;
 
-      if Trim(cxtxtdt_DBPort.Text) = '' then
+      if cxspndt_DBPort.Value < 0 then
       begin
-        ShowMessage('请输入MySQL服务器端口号！');
+        ShowMessage('端口取值范围：0~65535！');
         Exit;
       end;
 
@@ -257,6 +287,33 @@ begin
       if Trim(cxtxtdt_DBUserPass.Text) = '' then
       begin
         ShowMessage('请输入MySQL服务器账户密码！');
+        Exit;
+      end;
+    end;
+
+    dbOracle:
+    begin
+      if Trim(cxtxtdt_DBSvr.Text) = '' then
+      begin
+        ShowMessage('请输入Oracle服务器IP地址！');
+        Exit;
+      end;
+
+      if cxspndt_DBPort.Value < 0 then
+      begin
+        ShowMessage('端口取值范围：0~65535！');
+        Exit;
+      end;
+
+      if Trim(cxtxtdt_DBUserName.Text) = '' then
+      begin
+        ShowMessage('请输入Oracle服务器账户名！');
+        Exit;
+      end;
+
+      if Trim(cxtxtdt_DBUserPass.Text) = '' then
+      begin
+        ShowMessage('请输入Oracle服务器账户密码！');
         Exit;
       end;
     end;
@@ -286,6 +343,7 @@ end;
 procedure TLoginForm.rbConnSQLiteClick(Sender: TObject);
 begin
   rbConnMySQL.Checked := not rbConnSQLite.Checked;
+  rbConnOracle.Checked := not rbConnSQLite.Checked;
 
   if rbConnSQLite.Checked then
     Self.Height := 180
@@ -296,25 +354,63 @@ begin
 
   if rbConnSQLite.Checked then
     DBFlag := dbSQLite
-  else
-    DBFlag := dbMYSQL;
+  else if rbConnMySQL.Checked then
+    DBFlag := dbMYSQL
+  else if rbConnOracle.Checked then
+    DBFlag := dbOracle;
 end;
 
 procedure TLoginForm.rbConnMySQLClick(Sender: TObject);
 begin
   rbConnSQLite.Checked := not rbConnMySQL.Checked;
+  rbConnOracle.Checked := not rbConnMySQL.Checked;
 
   if rbConnMySQL.Checked then
     Self.Height := 315
   else
     Self.Height := 180;
 
+  cxtxtdt_DBName.Hint := '数据库名称';
+  cxtxtdt_DBSvr.Hint := 'MySQL数据库服务器IP';
+  cxspndt_DBPort.Hint := 'MySQL数据库服务器端口';
+  cxtxtdt_DBUserName.Hint := '连接数据库服务器所用的账户名';
+  cxtxtdt_DBUserPass.Hint := '连接数据库服务器所用的账户密码';
+  cxspndt_DBPort.Value := 3306;
+  dxlytm_DBName.Visible := rbConnMySQL.Checked;
   dxlytgrp_DB.Visible := rbConnMySQL.Checked;
 
   if rbConnMySQL.Checked then
     DBFlag := dbMYSQL
+  else if rbConnSQLite.Checked then
+    DBFlag := dbSQLite
+  else if rbConnOracle.Checked then
+    DBFlag := dbOracle;
+end;
+
+procedure TLoginForm.rbConnOracleClick(Sender: TObject);
+begin
+  rbConnSQLite.Checked := not rbConnOracle.Checked;
+  rbConnMySQL.Checked := not rbConnOracle.Checked;
+
+  if rbConnOracle.Checked then
+    Self.Height := 294
   else
-    DBFlag := dbSQLite;
+    Self.Height := 180;
+
+  cxtxtdt_DBSvr.Hint := 'Oracle数据库服务器IP';
+  cxspndt_DBPort.Hint := 'Oracle数据库服务器端口';
+  cxtxtdt_DBUserName.Hint := '连接数据库服务器所用的账户名';
+  cxtxtdt_DBUserPass.Hint := '连接数据库服务器所用的账户密码';
+  cxspndt_DBPort.Value := 1521;
+  dxlytm_DBName.Visible := not rbConnOracle.Checked;
+  dxlytgrp_DB.Visible := rbConnOracle.Checked;
+
+  if rbConnOracle.Checked then
+    DBFlag := dbOracle
+  else if rbConnSQLite.Checked then
+    DBFlag := dbSQLite
+  else if rbConnMySQL.Checked then
+    DBFlag := dbMYSQL;
 end;
 
 end.

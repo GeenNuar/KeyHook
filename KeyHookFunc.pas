@@ -8,7 +8,7 @@ uses
 
 type
   //数据库类型
-  TDBFlag = (dbSQLite, dbMYSQL);
+  TDBFlag = (dbSQLite, dbMYSQL, dbOracle);
 
   //键盘按键捕获方式: cfDefault采用全局钩子捕获按键(实时截取按键事件信息)
   //cfNumber只捕获数字按键, cfAll捕获所有按键(这两种方式每隔1MS检测下键盘按键状态)
@@ -39,20 +39,20 @@ type
       {Private Declarations}
       FDBName: string;
       FDBSvr: string;
-      FDBPort: string;
+      FDBPort: Word;
       FDBUserName: string;
       FDBUserPass: string;
     public
       {Public Declarations}
       property DBName: string read FDBName write FDBName;
       property DBSvr: string read FDBSvr write FDBSvr;
-      property DBPort: string read FDBPort write FDBPort;
+      property DBPort: Word read FDBPort write FDBPort;
       property DBUserName: string read FDBUserName write FDBUserName;
       property DBUserPass: string read FDBUserPass write FDBUserPass;
   end;
 
   //检测某个进程是否存在
-  function DetecThread(TmpStr: string): string;
+  function DetecteThread(TmpStr: string): string;
 
 var
   SysUser: TSysUser;
@@ -62,7 +62,7 @@ var
 
 implementation
 
-function DetecThread(TmpStr: string): string;
+function DetecteThread(TmpStr: string): string;
 var
   P: pProcessInfo;
   ContinueLoop: Bool;
@@ -103,4 +103,3 @@ finalization
   DBConn.Free;
   
 end.
-
